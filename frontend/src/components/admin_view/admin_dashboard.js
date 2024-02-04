@@ -6,6 +6,7 @@ import Tab from 'react-bootstrap/Tab';
 import AdminNav from './admin_nav';
 import MainDashboard from './main_dashboard';
 import HospitalRegistration from './hospital_registration';
+import ManageHospitals from './manage_hospitals'
 
 function AdminDashboard(){
     return (
@@ -36,7 +37,7 @@ function AdminDashboard(){
                   <Tab.Content>
                   <Tab.Pane eventKey="0"><MainDashboard/></Tab.Pane>
                     <Tab.Pane eventKey="1"><HospitalRegistration /></Tab.Pane>
-                    <Tab.Pane eventKey="2">Second tab content</Tab.Pane>
+                    <Tab.Pane eventKey="2"><ManageHospitals/></Tab.Pane>
                     <Tab.Pane eventKey="3">Second tab content</Tab.Pane>
                     <Tab.Pane eventKey="4">Second tab content</Tab.Pane>
                     <Tab.Pane eventKey="5">Second tab content</Tab.Pane>

@@ -6,37 +6,26 @@ import Col from 'react-bootstrap/Col';
 function MainDashboard() {
     const cardsData = [
         {
-            title: 'Card 1 Title',
-            subtitle: 'Card 1 Subtitle',
-            text: 'Some quick example text for Card 1.',
+            title: '123',
+            subtitle: 'Donation recived',
         },
 
         {
-            title: 'Card 2 Title',
-            subtitle: 'Card 2 Subtitle',
-            text: 'Some quick example text for Card 2.',
+            title: '$123',
+            subtitle: 'Donation Raised',
         },
         {
-            title: 'Card 2 Title',
-            subtitle: 'Card 2 Subtitle',
-            text: 'Some quick example text for Card 2.',
+            title: '123',
+            subtitle: 'Hospitals',
         },
         {
-            title: 'Card 2 Title',
-            subtitle: 'Card 2 Subtitle',
-            text: 'Some quick example text for Card 2.',
+            title: '123',
+            subtitle: 'Campaigns',
         },
         {
-            title: 'Card 2 Title',
-            subtitle: 'Card 2 Subtitle',
-            text: 'Some quick example text for Card 2.',
+            title: '20',
+            subtitle: 'Active Campaigns',
         },
-        {
-            title: 'Card 2 Title',
-            subtitle: 'Card 2 Subtitle',
-            text: 'Some quick example text for Card 2.',
-        },
-
     ];
 
     return (
@@ -47,8 +36,7 @@ function MainDashboard() {
                         <Card style={{ width: '18rem' }}>
                             <Card.Body>
                                 <Card.Title>{card.title}</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">{card.subtitle}</Card.Subtitle>
-                                <Card.Text>{card.text}</Card.Text>
+                                <Card.Subtitle className="mt-2 text-muted">{card.subtitle}</Card.Subtitle>
                             </Card.Body>
                         </Card>
                     </Col>

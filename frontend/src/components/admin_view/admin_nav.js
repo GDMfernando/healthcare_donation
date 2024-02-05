@@ -1,13 +1,19 @@
 import React from 'react';
-import { Navbar, Container, Nav, NavDropdown, Offcanvas } from 'react-bootstrap';
+import { Navbar, Container, Nav, Offcanvas} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function AdminNav() {
-    return (
-      <>
+
+  const handleLogoClick = () => {
+    window.location.reload();
+  };
+
+    return ( 
+      <div>
         {['md'].map((expand) => (
           <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
             <Container fluid>
-              <Navbar.Brand href="#"><img
+              <Navbar.Brand as={Link} to="/admin-dashboard" onClick={handleLogoClick}><img
                 src="/images/logo.svg"
                 alt="Logo"
                 width="160"
@@ -34,7 +40,7 @@ function AdminNav() {
             </Container>
           </Navbar>
         ))}
-      </>
+      </div>
     );
   }
   

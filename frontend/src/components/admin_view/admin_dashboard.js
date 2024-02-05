@@ -7,6 +7,9 @@ import AdminNav from './admin_nav';
 import MainDashboard from './main_dashboard';
 import HospitalRegistration from './hospital_registration';
 import ManageHospitals from './manage_hospitals'
+import RegisterCampaigne from './register_campaign';
+import ManageCampaign from './manage_campaigne';
+import ViewDonations from './view_donation';
 
 function AdminDashboard(){
     return (
@@ -38,9 +41,9 @@ function AdminDashboard(){
                   <Tab.Pane eventKey="0"><MainDashboard/></Tab.Pane>
                     <Tab.Pane eventKey="1"><HospitalRegistration /></Tab.Pane>
                     <Tab.Pane eventKey="2"><ManageHospitals/></Tab.Pane>
-                    <Tab.Pane eventKey="3">Second tab content</Tab.Pane>
-                    <Tab.Pane eventKey="4">Second tab content</Tab.Pane>
-                    <Tab.Pane eventKey="5">Second tab content</Tab.Pane>
+                    <Tab.Pane eventKey="3"><RegisterCampaigne/></Tab.Pane>
+                    <Tab.Pane eventKey="4"><ManageCampaign/></Tab.Pane>
+                    <Tab.Pane eventKey="5"><ViewDonations/></Tab.Pane>
                   </Tab.Content>
                 </Col>
               </Row>

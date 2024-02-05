@@ -4,6 +4,7 @@ import Login from './components/admin_view/login.js';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/public_view/public_home.js';
 import AdminDashboard from './components/admin_view/admin_dashboard.js'
+import HospitalLogin from './components/hospital_view/hospital_login.js';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/" element={ <Login />}/>
           <Route path="/Home" element={<Home />}/>
           <Route path="/admin-dashboard" element={<AdminDashboard />}/>
+          <Route path="/hospital-login" element={<HospitalLogin />}/>
         </Routes>
       </div>
     </Router>

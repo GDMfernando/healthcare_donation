@@ -7,35 +7,36 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-  try {
-    const response = await fetch('http://localhost:5000/', {
-      method: 'POST',
+    try {
+      const response = await fetch('http://localhost:5000/', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
-    });
+      });
 
-    if (response.ok) {
-      alert('Login successful');
-    } else {
-      alert('Login failed. Invalid credentials');
+      if (response.ok) {
+        alert('Login successful');
+      } else {
+        alert('Login failed. Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
     }
-  } catch (error) {
-    console.error('Error during login:', error);
-  }
   };
 
   return (
-    <Container className="mt-5">
-      <Row>
+    <Container className="mt-3">
+      <Row className="align-items-center">
         <Col xs={12} md={6}>
           {/* Image on the right */}
           <Image src="./images/hand-cupping-stethoscope-health-conce.jpg" alt="Header Image" fluid />
         </Col>
         <Col xs={12} md={6}>
           <div>
-            <h1>Admin Login</h1>
+          <Image src="./images/logo.svg" alt="logo"  width="150px" />
+            <h1 className="mb-5">Admin Login</h1>
           </div>
           <Form>
             <Form.Group controlId="formBasicUsername">
@@ -58,7 +59,7 @@ const Login = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="button" className="mt-3" onClick={handleLogin}>
+            <Button variant="primary" type="button" className="mt-3 primary_btn" onClick={handleLogin}>
               Login
             </Button>
           </Form>

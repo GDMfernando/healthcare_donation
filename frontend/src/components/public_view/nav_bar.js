@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
   return (
@@ -40,7 +41,7 @@ function NavBar() {
                     title="Hospitals"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/hospital-page">ABC Hospital</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">
                       Another action
                     </NavDropdown.Item>
@@ -58,7 +59,7 @@ function NavBar() {
                     className="me-2"
                     aria-label="Search"
                   />
-                  <Button variant="outline-success">Search</Button>
+                  <Button variant="outline-success" className='border_btn'>Search</Button>
                 </Form>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

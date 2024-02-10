@@ -10,6 +10,17 @@
     }
 }
 
+.border_btn{
+    color:#6f42c1 ;
+    border-color: #6f42c1;
+
+    &:hover{
+        background-color: #59359a;
+        color:#fff ;
+        border-color: #6f42c1;
+    }
+}
+
 /* StatisticsBar styles */
 
 .statistic_bar{

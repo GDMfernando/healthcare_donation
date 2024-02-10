@@ -1,28 +1,24 @@
 import React from 'react';
 import { Container, Card, Row, Col, Button } from 'react-bootstrap';
 
-function HospitalCards() {
+function HospitalCards({title, hospitals, buttonText, onButtonClick }) {
   return (
     <Container>
-      <div><h2>Registered Hospitals</h2></div>
+      <div><h2>{title}</h2></div>
       <Row xs={2} md={4} className="g-4">
-        {Array.from({ length: 4 }).map((_, idx) => (
+        {hospitals.map((hospital, idx) => (
           <Col key={idx}>
             <Card>
-              <Card.Img variant="top" src="holder.js/100px160" />
+              <Card.Img variant="top" src={hospital.imageUrl} />
               <Card.Body>
-                <Card.Title>Card title</Card.Title>
-                <Card.Text>
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </Card.Text>
+                <Card.Title>{hospital.name}</Card.Title>
+                <Card.Text>{hospital.description}</Card.Text>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
-      <Button variant="link">View More</Button>
+      <Button variant="link" onClick={onButtonClick}>{buttonText}</Button>
     </Container>
 
   );

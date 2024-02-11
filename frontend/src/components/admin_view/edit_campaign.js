@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import axios from 'axios';
 import CampaignForm from '../common_components/campaign_form';
 
-function RegisterCampaigne() {
+function EditCampaigne() {
   const [campaignData, setCampaignData] = useState({
     hospital: '',
     campaignName: '',
@@ -40,23 +40,23 @@ function RegisterCampaigne() {
         },
       });
 
-      console.log('Campaign registered successfully:', response.data);
+      console.log('Campaign update successfully:', response.data);
     } catch (error) {
-      console.error('Error registering campaign:', error);
+      console.error('Error upadete campaign:', error);
     }
   };
 
   return (
     <Container>
-      <h2>Register Campaign</h2>
+      <h2>Edit Campaign</h2>
       <CampaignForm
         onSubmit={handleSubmit}
         campaignData={campaignData}
         handleInputChange={handleInputChange}
-        buttonText="Register Campaign"
+        buttonText="Save"
       />
     </Container>
   );
 
 }
-export default RegisterCampaigne;
+export default EditCampaigne;

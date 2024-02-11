@@ -70,8 +70,8 @@ function ManageHospitals() {
                             <td>{hospital.password}</td>
                             <td>{hospital.type}</td>
                             <td>
-                                <Button variant="danger" onClick={() => handleDelete(hospital.id)}>Delete</Button>{' '}
                                 <Button variant="primary" onClick={() => handleEdit(hospital.id)}>Edit</Button>
+                                <Button variant="danger" onClick={() => handleDelete(hospital.id)}>Delete</Button>{' '}
                             </td>
                         </tr>
                     ))}

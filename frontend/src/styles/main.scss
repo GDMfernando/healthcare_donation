@@ -8,6 +8,11 @@
         background-color: #59359a;
         border-color: #59359a;
     }
+
+    &:active{
+        background-color: #59359a !important;
+        border-color: #59359a !important;
+    }
 }
 
 .border_btn{

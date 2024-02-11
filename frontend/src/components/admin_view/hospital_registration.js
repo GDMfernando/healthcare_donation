@@ -91,7 +91,7 @@ const HospitalRegistration = () => {
           </Form.Group>
         </Row>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" className='primary_btn' type="submit">
           Register
         </Button>
       </Form>

@@ -66,8 +66,8 @@ function ManageCampaign() {
                             <td>{campaign.target}</td>
                             <td>{campaign.status}</td>
                             <td>
-                                <Button variant="danger" onClick={() => handleDelete(campaign.id)}>Delete</Button>{' '}
                                 <Button variant="primary" onClick={() => handleEdit(campaign.id)}>Edit</Button>
+                                <Button variant="danger" onClick={() => handleDelete(campaign.id)}>Delete</Button>{' '}
                             </td>
                         </tr>
                     ))}

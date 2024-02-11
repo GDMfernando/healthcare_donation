@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Form, Button, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginForm from '../common_components/login_form';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -8,7 +9,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5000/', {
+      const response = await fetch('http://localhost:5000/admin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,34 +36,16 @@ const Login = () => {
         </Col>
         <Col xs={12} md={6}>
           <div>
-          <Image src="./images/logo.svg" alt="logo"  width="150px" />
+            <Image src="./images/logo.svg" alt="logo" width="150px" />
             <h1 className="mb-5">Admin Login</h1>
           </div>
-          <Form>
-            <Form.Group controlId="formBasicUsername">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-
-            <Button variant="primary" type="button" className="mt-3 primary_btn" onClick={handleLogin}>
-              Login
-            </Button>
-          </Form>
+          <LoginForm
+            username={username}
+            password={password}
+            onUsernameChange={setUsername}
+            onPasswordChange={setPassword}
+            onLogin={handleLogin}
+          />
         </Col>
       </Row>
 

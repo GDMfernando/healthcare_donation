@@ -47,7 +47,7 @@ const PublicHome = () =>{
         navigate('/');
       };
     return(
-        <div>
+        <div className='overflow-x-hidden'>
             <NavBar/>
             <Header/>
             <StatisticsBar/>

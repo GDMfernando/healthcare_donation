@@ -11,10 +11,10 @@ const Header = () => {
     <Col xs={12} md={6} className="d-flex align-items-center">
       {/* Content and buttons on the left */}
       <div>
-        <h1>Your Content Here</h1>
-        <p>Additional details or description</p>
+        <h1>Healing Hope for Patients</h1>
+        <p>Join WishHealth in Making a Lasting Impact Through Donations.</p>
         <Button variant="primary" className='primary_btn'>Donate for a hospital</Button>{' '}
-        <Button variant="secondary">Donate for a patient</Button>
+        <Button variant="secondary" >Donate for a patient</Button>
       </div>
     </Col>
     <Col xs={12} md={6}>

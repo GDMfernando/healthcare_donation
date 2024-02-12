@@ -1,29 +1,35 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Image } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginForm from '../common_components/login_form';
+import React, { useState } from "react";
+import { Container, Form, Button, Row, Col, Image } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import "bootstrap/dist/css/bootstrap.min.css";
+import LoginForm from "../common_components/login_form";
+import { callAuth } from "../../utils/help";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [_, setCookies] = useCookies(["access_token"]);
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5000/admin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const fetchOptions = {
         body: JSON.stringify({ username, password }),
-      });
-
+      };
+      const response = await callAuth("users/login", "POST", fetchOptions);
       if (response.ok) {
-        alert('Login successful');
+        const data = await response.json();
+        setCookies("access_token", data.results.token, {
+          path: "/",
+          maxAge: 31536000,
+        });
+        navigate("/admin-dashboard");
       } else {
-        alert('Login failed. Invalid credentials');
+        alert("Login failed. Invalid credentials");
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error("Error during login:", error);
     }
   };
 
@@ -32,7 +38,11 @@ const Login = () => {
       <Row className="align-items-center">
         <Col xs={12} md={6}>
           {/* Image on the right */}
-          <Image src="./images/hand-cupping-stethoscope-health-conce.jpg" alt="Header Image" fluid />
+          <Image
+            src="./images/hand-cupping-stethoscope-health-conce.jpg"
+            alt="Header Image"
+            fluid
+          />
         </Col>
         <Col xs={12} md={6}>
           <div>
@@ -48,9 +58,8 @@ const Login = () => {
           />
         </Col>
       </Row>
-
     </Container>
   );
-}
+};
 
 export default Login;

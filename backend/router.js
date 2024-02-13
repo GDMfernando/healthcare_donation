@@ -21,12 +21,10 @@ module.exports = (app) => {
         require('./modules/hospitals/hospitals.routes')(app)
     );
 
-    //Hospital View
-    //TO DO
+    // Hospital View
     // router.use(
     //     `${apiEndPoint}/hospital`,
-    //     auth.grant('HP_ADMIN'),
-    //     require('....')(app)
+    //     require('./modules/hospitals/hospitals.routes')(app)
     // );
 
     router.use('*', (req, res, next) => {

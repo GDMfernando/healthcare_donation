@@ -9,3 +9,10 @@ export function callAuth(path, method, fetchOptions) {
     },
   });
 }
+
+export function callAPI(path, method, fetchOptions) {
+  return fetch(`${baseURL}${path}`, {
+    method,
+    ...fetchOptions,
+  });
+}

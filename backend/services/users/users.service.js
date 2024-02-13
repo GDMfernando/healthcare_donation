@@ -7,16 +7,24 @@ const dbInstance = new dbConnection();
 async function registerUser(userData) {
     let returnData = {
         success: false,
-        data: null
+        data: null,
+        error: null
     };
     try {
-        const dbQuery = await usersModel.createQuery();
-        const dbData = await dbInstance.create(dbQuery, userData);
-        if (dbData.success) {
-            returnData.success = true;
-            returnData.data = dbData.data.insertId;
+        const alreadyExits = await findUserByUsername(userData.username);
+        console.log(alreadyExits);
+        if (!alreadyExits.success) {
+            const dbQuery = await usersModel.createQuery();
+            const dbData = await dbInstance.create(dbQuery, userData);
+            if (dbData.success) {
+                returnData.success = true;
+                returnData.data = dbData.data.insertId;
+            } else {
+                throw 'Internal server error : DB query Executing error';
+            }
         } else {
-            throw 'Internal server error : DB query Executing error';
+            returnData.success = false;
+            returnData.error = 'username already exits..!';
         }
     } catch (error) {
         throw error;

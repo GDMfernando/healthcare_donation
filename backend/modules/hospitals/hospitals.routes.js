@@ -4,9 +4,10 @@ const router = require('express').Router();
 const hospitalController = require('./hospitals.controller');
 
 module.exports = (app) => {
-    router.get('/hospital', hospitalController.getAllHospitals);
-    router.post('/hospital-register', hospitalController.hospitalRegister);
-    router.post('/edit', hospitalController.hospitalEdit);
+    router.post('/register', hospitalController.hospitalRegister);
+    router.post('/update/:id', hospitalController.hospitalUpdate);
+    router.get('/get/:id', hospitalController.getHospitalById);
+    router.get('/all', hospitalController.getAllHospitals);
 
     return router;
 };

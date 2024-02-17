@@ -22,10 +22,17 @@ module.exports = (app) => {
     );
 
     // Hospital View
-    // router.use(
-    //     `${apiEndPoint}/hospital`,
-    //     require('./modules/hospitals/hospitals.routes')(app)
-    // );
+    router.use(
+        `${apiEndPoint}/hospital`,
+        auth.grant('SUPER_ADMIN'),
+        require('./modules/hospitals/hospitals.routes')(app)
+    );
+
+    // Campaign View
+    router.use(
+        `${apiEndPoint}/campaign`,
+        require('./modules/campaign/campaign.routes')(app)
+    );
 
     router.use('*', (req, res, next) => {
         const invalidURL = {

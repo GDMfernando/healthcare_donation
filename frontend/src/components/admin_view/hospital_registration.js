@@ -40,12 +40,23 @@ const HospitalRegistration = () => {
           username: hospitalData.username,
           password: hospitalData.password,
           type: hospitalData.type,
+          image: hospitalData.image,
         }),
       };
 
-      const response = await callAPI("admin/register", "POST", fetchOptions);
+      const response = await callAPI("hospital/register", "POST", fetchOptions);
       if (response.ok) {
         alert("Successfully Registered");
+        setHospitalData({
+          name: "",
+          address: "",
+          phone: "",
+          email: "",
+          username: "",
+          password: "",
+          type: "",
+          image: "",
+        });
       } else {
         alert("Unsuccessfully Registered");
       }

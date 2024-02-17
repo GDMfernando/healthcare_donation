@@ -33,7 +33,7 @@ async function findHospitalById(hospitalId) {
     try {
         const dbQuery = hospitalModel.findByColumnQuery(
             'id',
-            'id, name, address, phone_number, email, type'
+            'id, name, address, phone_number, email, type, image'
         );
         const dbData = await dbInstance.find(dbQuery, hospitalId);
         if (dbData.success && dbData.data !== undefined) {
@@ -49,21 +49,23 @@ async function findHospitalById(hospitalId) {
     }
 }
 
-async function getAllHospitals(){
+async function getAllHospitals() {
     let returnData = {
         success: false,
         data: null,
         error: null
     };
     try {
-        const dbQuery = await hospitalModel.getAllQuery('id, name, address, phone_number, email, type');
+        const dbQuery = await hospitalModel.getAllQuery(
+            'id, name, address, phone_number, email, type, image'
+        );
         const dbData = await dbInstance.all(dbQuery);
-        if (dbData.success && dbData.data!== undefined) {
+        if (dbData.success && dbData.data !== undefined) {
             returnData.success = true;
             returnData.data = dbData.data;
         } else {
             returnData.error =
-                'Sorry, the username you entered does not match our records.';
+                'Sorry, the hospital does not match our records.';
         }
         return returnData;
     } catch (error) {
@@ -71,14 +73,37 @@ async function getAllHospitals(){
     }
 }
 
-async function updateHospital(hospitalId, hospitalData){
+async function updateHospital(hospitalId, hospitalData) {
     let returnData = {
         success: false,
         data: null
     };
     try {
         const dbQuery = await hospitalModel.updateQuery('id');
-        const dbData = await dbInstance.update(dbQuery, [hospitalData, hospitalId]);
+        const dbData = await dbInstance.update(dbQuery, [
+            hospitalData,
+            hospitalId
+        ]);
+        if (dbData.success) {
+            returnData.success = true;
+            returnData.data = dbData.data.insertId;
+        } else {
+            throw 'Internal server error : DB query Executing error';
+        }
+    } catch (error) {
+        throw error;
+    }
+    return returnData;
+}
+
+async function deleteHospitalById(hospitalId) {
+    let returnData = {
+        success: false,
+        data: null
+    };
+    try {
+        const dbQuery = await hospitalModel.deleteQuery('id');
+        const dbData = await dbInstance.delete(dbQuery, hospitalId);
         if (dbData.success) {
             returnData.success = true;
             returnData.data = dbData.data.insertId;
@@ -95,6 +120,6 @@ module.exports = {
     registerHospital,
     findHospitalById,
     getAllHospitals,
-    updateHospital
-
+    updateHospital,
+    deleteHospitalById
 };

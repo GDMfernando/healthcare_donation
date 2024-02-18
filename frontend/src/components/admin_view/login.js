@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from "../common_components/login_form";
-import { callAuth } from "../../utils/help";
+import { callAuth, callAPI } from "../../utils/help";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -24,6 +24,7 @@ const Login = () => {
           path: "/",
           maxAge: 31536000,
         });
+        localStorage.setItem("stop", true);
         navigate("/admin-dashboard");
       } else {
         alert("Login failed. Invalid credentials");

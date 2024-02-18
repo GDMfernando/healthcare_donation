@@ -11,7 +11,7 @@ async function registerCampaign(campaignData) {
     };
     try {
         const dbQuery = await campaignModel.createQuery();
-        const dbData = await dbInstance.create(dbQuery,campaignData);
+        const dbData = await dbInstance.create(dbQuery, campaignData);
         if (dbData.success) {
             returnData.success = true;
             returnData.data = dbData.data.insertId;
@@ -31,11 +31,11 @@ async function findCampaignById(campaignId) {
         error: null
     };
     try {
-        const dbQuery =campaignModel.findByColumnQuery(
+        const dbQuery = campaignModel.findByColumnQuery(
             'id',
             'id, hospital_id, name, patient_name, target, description, image'
         );
-        const dbData = await dbInstance.find(dbQuery,campaignId);
+        const dbData = await dbInstance.find(dbQuery, campaignId);
         if (dbData.success && dbData.data !== undefined) {
             returnData.success = true;
             returnData.data = dbData.data;
@@ -49,16 +49,16 @@ async function findCampaignById(campaignId) {
     }
 }
 
-async function getAllCampaign(){
+async function getAllCampaign() {
     let returnData = {
         success: false,
         data: null,
         error: null
     };
     try {
-        const dbQuery = await campaignModel.getAllQuery('id, hospital_id, name, patient_name, target, description, image');
-        const dbData = await dbInstance.all(dbQuery);
-        if (dbData.success && dbData.data!== undefined) {
+        const dbQuery = await campaignModel.getAllCampaign();
+        const dbData = await dbInstance.queryExecute(dbQuery);
+        if (dbData.success && dbData.data !== undefined) {
             returnData.success = true;
             returnData.data = dbData.data;
         } else {
@@ -71,14 +71,37 @@ async function getAllCampaign(){
     }
 }
 
-async function updateCampaign(campaignId,campaignData){
+async function updateCampaign(campaignId, campaignData) {
     let returnData = {
         success: false,
         data: null
     };
     try {
         const dbQuery = await campaignModel.updateQuery('id');
-        const dbData = await dbInstance.update(dbQuery, [campaignData,campaignId]);
+        const dbData = await dbInstance.update(dbQuery, [
+            campaignData,
+            campaignId
+        ]);
+        if (dbData.success) {
+            returnData.success = true;
+            returnData.data = dbData.data.insertId;
+        } else {
+            throw 'Internal server error : DB query Executing error';
+        }
+    } catch (error) {
+        throw error;
+    }
+    return returnData;
+}
+
+async function deleteCampaignById(id) {
+    let returnData = {
+        success: false,
+        data: null
+    };
+    try {
+        const dbQuery = await campaignModel.deleteQuery('id');
+        const dbData = await dbInstance.delete(dbQuery, id);
         if (dbData.success) {
             returnData.success = true;
             returnData.data = dbData.data.insertId;
@@ -95,6 +118,6 @@ module.exports = {
     registerCampaign,
     findCampaignById,
     getAllCampaign,
-    updateCampaign
-
+    updateCampaign,
+    deleteCampaignById
 };

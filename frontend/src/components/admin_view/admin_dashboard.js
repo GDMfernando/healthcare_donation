@@ -10,12 +10,39 @@ import ManageHospitals from "./manage_hospitals";
 import RegisterCampaigne from "./register_campaign";
 import ManageCampaign from "./manage_campaigne";
 import ViewDonations from "./view_donation";
+import { useCookies } from "react-cookie";
+import { callAPI } from "../../utils/help";
 
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("0"); // State to keep track of active tab
+  const [hospitals, setHospitals] = useState([]);
+  const [cookie, _] = useCookies(["access_token"]);
 
-  const handleTabSelect = (eventKey) => {
-    // console.log("Selected tab:", eventKey);
+  const getAll = async () => {
+    try {
+      const fetchOptions = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookie.access_token}`,
+        },
+        withCredentials: true,
+      };
+      const response = await callAPI("hospital/all", "GET", fetchOptions);
+      if (response.ok) {
+        const data = await response.json();
+        setHospitals(data.results);
+      } else {
+        console.log("Unauthorize");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleTabSelect = async (eventKey) => {
+    if (eventKey == 3 || eventKey == 4) {
+      await getAll();
+    }
     setActiveTab(eventKey);
   };
 
@@ -60,10 +87,10 @@ function AdminDashboard() {
                 <ManageHospitals activeTab={activeTab} />
               </Tab.Pane>
               <Tab.Pane eventKey="3">
-                <RegisterCampaigne />
+                <RegisterCampaigne hospitals={hospitals} />
               </Tab.Pane>
               <Tab.Pane eventKey="4">
-                <ManageCampaign />
+                <ManageCampaign activeTab={activeTab} hospitals={hospitals} />
               </Tab.Pane>
               <Tab.Pane eventKey="5">
                 <ViewDonations />

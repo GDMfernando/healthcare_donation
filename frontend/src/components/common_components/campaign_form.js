@@ -1,21 +1,35 @@
 // CampaignForm.js
 
-import React from 'react';
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import React, { useRef } from "react";
+import { Form, Row, Col, Button } from "react-bootstrap";
 
-const CampaignForm = ({ onSubmit, campaignData, handleInputChange, buttonText}) => {
+const CampaignForm = ({
+  onSubmit,
+  campaignData,
+  handleInputChange,
+  buttonText,
+  hospitals,
+  imageInputRef,
+}) => {
   return (
     <Form onSubmit={onSubmit}>
       <Row className="mb-3">
         <Form.Group as={Col} controlId="formGridHospital">
           <Form.Label>Hospital:</Form.Label>
-          <Form.Control
-            type="text"
+          <Form.Select
+            defaultValue="Select Hospital Type"
             name="hospital"
             value={campaignData.hospital}
             onChange={handleInputChange}
             required
-          />
+          >
+            <option value="">Select Hospital Type</option>
+            {hospitals?.hospitals?.map((el) => (
+              <option key={el.id} value={el.id}>
+                {el.name}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group as={Col} controlId="formGridCampaignName">
@@ -68,11 +82,18 @@ const CampaignForm = ({ onSubmit, campaignData, handleInputChange, buttonText}) 
 
       <Form.Group controlId="formGridImage" className="mb-3">
         <Form.Label>Image:</Form.Label>
-        <Form.Control type="file" accept="image/*" name="image" onChange={handleInputChange} required />
+        <Form.Control
+          type="file"
+          accept="image/*"
+          name="image"
+          ref={imageInputRef}
+          onChange={handleInputChange}
+          required
+        />
       </Form.Group>
 
-      <Button variant="primary" className='primary_btn' type="submit">
-       {buttonText}
+      <Button variant="primary" className="primary_btn" type="submit">
+        {buttonText}
       </Button>
     </Form>
   );

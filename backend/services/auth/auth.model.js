@@ -8,6 +8,11 @@ class authModel extends mainModel {
     }
 
     findUserByIdAndUserType(userId, userType) {
+        const rolesArray = userType
+            .split('|')
+            .map((role) => `'${role.trim()}'`)
+            .join(', ');
+
         return `
             SELECT 
                 first_name,
@@ -15,10 +20,9 @@ class authModel extends mainModel {
                 login_email
             FROM 
                 users_tb
-            WHERE 
-                id = ${userId}
-            AND 
-                user_type = '${userType}'
+            WHERE user_type
+                IN (${rolesArray})
+            AND id = ${userId}
             AND status = 'ACT'
             AND deleted_at IS NULL
         `;

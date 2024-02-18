@@ -15,11 +15,11 @@ module.exports = (app) => {
     );
 
     //Admin View
-    router.use(
-        `${apiEndPoint}/admin`,
-        auth.grant('SUPER_ADMIN'),
-        require('./modules/hospitals/hospitals.routes')(app)
-    );
+    // router.use(
+    //     `${apiEndPoint}/admin`,
+    //     auth.grant('SUPER_ADMIN'),
+    //     require('./modules/hospitals/hospitals.routes')(app)
+    // );
 
     // Hospital View
     router.use(
@@ -31,7 +31,16 @@ module.exports = (app) => {
     // Campaign View
     router.use(
         `${apiEndPoint}/campaign`,
+        auth.grant('SUPER_ADMIN'),
         require('./modules/campaign/campaign.routes')(app)
+    );
+
+    router.use(
+        `${apiEndPoint}/idle`,
+        auth.grant('SUPER_ADMIN|HOSPITAL_ADMIN'),
+        (req, res, next) => {
+            res.status(200).send({ error_code: null, message: 'ok' });
+        }
     );
 
     router.use('*', (req, res, next) => {

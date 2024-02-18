@@ -10,6 +10,7 @@ import HospitalDashboard from "./components/hospital_view/hospital_dashboard.js"
 import HospitalPage from "./components/public_view/hospital_page.js";
 import { callAPI } from "./utils/help.js";
 import AboutPage from './components/public_view/about.js';
+import ContactUsPage from "./components/public_view/contactus.js";
 
 const App = () => {
   const [cookie, _] = useCookies(["access_token"]);
@@ -75,6 +76,7 @@ const App = () => {
             <Route path="/hospital-dashboard" element={<HospitalDashboard />} />
             <Route path="/hospital-page" element={<HospitalPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/contactus" element={<ContactUsPage />} />
           </Routes>
         </div>
       </Router>

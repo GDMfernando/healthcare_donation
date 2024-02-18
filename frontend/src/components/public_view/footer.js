@@ -36,10 +36,17 @@ function Footer() {
             </Nav.Item>
           </Nav>
         </div>
-        <div className='col-md-4'>
-          <Card.Title>Special title treatment</Card.Title>
-          <Card.Text>
-            With supporting text below as a natural lead-in to additional content.
+        <div className='col-md-4 d-flex align-items-center'>
+          <Card.Text className="text-start">
+            <p >
+              If you have any questions or inquiries, feel free to reach out to us.
+            </p>
+            <p >
+              <strong>Address:</strong> 1234 Main Street, Cityville, State, 12345 <br></br>
+              <strong>Phone:</strong> (555) 123-4567 <br></br>
+              <strong>Email:</strong> info@example.com
+            </p>
+         
           </Card.Text>
 
         </div>

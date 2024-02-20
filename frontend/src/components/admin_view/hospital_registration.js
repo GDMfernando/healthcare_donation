@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
 
 const HospitalRegistration = () => {
+  // State variables using the useState hook
   const [cookie, _] = useCookies(["access_token"]);
   const [hospitalData, setHospitalData] = useState({
     name: "",
@@ -16,6 +17,7 @@ const HospitalRegistration = () => {
     image: "",
   });
 
+  // Event handler for input changes
   const handleInputChange = (e) => {
     setHospitalData({
       ...hospitalData,
@@ -23,6 +25,7 @@ const HospitalRegistration = () => {
     });
   };
 
+  // Event handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

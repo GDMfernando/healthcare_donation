@@ -7,11 +7,13 @@ import LoginForm from "../common_components/login_form";
 import { callAuth, callAPI } from "../../utils/help";
 
 const Login = () => {
+  // State variables for username, password, and cookies
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [_, setCookies] = useCookies(["access_token"]);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // React Router hook for navigation
 
+  // Function to handle the login process
   const handleLogin = async () => {
     try {
       const fetchOptions = {
@@ -35,6 +37,7 @@ const Login = () => {
   };
 
   return (
+    //admin login interface component
     <Container className="mt-3">
       <Row className="align-items-center">
         <Col xs={12} md={6}>

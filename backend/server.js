@@ -5,12 +5,13 @@ const app = express();
 const cors = require('cors');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000;
 
 app.use(express.static('client'));
-app.use(express.json());
 app.use(
     cors({
+        origin: 'http://localhost:3000',
         methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
         credentials: true
     })
@@ -28,6 +29,8 @@ app.use(
         }
     })
 );
+
+app.use(bodyParser.json())
 
 const router = require('./router.js')(app);
 app.use(router);

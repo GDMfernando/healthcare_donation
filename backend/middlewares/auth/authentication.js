@@ -29,7 +29,6 @@ const protect = async (req, res, next) => {
             });
         }
     } catch (error) {
-        console.log(error);
         httpResponse.failed(res, {
             error_code: 'TOKEN_EXPIRED',
             message: 'Token expired..!'

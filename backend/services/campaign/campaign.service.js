@@ -114,10 +114,56 @@ async function deleteCampaignById(id) {
     return returnData;
 }
 
+async function getAllCampaignCount() {
+    let returnData = {
+        success: false,
+        data: null,
+        error: null
+    };
+    try {
+        const dbQuery = await campaignModel.getAllCampaignCount();
+        const dbData = await dbInstance.queryExecute(dbQuery);
+        if (dbData.success && dbData.data !== undefined) {
+            returnData.success = true;
+            returnData.data = dbData.data;
+        } else {
+            returnData.error =
+                'Sorry, the campaign does not match our records.';
+        }
+        return returnData;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function getAllActiveCampaignCount() {
+    let returnData = {
+        success: false,
+        data: null,
+        error: null
+    };
+    try {
+        const dbQuery = await campaignModel.getAllActiveCampaignCount();
+        const dbData = await dbInstance.queryExecute(dbQuery);
+        if (dbData.success && dbData.data !== undefined) {
+            returnData.success = true;
+            returnData.data = dbData.data;
+        } else {
+            returnData.error =
+                'Sorry, the campaign does not match our records.';
+        }
+        return returnData;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     registerCampaign,
     findCampaignById,
     getAllCampaign,
     updateCampaign,
-    deleteCampaignById
+    deleteCampaignById,
+    getAllCampaignCount,
+    getAllActiveCampaignCount
 };

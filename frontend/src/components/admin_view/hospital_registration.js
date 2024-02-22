@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
+import axios from "axios";
 
 const HospitalRegistration = () => {
-  // State variables using the useState hook
   const [cookie, _] = useCookies(["access_token"]);
   const [hospitalData, setHospitalData] = useState({
     name: "",
@@ -14,41 +14,58 @@ const HospitalRegistration = () => {
     username: "",
     password: "",
     type: "",
-    image: "",
+    image: null,
   });
 
-  // Event handler for input changes
   const handleInputChange = (e) => {
+    const { name, value, files } = e.target;
     setHospitalData({
       ...hospitalData,
-      [e.target.name]: e.target.value,
+      [name]: name === "image" ? files[0] : value,
     });
   };
 
-  // Event handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const fetchOptions = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cookie.access_token}`,
-        },
-        withCredentials: true,
-        body: JSON.stringify({
-          name: hospitalData.name,
-          address: hospitalData.address,
-          phone_number: hospitalData.phone,
-          email: hospitalData.email,
-          username: hospitalData.username,
-          password: hospitalData.password,
-          type: hospitalData.type,
-          image: hospitalData.image,
-        }),
-      };
+      // const fetchOptions = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${cookie.access_token}`,
+      //   },
+      //   withCredentials: true,
+      //   body: JSON.stringify({
+      //     name: hospitalData.name,
+      //     address: hospitalData.address,
+      //     phone_number: hospitalData.phone,
+      //     email: hospitalData.email,
+      //     username: hospitalData.username,
+      //     password: hospitalData.password,
+      //     type: hospitalData.type,
+      //     image: hospitalData.image,
+      //   }),
+      // };
 
-      const response = await callAPI("hospital/register", "POST", fetchOptions);
-      if (response.ok) {
+      const formData = new FormData();
+      formData.append("name", hospitalData.name);
+      formData.append("address", hospitalData.address);
+      formData.append("phone_number", hospitalData.phone);
+      formData.append("email", hospitalData.email);
+      formData.append("username", hospitalData.username);
+      formData.append("password", hospitalData.password);
+      formData.append("type", hospitalData.type);
+      formData.append("image", hospitalData.image);
+
+
+      const headers = {
+        Authorization: `Bearer ${cookie.access_token}`,
+      };
+      
+      const response = await axios.post("http://localhost:5000/api/hospital/register", formData, {
+        headers: headers,
+      });
+      // const response = await callAPI("hospital/register", "POST", fetchOptions);
+      if (response?.data?.success) {
         alert("Successfully Registered");
         setHospitalData({
           name: "",
@@ -170,7 +187,6 @@ const HospitalRegistration = () => {
               type="file"
               name="image"
               accept="image/*"
-              value={hospitalData.image}
               onChange={handleInputChange}
             />
           </Form.Group>

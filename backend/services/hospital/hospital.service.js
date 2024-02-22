@@ -116,10 +116,33 @@ async function deleteHospitalById(hospitalId) {
     return returnData;
 }
 
+async function getAllHospitalCount() {
+    let returnData = {
+        success: false,
+        data: null,
+        error: null
+    };
+    try {
+        const dbQuery = await hospitalModel.getAllHospitalCount();
+        const dbData = await dbInstance.queryExecute(dbQuery);
+        if (dbData.success && dbData.data !== undefined) {
+            returnData.success = true;
+            returnData.data = dbData.data;
+        } else {
+            returnData.error =
+                'Sorry, the Hospital does not match our records.';
+        }
+        return returnData;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     registerHospital,
     findHospitalById,
     getAllHospitals,
     updateHospital,
-    deleteHospitalById
+    deleteHospitalById,
+    getAllHospitalCount
 };

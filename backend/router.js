@@ -14,12 +14,12 @@ module.exports = (app) => {
         require('./modules/users/users.routes')(app)
     );
 
-    //Admin View
-    // router.use(
-    //     `${apiEndPoint}/admin`,
-    //     auth.grant('SUPER_ADMIN'),
-    //     require('./modules/hospitals/hospitals.routes')(app)
-    // );
+    // Admin View
+    router.use(
+        `${apiEndPoint}/admin`,
+        auth.grant('SUPER_ADMIN'),
+        require('./modules/main_dashboard_admin/admin.router')(app)
+    );
 
     // Hospital View
     router.use(

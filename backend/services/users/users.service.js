@@ -12,7 +12,6 @@ async function registerUser(userData) {
     };
     try {
         const alreadyExits = await findUserByUsername(userData.username);
-        console.log(alreadyExits);
         if (!alreadyExits.success) {
             const dbQuery = await usersModel.createQuery();
             const dbData = await dbInstance.create(dbQuery, userData);

@@ -252,8 +252,8 @@ function ManageCampaign({ activeTab = null, hospitals }) {
             </Form.Group>
 
             <Button
-              variant="primary"
-              className="primary_btn"
+              variant="secondary"
+              className="me-2"
               type="submit"
               onClick={() => setEditCampaigns(null)}
             >
@@ -303,7 +303,8 @@ function ManageCampaign({ activeTab = null, hospitals }) {
                   <td>{campaign.status === "ACT" ? "Active" : "Inactive"}</td>
                   <td>
                     <Button
-                      variant="primary"
+                    className="me-2"
+                      variant="secondary"
                       onClick={() => handleEdit(campaign)}
                     >
                       Edit

@@ -1,5 +1,6 @@
 import { Card, Nav } from 'react-bootstrap';
 import React from 'react';
+import '../../styles/main.scss';
 
 function Footer() {
   return (
@@ -18,7 +19,7 @@ function Footer() {
         </div>
 
         <div className='col-md-4'>
-          <Nav defaultActiveKey="/home" className="flex-column  align-items-start">
+          <Nav defaultActiveKey="/home" className="flex-column  align-items-start footer_nav">
             <Nav.Item>
               <Nav.Link href="/home">About</Nav.Link>
             </Nav.Item>

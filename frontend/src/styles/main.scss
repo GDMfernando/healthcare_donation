@@ -1,34 +1,58 @@
-
-.primary_btn{
+.primary_btn {
     background-color: #6f42c1;
-    color:#fff ;
+    color: #fff;
     border-color: #6f42c1;
 
-    &:hover{
+    &:hover {
         background-color: #59359a;
         border-color: #59359a;
     }
 
-    &:active{
+    &:active {
         background-color: #59359a !important;
         border-color: #59359a !important;
     }
 }
 
-.border_btn{
-    color:#6f42c1 ;
+.border_btn {
+    color: #6f42c1;
     border-color: #6f42c1;
 
-    &:hover{
+    &:hover {
         background-color: #59359a;
-        color:#fff ;
+        color: #fff;
         border-color: #6f42c1;
     }
 }
 
-/* StatisticsBar styles */
+/* Admin styles */
 
-.statistic_bar{
+.dashboard_sidebar {
+    background-color: #eee;
+    padding-right: 0;
+
+    .nav-link {
+        color: #6f42c1;
+    }
+
+    .nav-link.active{
+        background-color: #6f42c1;
+    }
+}
+
+/* Home styles */
+
+.statistic_bar {
     background-color: #a98eda;
     color: #fff;
+}
+
+.footer_nav {
+    a {
+        color: rgb(33, 37, 41);
+
+        &:hover {
+            color: #59359a;
+        }
+    }
 }

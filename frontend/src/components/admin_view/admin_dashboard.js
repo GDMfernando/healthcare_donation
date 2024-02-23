@@ -56,7 +56,7 @@ function AdminDashboard() {
         onSelect={handleTabSelect}
       >
         <Row>
-          <Col sm={3}>
+          <Col sm={3} className="dashboard_sidebar">
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
                 <Nav.Link eventKey="1">Register Hospital</Nav.Link>

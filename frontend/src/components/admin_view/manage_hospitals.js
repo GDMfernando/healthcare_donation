@@ -266,8 +266,8 @@ function ManageHospitals(activeTab = null) {
             </Row>
 
             <Button
-              variant="primary"
-              className="secondary_btn"
+              variant="secondary"
+              className="me-2"
               onClick={() => setHospitalEdit(null)}
             >
               Back
@@ -316,7 +316,8 @@ function ManageHospitals(activeTab = null) {
                   <td>{hospital.type}</td>
                   <td>
                     <Button
-                      variant="primary"
+                      variant="secondary"
+                      className="me-2"
                       onClick={() => handleEdit(hospital)}
                     >
                       Edit

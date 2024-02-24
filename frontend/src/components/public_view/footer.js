@@ -1,8 +1,17 @@
 import { Card, Nav } from 'react-bootstrap';
 import React from 'react';
 import '../../styles/main.scss';
+import { useNavigate} from 'react-router-dom';
 
 function Footer() {
+  const navigate = useNavigate();
+  const handleAboutClick = () => {
+    navigate('/about');
+  };
+  const handleContactClick = () => {
+    navigate('/contactus');
+  };
+
   return (
     <Card className="text-center">
       <Card.Body className='row'>
@@ -21,10 +30,10 @@ function Footer() {
         <div className='col-md-4'>
           <Nav defaultActiveKey="/home" className="flex-column  align-items-start footer_nav">
             <Nav.Item>
-              <Nav.Link href="/home">About</Nav.Link>
+              <Nav.Link onClick={handleAboutClick}>About</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/about">Contact Us</Nav.Link>
+              <Nav.Link onClick={handleContactClick}>Contact Us</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link href="/services">ServicesSuccessful Campaigns</Nav.Link>

@@ -13,6 +13,7 @@ function HospitalCards({title, hospitals, buttonText, onButtonClick }) {
               <Card.Body>
                 <Card.Title>{hospital.name}</Card.Title>
                 <Card.Text>{hospital.description}</Card.Text>
+                <Button variant="primary" className="primary_btn">Donate</Button>
               </Card.Body>
             </Card>
           </Col>

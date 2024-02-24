@@ -15,6 +15,13 @@ function CampaignCards({ title, buttonText, onButtonClick, campaigns }) {
                 <Card.Text>
                   {campaigns.description}
                 </Card.Text>
+                <Card.Text>Goal: 
+                  {campaigns.goal}
+                </Card.Text>
+                <Card.Text>Raised: 
+                  {campaigns.raised}
+                </Card.Text>
+                <Button variant="primary" className="primary_btn">Donate</Button>
               </Card.Body>
             </Card>
           </Col>

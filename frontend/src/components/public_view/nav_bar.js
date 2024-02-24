@@ -7,15 +7,32 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function NavBar() {
+  const navigate = useNavigate();
+
+  const handleAboutClick = () => {
+    navigate('/about');
+  };
+
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+
+  const handleContactClick = () => {
+    navigate('/contactus');
+  };
   return (
     <>
       {['md'].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
           <Container fluid>
-            <Navbar.Brand href="#"><img
+            <Navbar.Brand  as={Link} to="/" onClick={handleLogoClick}><img
                 src="/images/logo.svg"
                 alt="Logo"
                 width="160"
@@ -34,9 +51,9 @@ function NavBar() {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1">Home</Nav.Link>
-                  <Nav.Link href="#action2">About</Nav.Link>
+                <Nav className="justify-content-end flex-grow-1 pe-3 home_nav">
+                  <Nav.Link onClick={handleHomeClick}>Home</Nav.Link>
+                  <Nav.Link onClick={handleAboutClick}>About</Nav.Link>
                   <NavDropdown
                     title="Hospitals"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -50,7 +67,7 @@ function NavBar() {
                       Something else here
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link href="#action2">Contact Us</Nav.Link>
+                  <Nav.Link onClick={handleContactClick}>Contact Us</Nav.Link>
                 </Nav>
                 <Form className="d-flex">
                   <Form.Control

@@ -2,8 +2,13 @@ import React from 'react';
 import { Container, Row, Col, Button, } from 'react-bootstrap';
 import NavBar from './nav_bar';
 import Footer from './footer';
+import { useNavigate } from 'react-router-dom';
 
 const AboutPage = () => {
+  const navigate = useNavigate();
+  const handleContactClick = () => {
+    navigate('/contactus');
+  };
   return (
     <div className='overflow-x-hidden'>
     <NavBar/>
@@ -42,7 +47,7 @@ const AboutPage = () => {
           WishHealth invites you to be a part of a community that cares. Together, we can create a healthier, more resilient Sri Lanka. Join us on this journey to make healthcare accessible to all.
         </p>
         
-        <Button variant="primary" href="mailto:contact@wishhealth.lk" className="mb-3">Contact Us</Button>
+        <Button variant="primary" onClick={handleContactClick} className="mb-3 primary_btn">Contact Us</Button>
         <p>
           Thank you for choosing WishHealth – Where Every Contribution Counts!
         </p>

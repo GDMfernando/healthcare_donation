@@ -30,11 +30,15 @@ const PublicHome = () =>{
           name: 'Campaign A',
           description: 'Description for Campaign A',
           imageUrl: 'path/to/imageA.jpg',
+          goal: '123',
+          raised: '12',
         },
         {
           name: 'Campaign B',
           description: 'Description for Campaign B',
           imageUrl: 'path/to/imageB.jpg',
+          goal: '123',
+          raised: '12',
         },
  
       ];

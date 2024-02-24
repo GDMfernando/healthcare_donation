@@ -84,7 +84,7 @@ const ContactUsPage = () => {
                                 />
                             </Form.Group>
 
-                            <Button variant="primary" type="submit">
+                            <Button variant="primary" type="submit" className='primary_btn mt-4'>
                                 Submit
                             </Button>
                         </Form>

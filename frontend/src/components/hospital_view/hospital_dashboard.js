@@ -16,7 +16,7 @@ function HospitalDashboard(){
         <Tab.Container id="left-tabs-example" defaultActiveKey="0">
               <Row>
                 <Col sm={3}>
-                  <Nav variant="pills" className="flex-column">
+                  <Nav variant="pills" className="flex-column dashboard_sidebar">
                     <Nav.Item>
                       <Nav.Link eventKey="1">Edit Profile</Nav.Link>
                     </Nav.Item>

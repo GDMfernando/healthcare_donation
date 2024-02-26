@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './nav_bar'
 import Header from './header'
@@ -7,58 +7,76 @@ import HospitalCards from './hospital_cards';
 import CampaignCards from './campaign_cards';
 import Footer from './footer';
 import { useNavigate } from 'react-router-dom';
+import { callAPI } from '../../utils/help';
+import { Container, Card, Row, Col, Button } from 'react-bootstrap';
 
-const PublicHome = () =>{
-    const navigate = useNavigate();
+const PublicHome = () => {
+  const navigate = useNavigate();
 
-    const hospitalsData = [
-        {
-          name: 'Hospital A',
-          description: 'Description for Hospital A',
-          imageUrl: 'path/to/imageA.jpg',
-        },
-        {
-          name: 'Hospital B',
-          description: 'Description for Hospital B',
-          imageUrl: 'path/to/imageB.jpg',
-        },
- 
-      ];
+  const [hospitals, setHospitals] = useState([]);
+  const [campaigns, setCampaigns] = useState([]);
 
-      const campaignsData = [
-        {
-          name: 'Campaign A',
-          description: 'Description for Campaign A',
-          imageUrl: 'path/to/imageA.jpg',
-          goal: '123',
-          raised: '12',
-        },
-        {
-          name: 'Campaign B',
-          description: 'Description for Campaign B',
-          imageUrl: 'path/to/imageB.jpg',
-          goal: '123',
-          raised: '12',
-        },
- 
-      ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const hospitalResponse = await callAPI('hospital/all', 'GET');
+        const campaignResponse = await callAPI('campaign/all', 'GET');
 
-      const handleCampaignButtonClick = () => {
-        navigate('/');
-      };
+        if (hospitalResponse.ok && campaignResponse.ok) {
+          const hospitalData = await hospitalResponse.json();
+          const campaignData = await campaignResponse.json();
 
-      const handleHospitalButtonClick = () => {
-        navigate('/');
-      };
-    return(
-        <div className='overflow-x-hidden'>
-            <NavBar/>
-            <Header/>
-            <StatisticsBar/>
-            <HospitalCards title="Registered Hospitals"  buttonText="View More" hospitals={hospitalsData} onButtonClick={handleHospitalButtonClick}/>
-            <CampaignCards title="Popular Campaigns" buttonText="View More"  campaigns={campaignsData} onButtonClick={handleCampaignButtonClick}/>
-            <Footer/>
-        </div>
-    );
+          console.log('Fetched Hospitals:', hospitalData.results);
+          console.log('Fetched Campaigns:', campaignData.results);
+
+          setHospitals(hospitalData.results);
+          setCampaigns(campaignData.results);
+        } else {
+          console.log('Error fetching data');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
+  const handleCampaignButtonClick = () => {
+    navigate('/');
+  };
+
+  const handleHospitalButtonClick = () => {
+    navigate('/');
+  };
+  return (
+    <div className='overflow-x-hidden'>
+      <NavBar />
+      <Header />
+      <StatisticsBar />
+
+      <Container>
+        <div><h2>Registered Hospitals</h2></div>
+        <Row xs={2} md={4} className="g-4">
+          {hospitals.map((hospital) => {
+    
+            return (<Col key={hospital.id}>
+              <Card>
+                <Card.Img variant="top"  />
+                <Card.Body>
+                  <Card.Title>{hospital.name}</Card.Title>
+                  <Card.Text>7675</Card.Text>
+                  <Button variant="primary" className="primary_btn">Donate</Button>
+                </Card.Body>
+              </Card>
+            </Col>);
+          })}
+        </Row>
+        <Button variant="link" onClick={handleHospitalButtonClick}>{"View More"}</Button>
+      </Container>
+      <CampaignCards title="Popular Campaigns" buttonText="View More" campaigns={campaigns} onButtonClick={handleCampaignButtonClick} />
+      <Footer />
+    </div>
+  );
 }
 export default PublicHome;

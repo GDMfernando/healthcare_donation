@@ -1,29 +1,38 @@
 import React, { useState } from 'react';
-import { Container, Form, Button, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from '../common_components/login_form';
+import { useNavigate } from "react-router-dom";
+import { callAuth, callAPI } from "../../utils/help";
+import { useCookies } from "react-cookie";
 
 const HospitalLogin = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // State variables for username, password, and cookies
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [_, setCookies] = useCookies(["access_token"]);
+  const navigate = useNavigate(); // React Router hook for navigation
 
+  // Function to handle the login process
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5000/hospital', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const fetchOptions = {
         body: JSON.stringify({ username, password }),
-      });
-
+      };
+      const response = await callAuth("users/login", "POST", fetchOptions);
       if (response.ok) {
-        alert('Login successful');
+        const data = await response.json();
+        setCookies("access_token", data.results.token, {
+          path: "/",
+          maxAge: 31536000,
+        });
+        localStorage.setItem("stop", true);
+        navigate("/hospital-dashboard");
       } else {
-        alert('Login failed. Invalid credentials');
+        alert("Login failed. Invalid credentials");
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error("Error during login:", error);
     }
   };
 

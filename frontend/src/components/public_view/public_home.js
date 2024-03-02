@@ -19,8 +19,8 @@ const PublicHome = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const hospitalResponse = await callAPI('hospital/all', 'GET');
-        const campaignResponse = await callAPI('campaign/all', 'GET');
+        const hospitalResponse = await callAPI('hospital/public/all', 'GET');
+        const campaignResponse = await callAPI('campaign/public/all', 'GET');
 
         if (hospitalResponse.ok && campaignResponse.ok) {
           const hospitalData = await hospitalResponse.json();
@@ -29,7 +29,10 @@ const PublicHome = () => {
           console.log('Fetched Hospitals:', hospitalData.results);
           console.log('Fetched Campaigns:', campaignData.results);
 
-          setHospitals(hospitalData.results);
+          if (hospitalData.results) {
+            setHospitals(hospitalData.results);
+          }
+
           setCampaigns(campaignData.results);
         } else {
           console.log('Error fetching data');
@@ -38,6 +41,7 @@ const PublicHome = () => {
         console.error('Error fetching data:', error);
       }
     };
+
     fetchData();
   }, []);
 
@@ -49,6 +53,7 @@ const PublicHome = () => {
   const handleHospitalButtonClick = () => {
     navigate('/');
   };
+
   return (
     <div className='overflow-x-hidden'>
       <NavBar />
@@ -59,10 +64,10 @@ const PublicHome = () => {
         <div><h2>Registered Hospitals</h2></div>
         <Row xs={2} md={4} className="g-4">
           {hospitals.map((hospital) => {
-    
+
             return (<Col key={hospital.id}>
               <Card>
-                <Card.Img variant="top"  />
+                <Card.Img variant="top" src={`http://localhost:5000/uploads/${hospital.image}`} alt={`${hospital.name} Image`} />
                 <Card.Body>
                   <Card.Title>{hospital.name}</Card.Title>
                   <Card.Text>7675</Card.Text>
@@ -74,7 +79,7 @@ const PublicHome = () => {
         </Row>
         <Button variant="link" onClick={handleHospitalButtonClick}>{"View More"}</Button>
       </Container>
-      <CampaignCards title="Popular Campaigns" buttonText="View More" campaigns={campaigns} onButtonClick={handleCampaignButtonClick} />
+      <CampaignCards title="Active Campaigns" buttonText="View More" campaigns={campaigns} onButtonClick={handleCampaignButtonClick} />
       <Footer />
     </div>
   );

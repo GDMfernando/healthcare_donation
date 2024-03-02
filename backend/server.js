@@ -29,7 +29,7 @@ app.use(
         }
     })
 );
-
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json())
 
 const router = require('./router.js')(app);

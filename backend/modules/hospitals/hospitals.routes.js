@@ -4,6 +4,7 @@ const router = require('express').Router();
 const hospitalController = require('./hospitals.controller');
 const { upload } = require('../../config/constant.js');
 
+router.get('/public/all', hospitalController.getAllHospitals);
 module.exports = (app) => {
     router.post(
         '/register',
@@ -14,6 +15,6 @@ module.exports = (app) => {
     router.get('/get/:id', hospitalController.getHospitalById);
     router.get('/all', hospitalController.getAllHospitals);
     router.get('/delete/:id', hospitalController.deleteHospitalById);
-
+    app.use('/api/hospital', router);
     return router;
 };

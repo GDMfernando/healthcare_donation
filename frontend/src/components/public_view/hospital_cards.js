@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { Container, Card, Row, Col, Button } from 'react-bootstrap';
 
 function HospitalCards({title, hospitals, buttonText, onButtonClick }) {
@@ -7,12 +7,13 @@ function HospitalCards({title, hospitals, buttonText, onButtonClick }) {
       <div><h2>{title}</h2></div>
       <Row xs={2} md={4} className="g-4">
       {hospitals.map((hospital) => {
+  console.log('Image URL:', hospital.imageUrl);
   return (     <Col key={hospital.id}>
             <Card>
-              <Card.Img variant="top" src={`http://localhost:5000/uploads/${hospital.image}`} alt={`${hospital.name} Image`} />
+              <Card.Img variant="top" src={hospital.imageUrl} />
               <Card.Body>
                 <Card.Title>{hospital.name}</Card.Title>
-                <Card.Text>N/A</Card.Text>
+                <Card.Text>{hospital.description}</Card.Text>
                 <Button variant="primary" className="primary_btn">Donate</Button>
               </Card.Body>
             </Card>
@@ -25,4 +26,4 @@ function HospitalCards({title, hospitals, buttonText, onButtonClick }) {
   );
 }
 
-export default HospitalCards;
+export default HospitalCards;*/

@@ -9,14 +9,14 @@ function CampaignCards({ title, buttonText, onButtonClick, campaigns }) {
         {campaigns.map((campaigns, idx) => (
           <Col key={idx}>
             <Card>
-              <Card.Img variant="top" src={`http://localhost:5000/uploads/${campaigns.image}`} />
+              <Card.Img variant="top" src={campaigns.imageUrl} />
               <Card.Body>
                 <Card.Title>{campaigns.name}</Card.Title>
                 <Card.Text>
                   {campaigns.description}
                 </Card.Text>
                 <Card.Text>Goal: 
-                  {campaigns.target}
+                  {campaigns.goal}
                 </Card.Text>
                 <Card.Text>Raised: 
                   {campaigns.raised}

@@ -8,7 +8,6 @@ import CampaignCards from './campaign_cards';
 import Footer from './footer';
 import { useNavigate } from 'react-router-dom';
 import { callAPI } from '../../utils/help';
-import { Container, Card, Row, Col, Button } from 'react-bootstrap';
 
 const PublicHome = () => {
   const navigate = useNavigate();
@@ -59,26 +58,7 @@ const PublicHome = () => {
       <NavBar />
       <Header />
       <StatisticsBar />
-
-      <Container>
-        <div><h2>Registered Hospitals</h2></div>
-        <Row xs={2} md={4} className="g-4">
-          {hospitals.map((hospital) => {
-
-            return (<Col key={hospital.id}>
-              <Card>
-                <Card.Img variant="top" src={`http://localhost:5000/uploads/${hospital.image}`} alt={`${hospital.name} Image`} />
-                <Card.Body>
-                  <Card.Title>{hospital.name}</Card.Title>
-                  <Card.Text>7675</Card.Text>
-                  <Button variant="primary" className="primary_btn">Donate</Button>
-                </Card.Body>
-              </Card>
-            </Col>);
-          })}
-        </Row>
-        <Button variant="link" onClick={handleHospitalButtonClick}>{"View More"}</Button>
-      </Container>
+      <HospitalCards title="Registered Hospitals" buttonText="View More" hospitals={hospitals} onButtonClick={handleHospitalButtonClick} />
       <CampaignCards title="Active Campaigns" buttonText="View More" campaigns={campaigns} onButtonClick={handleCampaignButtonClick} />
       <Footer />
     </div>

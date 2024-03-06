@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap';
 import FormInput from '../common_components/form_input';
 import NavBar from './nav_bar';
 import Footer from './footer';
+import { FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
 
 const ContactUsPage = () => {
     // State to manage form input values
@@ -34,8 +36,24 @@ const ContactUsPage = () => {
             <NavBar />
             <Container className="my-5">
 
-                <Row>
-                    <Col md={{ span: 6, offset: 3 }}>
+                <Row className='d-flex align-items-center'>
+                    <Col md={{ span: 6 }}>
+                        <ListGroup>
+                            <ListGroup.Item className='d-flex border-0'>
+                                <FaMapMarkerAlt className='mt-1 me-2'/> <div>No. 123,<br></br>
+                                Abc Road,<br></br>
+                                Colombo 03 <br></br>
+                                Sri Lanka</div>
+                            </ListGroup.Item>
+                            <ListGroup.Item className='border-0'>
+                                <FaPhone className='me-2'/> +94786357777
+                            </ListGroup.Item>
+                            <ListGroup.Item className='border-0'>
+                                <MdEmail className='me-2'/> wishhealth@gmail.com
+                            </ListGroup.Item>
+                        </ListGroup>
+                    </Col>
+                    <Col md={{ span: 6 }}>
                         <h2>Contact Us</h2>
                         <Form onSubmit={handleSubmit}>
                             <FormInput

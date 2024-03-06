@@ -44,7 +44,6 @@ const PublicHome = () => {
     fetchData();
   }, []);
 
-
   const handleCampaignButtonClick = () => {
     navigate('/');
   };
@@ -58,8 +57,8 @@ const PublicHome = () => {
       <NavBar />
       <Header />
       <StatisticsBar />
-      <HospitalCards title="Registered Hospitals" buttonText="View More" hospitals={hospitals} onButtonClick={handleHospitalButtonClick} />
-      <CampaignCards title="Active Campaigns" buttonText="View More" campaigns={campaigns} onButtonClick={handleCampaignButtonClick} />
+      <HospitalCards title="Registered Hospitals" buttonText="View More" hospitals={hospitals.slice(0, 4)} onButtonClick={handleHospitalButtonClick} />
+      <CampaignCards title="Active Campaigns" buttonText="View More" campaigns={campaigns.slice(0, 4)} onButtonClick={handleCampaignButtonClick} />
       <Footer />
     </div>
   );

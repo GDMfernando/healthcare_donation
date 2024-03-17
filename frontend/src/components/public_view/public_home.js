@@ -8,6 +8,7 @@ import CampaignCards from './campaign_cards';
 import Footer from './footer';
 import { useNavigate } from 'react-router-dom';
 import { callAPI } from '../../utils/help';
+import { Button } from 'react-bootstrap';
 
 const PublicHome = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const PublicHome = () => {
   };
 
   const handleHospitalButtonClick = () => {
-    navigate('/');
+    navigate('/all-hospitals');
   };
 
   return (
@@ -57,7 +58,8 @@ const PublicHome = () => {
       <NavBar />
       <Header />
       <StatisticsBar />
-      <HospitalCards title="Registered Hospitals" buttonText="View More" hospitals={hospitals.slice(0, 4)} onButtonClick={handleHospitalButtonClick} />
+      <HospitalCards title="Registered Hospitals" hospitals={hospitals.slice(0, 4)} />  
+      <Button variant="link" onClick={handleHospitalButtonClick}>View More</Button>
       <CampaignCards title="Active Campaigns" buttonText="View More" campaigns={campaigns.slice(0, 4)} onButtonClick={handleCampaignButtonClick} />
       <Footer />
     </div>

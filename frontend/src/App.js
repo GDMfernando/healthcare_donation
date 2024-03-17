@@ -11,6 +11,7 @@ import HospitalPage from "./components/public_view/hospital_page.js";
 import { callAPI } from "./utils/help.js";
 import AboutPage from './components/public_view/about.js';
 import ContactUsPage from "./components/public_view/contactus.js";
+import AllHospitals from "./components/public_view/all_hospitals.js";
 
 const App = () => {
   const [cookie, _] = useCookies(["access_token"]);
@@ -77,6 +78,7 @@ const App = () => {
             <Route path="/hospital-page" element={<HospitalPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contactus" element={<ContactUsPage />} />
+            <Route path="/all-hospitals" element={<AllHospitals />} />
           </Routes>
         </div>
       </Router>

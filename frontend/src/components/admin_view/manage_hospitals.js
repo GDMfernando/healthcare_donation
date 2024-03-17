@@ -253,7 +253,7 @@ function ManageHospitals(activeTab = null) {
                   <option value="public">Public</option>
                 </Form.Select>
               </Form.Group>
-              <Form.Group as={Col} controlId="formFileEdit">
+              {/* <Form.Group as={Col} controlId="formFileEdit">
                 <Form.Label>Image:</Form.Label>
                 <Form.Control
                   type="file"
@@ -262,7 +262,7 @@ function ManageHospitals(activeTab = null) {
                   value={hospitalData.image}
                   onChange={handleInputChange}
                 />
-              </Form.Group>
+              </Form.Group> */}
             </Row>
 
             <Button

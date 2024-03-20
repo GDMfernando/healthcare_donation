@@ -46,7 +46,7 @@ const PublicHome = () => {
   }, []);
 
   const handleCampaignButtonClick = () => {
-    navigate('/');
+    navigate('/all-campaigns');
   };
 
   const handleHospitalButtonClick = () => {
@@ -58,9 +58,10 @@ const PublicHome = () => {
       <NavBar />
       <Header />
       <StatisticsBar />
-      <HospitalCards title="Registered Hospitals" hospitals={hospitals.slice(0, 4)} />  
+      <HospitalCards title="Registered Hospitals" hospitals={hospitals.slice(0, 4)}/>  
       <Button variant="link" onClick={handleHospitalButtonClick}>View More</Button>
-      <CampaignCards title="Active Campaigns" buttonText="View More" campaigns={campaigns.slice(0, 4)} onButtonClick={handleCampaignButtonClick} />
+      <CampaignCards title="Active Campaigns" campaigns={campaigns.slice(0, 4)} />
+      <Button variant="link" onClick={handleCampaignButtonClick}>View More</Button>
       <Footer />
     </div>
   );

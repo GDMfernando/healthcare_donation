@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Card, Row, Col, Button } from 'react-bootstrap';
 
-function CampaignCards({ title, buttonText, onButtonClick, campaigns }) {
+function CampaignCards({ title, campaigns }) {
   return (
     <Container>
       <div><h2>{title}</h2></div>
@@ -27,7 +27,7 @@ function CampaignCards({ title, buttonText, onButtonClick, campaigns }) {
           </Col>
         ))}
       </Row>
-      <Button variant="link" onClick={onButtonClick}>{buttonText}</Button>
+      
     </Container>
 
   );

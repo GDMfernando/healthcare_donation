@@ -33,6 +33,7 @@ async function hospitalRegister(req, res, next) {
                     email: req.body.email,
                     username: req.body.username,
                     type: req.body.type,
+                    description: req.body.description,
                     image: req.file ? req.file.filename : null
                 };
 
@@ -71,7 +72,9 @@ async function hospitalUpdate(req, res, next) {
                 address: req.body.address,
                 phone_number: req.body.phone_number,
                 email: req.body.email,
-                type: req.body.type
+                type: req.body.type,
+                description: req.body.description,
+
             };
             const hospitalUpdateResp = await hospitalService.updateHospital(
                 hospitalId,

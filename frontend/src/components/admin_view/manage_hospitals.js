@@ -16,6 +16,7 @@ function ManageHospitals(activeTab = null) {
     username: "",
     password: "",
     type: "",
+    description: "",
     image: "",
   });
   const getAll = async () => {
@@ -82,6 +83,7 @@ function ManageHospitals(activeTab = null) {
       username: data.username || "",
       password: data.password || "",
       type: data.type || "",
+      description: data.description || "",
       image: data.image || "",
     });
   };
@@ -135,6 +137,7 @@ function ManageHospitals(activeTab = null) {
           phone_number: hospitalData.phone,
           email: hospitalData.email,
           type: hospitalData.type,
+          description: hospitalData.description,
         }),
       };
 
@@ -264,7 +267,17 @@ function ManageHospitals(activeTab = null) {
                 />
               </Form.Group> */}
             </Row>
-
+            <Form.Group controlId="formGridHospitalDescription" className="mb-3">
+              <Form.Label>Description:</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="description"
+                value={hospitalData.description}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
             <Button
               variant="secondary"
               className="me-2"

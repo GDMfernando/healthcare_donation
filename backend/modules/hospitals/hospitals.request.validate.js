@@ -19,6 +19,7 @@ function validateHospitalRegistration(req) {
         type: Joi.string().required(),
         username: Joi.string().required(),
         password: Joi.string().required().max(16).min(7),
+        description: Joi.string().required(),
         image: Joi.required()
     });
     return validateHttpRequest(data, schema);
@@ -39,6 +40,7 @@ function validateHospitalUpdate(req) {
         email: Joi.string().required().email(),
         type: Joi.string().required(),
         username: Joi.string().required(),
+        description: Joi.string().required(),
         image: Joi.string().required()
     });
     return validateHttpRequest(data, schema);

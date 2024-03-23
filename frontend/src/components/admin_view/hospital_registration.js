@@ -14,6 +14,7 @@ const HospitalRegistration = () => {
     username: "",
     password: "",
     type: "",
+    description: "",
     image: null,
   });
 
@@ -54,6 +55,7 @@ const HospitalRegistration = () => {
       formData.append("username", hospitalData.username);
       formData.append("password", hospitalData.password);
       formData.append("type", hospitalData.type);
+      formData.append("description", hospitalData.description);
       formData.append("image", hospitalData.image);
 
 
@@ -75,6 +77,7 @@ const HospitalRegistration = () => {
           username: "",
           password: "",
           type: "",
+          description: "",
           image: "",
         });
       } else {
@@ -166,6 +169,18 @@ const HospitalRegistration = () => {
             />
           </Form.Group>
         </Row>
+        
+      <Form.Group controlId="formGridHospitalDescription" className="mb-3">
+        <Form.Label>Description:</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={3}
+          name="description"
+          value={hospitalData.description}
+          onChange={handleInputChange}
+          required
+        />
+      </Form.Group>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridType">
             <Form.Label>Hospital Type:</Form.Label>

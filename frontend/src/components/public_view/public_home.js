@@ -8,7 +8,7 @@ import CampaignCards from './campaign_cards';
 import Footer from './footer';
 import { useNavigate } from 'react-router-dom';
 import { callAPI } from '../../utils/help';
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 
 const PublicHome = () => {
   const navigate = useNavigate();
@@ -59,9 +59,9 @@ const PublicHome = () => {
       <Header />
       <StatisticsBar />
       <HospitalCards title="Registered Hospitals" hospitals={hospitals.slice(0, 4)}/>  
-      <Button variant="link" onClick={handleHospitalButtonClick}>View More</Button>
+      <Container><Button className="px-0 mt-2" variant="link" onClick={handleHospitalButtonClick}>View More</Button></Container>
       <CampaignCards title="Active Campaigns" campaigns={campaigns.slice(0, 4)} />
-      <Button variant="link" onClick={handleCampaignButtonClick}>View More</Button>
+      <Container><Button className="px-0 mt-2 mb-5" variant="link" onClick={handleCampaignButtonClick}>View More</Button></Container>
       <Footer />
     </div>
   );

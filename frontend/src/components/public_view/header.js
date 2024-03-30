@@ -23,7 +23,7 @@ const Header = () => {
       <div>
         <h1>Healing Hope for Patients</h1>
         <p>Join WishHealth in Making a Lasting Impact Through Donations.</p>
-        <Button variant="primary" className='primary_btn' onClick={handleHospitalButtonClick}>Donate for a hospital</Button>{' '}
+        <Button variant="primary" className='primary_btn me-2' onClick={handleHospitalButtonClick}>Donate for a hospital</Button>{' '}
         <Button variant="secondary" onClick={handleCampaignButtonClick}>Donate for a patient</Button>
       </div>
     </Col>

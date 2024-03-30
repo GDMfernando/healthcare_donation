@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 
 const FormInput = ({ controlId, label, type, placeholder, name, value, onChange, required }) => {
   return (
-    <Form.Group controlId={controlId}>
+    <Form.Group controlId={controlId} className='mb-3'>
       <Form.Label>{label}</Form.Label>
       <Form.Control
         type={type}

@@ -14,7 +14,7 @@ function Footer() {
 
   return (
     <Card className="text-center">
-      <Card.Body className='row'>
+      <Card.Body className='row p-5'>
         <div className='col-md-4 d-flex flex-column align-items-start'>
           <img
             src="/images/logo.svg"
@@ -46,7 +46,7 @@ function Footer() {
             </Nav.Item>
           </Nav>
         </div>
-        <div className='col-md-4 d-flex align-items-center'>
+        <div className='col-md-4 d-flex '>
           <Card.Text className="text-start">
             <p >
               If you have any questions or inquiries, feel free to reach out to us.

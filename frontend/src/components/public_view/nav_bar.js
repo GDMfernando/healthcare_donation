@@ -31,7 +31,7 @@ function NavBar() {
     <>
       {['md'].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
-          <Container fluid>
+          <Container fluid className='px-5'>
             <Navbar.Brand  as={Link} to="/" onClick={handleLogoClick}><img
                 src="/images/logo.svg"
                 alt="Logo"

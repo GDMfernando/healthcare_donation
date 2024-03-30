@@ -54,7 +54,7 @@ const ContactUsPage = () => {
                         </ListGroup>
                     </Col>
                     <Col md={{ span: 6 }}>
-                        <h2>Contact Us</h2>
+                        <h2 className='mb-5'>Contact Us</h2>
                         <Form onSubmit={handleSubmit}>
                             <FormInput
                                 controlId="formName"

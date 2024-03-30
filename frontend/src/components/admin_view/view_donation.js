@@ -20,7 +20,7 @@ function ViewDonations() {
 
     return (
         <div>
-            <Row>
+            <Row className="mb-4">
               <Col><h2>Donations</h2></Col>  
                 <Form as={Col} className="mb-3">
                     <Form.Group controlId="formSearch">

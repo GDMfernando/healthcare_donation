@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
+import { FaEdit } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 
 function ManageCampaign({ activeTab = null, hospitals }) {
   const [campaigns, setCampaigns] = useState([]);
@@ -267,11 +269,11 @@ function ManageCampaign({ activeTab = null, hospitals }) {
         </div>
       ) : (
         <div>
-          <Row>
+          <Row className="mb-4 align-items-center">
             <Col>
-              <h2>Manage Campaigns</h2>
+              <h2 >Manage Campaigns</h2>
             </Col>
-            <Form as={Col} className="mb-3">
+            <Form as={Col} className="">
               <Form.Group controlId="formSearch">
                 <Form.Control
                   type="text"
@@ -290,7 +292,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
                 <th>Patient</th>
                 <th>Target</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th className="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -301,19 +303,20 @@ function ManageCampaign({ activeTab = null, hospitals }) {
                   <td>{campaign.patient_name}</td>
                   <td>{campaign.target}</td>
                   <td>{campaign.status === "ACT" ? "Active" : "Inactive"}</td>
-                  <td>
+                  <td className="d-flex justify-content-center">
                     <Button
-                    className="me-2"
-                      variant="secondary"
+                    className="me-2 d-flex p-0 action-buttons"
+                      variant="outline"
                       onClick={() => handleEdit(campaign)}
                     >
-                      Edit
+                     <FaEdit  className="faEdit"/>
                     </Button>
                     <Button
-                      variant="danger"
+                     className="d-flex p-0 action-buttons"
+                      variant="outline"
                       onClick={() => handleDelete(campaign.id)}
                     >
-                      Delete
+                       <FaTrash className="faTrash"/>
                     </Button>{" "}
                   </td>
                 </tr>

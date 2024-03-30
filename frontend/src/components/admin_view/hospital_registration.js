@@ -90,7 +90,7 @@ const HospitalRegistration = () => {
 
   return (
     <div>
-      <h2>Hospital Registration</h2>
+      <h2 className="mb-4">Hospital Registration</h2>
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridName">

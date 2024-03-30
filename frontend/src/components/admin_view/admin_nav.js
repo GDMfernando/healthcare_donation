@@ -11,7 +11,7 @@ function AdminNav() {
     return ( 
       <div>
         {['md'].map((expand) => (
-          <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
+          <Navbar key={expand} expand={expand} className="bg-body-tertiary">
             <Container fluid>
               <Navbar.Brand as={Link} to="/admin-dashboard" onClick={handleLogoClick}><img
                 src="/images/logo.svg"

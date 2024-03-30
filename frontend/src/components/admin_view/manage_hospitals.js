@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
+import { FaEdit } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 
 function ManageHospitals(activeTab = null) {
   const [hospitals, setHospitals] = useState([]);
@@ -293,11 +295,11 @@ function ManageHospitals(activeTab = null) {
         </div>
       ) : (
         <div>
-          <Row>
+          <Row className="mb-4 align-items-center">
             <Col>
               <h2>Manage Hospitals</h2>
             </Col>
-            <Form as={Col} className="mb-3">
+            <Form as={Col} >
               <Form.Group controlId="formSearch">
                 <Form.Control
                   type="text"
@@ -316,7 +318,7 @@ function ManageHospitals(activeTab = null) {
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Type</th>
-                <th>Actions</th>
+                <th className="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -327,19 +329,20 @@ function ManageHospitals(activeTab = null) {
                   <td>{hospital.phone_number}</td>
                   <td>{hospital.email}</td>
                   <td>{hospital.type}</td>
-                  <td>
+                  <td className="d-flex justify-content-center">
                     <Button
-                      variant="secondary"
-                      className="me-2"
+                      variant="outline"
+                      className="me-2 d-flex p-0 action-buttons"
                       onClick={() => handleEdit(hospital)}
                     >
-                      Edit
+                     <FaEdit  className="faEdit"/>
                     </Button>
                     <Button
-                      variant="danger"
+                    className="d-flex p-0 action-buttons"
+                      variant="outline"
                       onClick={() => handleDelete(hospital.id)}
                     >
-                      Delete
+                     <FaTrash className="faTrash"/>
                     </Button>{" "}
                   </td>
                 </tr>

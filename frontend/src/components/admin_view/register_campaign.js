@@ -87,8 +87,8 @@ function RegisterCampaigne(hospitals) {
   };
 
   return (
-    <Container>
-      <h2>Register Campaign</h2>
+    <Container className="p-0">
+      <h2 className="mb-4">Register Campaign</h2>
       <CampaignForm
         onSubmit={handleSubmit}
         campaignData={campaignData}

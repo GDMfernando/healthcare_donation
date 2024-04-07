@@ -63,6 +63,25 @@ body{
     }
 }
 
+.main-dashboard-card{
+    background-color: #a98eda;
+    color: #fff;
+    border: none;
+}
+
+.main-dashboard-cardicon{
+    width: 28px;
+    height: 28px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.main-dashboard-cardtitle{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
 /* Home styles */
 
 .statistic_bar {
@@ -104,4 +123,38 @@ body{
 
 .viewmore-btn{
     color: #6f42c1;
+}
+
+.hospital-page-box{
+    width: 100%;
+  justify-content: center;
+  display: flex;
+
+  .align-items-center{
+    width: 100%;
+  }
+
+  .hospital-page-formbox{
+padding: 24px;
+background-color: #eee;
+border-radius: 8px;
+
+.nav-link{
+    color: #fff;
+    background-color: #6f42c1;
+    font-weight: 600;
+  }
+
+  .nav-tabs .nav-link.active{
+    color: #59359a;
+    font-weight: 600;
+    background-color: #fff;
+      }
+  }
+}
+
+.donationForm-box{
+    background-color: #fff;
+    border: 0.8px solid rgb(222, 226, 230);
+    border-top: 0px;
 }

@@ -4,6 +4,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
+import { FaDonate,  FaChartLine, FaHospital, FaHospitalUser , FaRegCalendarCheck } from "react-icons/fa";
+
 
 function MainDashboard() {
   const [cookie, _] = useCookies(["access_token"]);
@@ -61,17 +63,21 @@ function MainDashboard() {
     getAdminDashData();
   }, []);
 
+  const icons = [FaDonate, FaChartLine , FaHospital, FaHospitalUser, FaRegCalendarCheck];
+
   return (
     <div className="card-container">
       <Row>
         {cardsData.map((card, index) => (
-          <Col key={index} md={4} style={{ marginBottom: "15px" }}>
-            <Card style={{ width: "18rem" }}>
-              <Card.Body>
-                <Card.Title>{card.title}</Card.Title>
-                <Card.Subtitle className="mt-2 text-muted">
+          <Col key={index} md={4} style={{ marginBottom: "24px" }}>
+            <Card className="main-dashboard-card shadow">
+              <Card.Body className="d-flex align-items-center">
+                <div className="main-dashboard-cardicon"> {React.createElement(icons[index], { size: "2x" })}</div>
+                <div> <Card.Title className="main-dashboard-cardtitle">{card.title}</Card.Title>
+                <Card.Subtitle className="mt-2">
                   {card.subtitle}
-                </Card.Subtitle>
+                </Card.Subtitle></div>
+               
               </Card.Body>
             </Card>
           </Col>

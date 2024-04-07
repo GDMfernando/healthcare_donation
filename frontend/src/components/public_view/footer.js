@@ -1,7 +1,7 @@
 import { Card, Nav } from 'react-bootstrap';
 import React from 'react';
 import '../../styles/main.scss';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Footer() {
   const navigate = useNavigate();
@@ -36,10 +36,10 @@ function Footer() {
               <Nav.Link onClick={handleContactClick}>Contact Us</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/services">ServicesSuccessful Campaigns</Nav.Link>
+              <Nav.Link href="/services">Successful Campaigns</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/contact">Campaigns</Nav.Link>
+              <Nav.Link href="/all-campaigns">Campaigns</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link href="/contact">Privacy Policy</Nav.Link>
@@ -52,11 +52,14 @@ function Footer() {
               If you have any questions or inquiries, feel free to reach out to us.
             </p>
             <p >
-              <strong>Address:</strong> 1234 Main Street, Cityville, State, 12345 <br></br>
-              <strong>Phone:</strong> (555) 123-4567 <br></br>
-              <strong>Email:</strong> info@example.com
+              <strong>Address:</strong> No. 123,
+              Abc Road,
+              Colombo 03
+              Sri Lanka <br></br>
+              <strong>Phone:</strong> +94786357777 <br></br>
+              <strong>Email:</strong> wishhealth@gmail.com
             </p>
-         
+
           </Card.Text>
 
         </div>

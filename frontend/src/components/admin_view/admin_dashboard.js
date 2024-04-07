@@ -59,19 +59,19 @@ function AdminDashboard() {
           <Col sm={3} className="dashboard_sidebar">
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
-                <Nav.Link eventKey="1">Register Hospital</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="1">Register Hospital</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="2">Manage Hospitals</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="2">Manage Hospitals</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="3">Register Campaign</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="3">Register Campaign</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="4">Manage Campaigns</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="4">Manage Campaigns</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="5">View Donations</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="5">View Donations</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>

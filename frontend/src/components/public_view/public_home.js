@@ -1,3 +1,4 @@
+// PublicHome.js
 import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './nav_bar'
@@ -12,7 +13,6 @@ import { Button, Container } from 'react-bootstrap';
 
 const PublicHome = () => {
   const navigate = useNavigate();
-
   const [hospitals, setHospitals] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
 
@@ -32,7 +32,6 @@ const PublicHome = () => {
           if (hospitalData.results) {
             setHospitals(hospitalData.results);
           }
-
           setCampaigns(campaignData.results);
         } else {
           console.log('Error fetching data');
@@ -41,7 +40,6 @@ const PublicHome = () => {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -53,12 +51,16 @@ const PublicHome = () => {
     navigate('/all-hospitals');
   };
 
+  const handleDonateButtonClick = () => {
+    navigate(`/hospital-page`);
+  };
+  
   return (
     <div className='overflow-x-hidden'>
       <NavBar />
       <Header />
       <StatisticsBar />
-      <HospitalCards title="Registered Hospitals" hospitals={hospitals.slice(0, 4)}/>  
+      <HospitalCards title="Registered Hospitals" hospitals={hospitals.slice(0, 4)} onDonateButtonClick={handleDonateButtonClick}/>  
       <Container><Button className="px-0 mt-2 viewmore-btn" variant="link" onClick={handleHospitalButtonClick}>View More</Button></Container>
       <CampaignCards title="Active Campaigns" campaigns={campaigns.slice(0, 4)} />
       <Container><Button className="px-0 mt-2 mb-5 viewmore-btn" variant="link" onClick={handleCampaignButtonClick}>View More</Button></Container>

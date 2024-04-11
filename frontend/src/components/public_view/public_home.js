@@ -51,8 +51,38 @@ const PublicHome = () => {
     navigate('/all-hospitals');
   };
 
-  const handleDonateButtonClick = () => {
-    navigate(`/hospital-page`);
+  const handleDonateButtonClick = async (hospitalId) => {
+    try {
+      console.log(hospitalId)
+      const response = await callAPI(`hospital/public/get/${hospitalId}`, 'GET');
+      if (response.ok) {
+        const hospitalData = await response.json();
+        console.log(hospitalData)
+        // const hospitalName = hospitalData.name;
+        // navigate(`/hospital-page/${hospitalId}`);
+        navigate(`/hospital-page/${hospitalId}`, { state: { hospitalData } });
+      } else {
+        console.error('Failed to fetch hospital data');
+      }
+    } catch (error) {
+      console.error('Error fetching hospital data:', error);
+    }
+  };
+
+  const handleDonateCampaignButton = async (campaignId) => {
+    try {
+      console.log(campaignId)
+      const response = await callAPI(`campaign/public/get/${campaignId}`, 'GET');
+      if (response.ok) {
+        const campaignData = await response.json();
+        console.log(campaignData)
+        navigate(`/campaign-page/${campaignId}`, { state: { campaignData } });
+      } else {
+        console.error('Failed to fetch campaign data');
+      }
+    } catch (error) {
+      console.error('Error fetching campaign data:', error);
+    }
   };
   
   return (
@@ -62,7 +92,7 @@ const PublicHome = () => {
       <StatisticsBar />
       <HospitalCards title="Registered Hospitals" hospitals={hospitals.slice(0, 4)} onDonateButtonClick={handleDonateButtonClick}/>  
       <Container><Button className="px-0 mt-2 viewmore-btn" variant="link" onClick={handleHospitalButtonClick}>View More</Button></Container>
-      <CampaignCards title="Active Campaigns" campaigns={campaigns.slice(0, 4)} />
+      <CampaignCards title="Active Campaigns" campaigns={campaigns.slice(0, 4)} onDonateButtonClick={handleDonateCampaignButton}/>
       <Container><Button className="px-0 mt-2 mb-5 viewmore-btn" variant="link" onClick={handleCampaignButtonClick}>View More</Button></Container>
       <Footer />
     </div>

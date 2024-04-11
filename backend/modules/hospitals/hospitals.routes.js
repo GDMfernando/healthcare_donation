@@ -5,6 +5,7 @@ const hospitalController = require('./hospitals.controller');
 const { upload } = require('../../config/constant.js');
 
 router.get('/public/all', hospitalController.getAllHospitals);
+router.get('/public/get/:id', hospitalController.getHospitalById);
 module.exports = (app) => {
     router.post(
         '/register',

@@ -5,7 +5,7 @@ const campaignController = require('./campaign.controller.js');
 const {upload} = require('../../config/constant.js');
 
 router.get('/public/all', campaignController.getAllCampaigns);
-
+router.get('/public/get/:id', campaignController.getCampaignById);
 module.exports = (app) => {
     router.post('/register', upload.single('image'), campaignController.campaignRegister);
     router.post('/update/:id', campaignController.campaignUpdate);

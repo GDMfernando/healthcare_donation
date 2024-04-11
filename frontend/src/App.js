@@ -13,6 +13,7 @@ import AboutPage from './components/public_view/about.js';
 import ContactUsPage from "./components/public_view/contactus.js";
 import AllHospitals from "./components/public_view/all_hospitals.js";
 import AllCampaigns from "./components/public_view/all_campaigns.js";
+import CampaignPage from "./components/public_view/campaign_page.js";
 
 const App = () => {
   const [cookie, _] = useCookies(["access_token"]);
@@ -81,6 +82,8 @@ const App = () => {
             <Route path="/contactus" element={<ContactUsPage />} />
             <Route path="/all-hospitals" element={<AllHospitals />} />
             <Route path="/all-campaigns" element={<AllCampaigns />} />
+            <Route path="/hospital-page/:hospitalId" element={<HospitalPage />} />
+            <Route path="/campaign-page/:campaignId" element={<CampaignPage />} />
           </Routes>
         </div>
       </Router>

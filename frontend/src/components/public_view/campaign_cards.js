@@ -1,7 +1,10 @@
 import React from 'react';
 import { Container, Card, Row, Col, Button } from 'react-bootstrap';
 
-function CampaignCards({ title, campaigns }) {
+function CampaignCards({ title, campaigns,  onDonateButtonClick}) {
+  const handleDonateCampaignButton = (campaignId) => {
+    onDonateButtonClick(campaignId);
+  };
   return (
     <Container>
       <div className='mt-5 mb-5'><h2>{title}</h2></div>
@@ -21,7 +24,7 @@ function CampaignCards({ title, campaigns }) {
                 <Card.Text>Raised: 
                   {campaigns.raised}
                 </Card.Text>
-                <Button variant="primary" className="primary_btn">Donate</Button>
+                <Button variant="primary" className="primary_btn" onClick={() => handleDonateCampaignButton(campaigns.id)}>Donate</Button>
               </Card.Body>
             </Card>
           </Col>

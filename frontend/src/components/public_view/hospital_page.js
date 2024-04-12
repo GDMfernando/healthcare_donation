@@ -4,10 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './nav_bar';
 import Footer from './footer';
 import { Tab, Tabs, Row, Col, Image } from 'react-bootstrap';
-import DonationForm from '../common_components/donation_form';
+import DonationFormLocal from '../common_components/donation_form_local';
 import { useParams } from 'react-router-dom';
 import { callAPI } from '../../utils/help';
 import { useLocation } from 'react-router-dom';
+import DonationFormInternational from '../common_components/donation_form_inter';
 
 const HospitalPage = () => {
   const { hospitalId } = useParams();
@@ -53,10 +54,10 @@ const HospitalPage = () => {
                 justify
               >
                 <Tab eventKey="Local" title="Local">
-                  <DonationForm />
+                  <DonationFormLocal />
                 </Tab>
                 <Tab eventKey="International" title="International">
-                <DonationForm />
+                  <DonationFormInternational></DonationFormInternational>
                 </Tab>
               </Tabs>
             </div>

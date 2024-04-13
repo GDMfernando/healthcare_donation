@@ -1,4 +1,4 @@
-body{
+body {
     width: 100vw;
     box-sizing: border-box;
     height: 100%;
@@ -41,35 +41,35 @@ body{
         color: #6f42c1;
     }
 
-    .nav-link.active{
+    .nav-link.active {
         background-color: #6f42c1;
     }
 }
 
-.admin-dashboard{
+.admin-dashboard {
     width: 100%;
     height: 100vh;
 }
 
-.action-buttons{
+.action-buttons {
     padding: 4px !important;
 
-    .faEdit{
+    .faEdit {
         color: #a98eda;
     }
 
-    .faTrash{
+    .faTrash {
         color: #d57979;
     }
 }
 
-.main-dashboard-card{
+.main-dashboard-card {
     background-color: #a98eda;
     color: #fff;
     border: none;
 }
 
-.main-dashboard-cardicon{
+.main-dashboard-cardicon {
     width: 28px;
     height: 28px;
     margin-right: 20px;
@@ -77,21 +77,33 @@ body{
     align-items: center;
 }
 
-.main-dashboard-cardtitle{
+.main-dashboard-cardtitle {
     font-size: 2rem;
     font-weight: 600;
 }
 
 /* Home styles */
 
-.navbar-nav{
-    a{
-        &:hover{
+.navbar-nav {
+    a {
+        &:hover {
             color: #6f42c1;
             text-decoration: underline;
         }
 
-        &:active{
+        &:active {
+            color: #6f42c1;
+            text-decoration: underline;
+        }
+    }
+
+    #nav-dropdown {
+        &:hover {
+            color: #6f42c1;
+            text-decoration: underline;
+        }
+
+        &:active {
             color: #6f42c1;
             text-decoration: underline;
         }
@@ -113,93 +125,101 @@ body{
     }
 }
 
-.public-card-image{
+.public-card-image {
     height: 200px;
     object-fit: cover;
 }
 
-.about-vision{
+.about-vision {
     background-color: #a98eda;
     color: #fff;
     text-align: center;
     padding: 32px;
 }
 
-.about-aboveFooter{
+.about-aboveFooter {
     text-align: center;
     background-color: #F2F2F2;
     padding: 32px;
 
-    p{
+    p {
         padding: 0 32px;
     }
 }
 
-.viewmore-btn{
+.viewmore-btn {
     color: rgb(33, 37, 41);
 
-    &:hover{
+    &:hover {
         color: #6f42c1;
     }
 
-    &:active{
+    &:active {
         color: #6f42c1 !important;
     }
 }
 
-.hospital-page-box{
+.hospital-page-box {
     width: 100%;
-  justify-content: center;
-  display: flex;
+    justify-content: center;
+    display: flex;
 
-  .align-items-center{
-    width: 100%;
-  }
+    .align-items-center {
+        width: 100%;
+    }
 
-  .hospital-page-formbox{
-padding: 24px;
-background-color: #eee;
-border-radius: 8px;
+    .hospital-page-formbox {
+        padding: 24px;
+        background-color: #eee;
+        border-radius: 8px;
 
-.nav-link{
-    color: #fff;
-    background-color: #6f42c1;
-    font-weight: 600;
-  }
+        .nav-link {
+            color: #fff;
+            background-color: #6f42c1;
+            font-weight: 600;
+        }
 
-  .nav-tabs .nav-link.active{
-    color: #59359a;
-    font-weight: 600;
-    background-color: #fff;
-      }
-  }
+        .nav-tabs .nav-link.active {
+            color: #59359a;
+            font-weight: 600;
+            background-color: #fff;
+        }
+    }
 }
 
-.donationForm-box{
+.donationForm-box {
     background-color: #fff;
     border: 0.8px solid rgb(222, 226, 230);
     border-top: 0px;
 }
 
-.pagination-wrapper{
- a{
-    color: #6c757d;
+.pagination-wrapper {
+    a {
+        color: #6c757d;
 
-    &:focus{
-        color: rgb(33, 37, 41);
-        box-shadow: rgba(87, 87, 87, 0.251) 0px 0px 0px 4px;
+        &:focus {
+            color: rgb(33, 37, 41);
+            box-shadow: rgba(87, 87, 87, 0.251) 0px 0px 0px 4px;
+        }
+
+        &:hover {
+            color: rgb(33, 37, 41);
+        }
     }
 
-    &:hover{
-        color: rgb(33, 37, 41);
+    .active {
+        .page-link {
+            background-color: #5c636a;
+            border-color: #5c636a;
+        }
     }
- }
+}
 
- .active{
-    .page-link{
-background-color: #5c636a;
-border-color: #5c636a;
+.home_nav {
+    .dropdown-menu {
+        min-width: 200px;
+        max-height: 550px;
+        overflow-x: auto;
+
     }
- }
-
 }

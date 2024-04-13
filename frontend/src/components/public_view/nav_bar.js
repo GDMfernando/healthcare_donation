@@ -95,7 +95,7 @@ function NavBar() {
                     <Form.Control
                       type="search"
                       placeholder="Search Hospitals"
-                      className="me-2"
+                      className="mx-2"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />

@@ -42,7 +42,7 @@ const DonationFormInternational = ({ onSubmit }) => {
         type={"email"}
         placeholder={"Enter email"}
         value={email}
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         required
       ></FormInput>
 
@@ -68,7 +68,7 @@ const DonationFormInternational = ({ onSubmit }) => {
         ))}
       </Form>
       <Button variant="primary" className='primary_btn mt-3' type="submit">
-        Submit
+        Next
       </Button>
     </Form>
   );

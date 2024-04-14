@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './nav_bar';
 import Footer from './footer';
-import { Tab, Tabs, Row, Col, Image } from 'react-bootstrap';
+import { Tab, Tabs, Row, Col, Image, Container } from 'react-bootstrap';
 import DonationFormLocal from '../common_components/donation_form_local';
 import { useParams } from 'react-router-dom';
 import { callAPI } from '../../utils/help';
@@ -33,36 +33,38 @@ const CampaignPage = () => {
 
   return (
     <div>
-      <h1>{campaignData.name}</h1>
       <NavBar />
-      <div className='hospital-page-box'>
-        <Row className="align-items-center p-4">
-          <Col xs={12} md={6}>
-            <Image
-              src="./images/hand-cupping-stethoscope-health-conce.jpg"
-              alt="Header Image"
-              fluid
-            />
-          </Col>
-          <Col xs={12} md={6} >
-            <div className='hospital-page-formbox'>
-              <h2 className='mb-4'>Donate to {campaignData.results.name}</h2>
-              <Tabs
-                defaultActiveKey="Local"
-                id="justify-tab-example"
-                justify
-              >
-                <Tab eventKey="Local" title="Local">
-                  <DonationFormLocal />
-                </Tab>
-                <Tab eventKey="International" title="International">
-                  <DonationFormInternational></DonationFormInternational>
-                </Tab>
-              </Tabs>
-            </div>
-          </Col>
-        </Row>
-      </div>
+      <Container className='p-0'>
+        <div className='hospital-page-box'>
+          <Row className="col-md-12 p-4">
+            <Col xs={12} md={6}>
+              <h1>{campaignData.results.name}</h1>
+              <Image className='public-card-image' src={`http://localhost:5000/uploads/${campaignData.results.image}`}></Image>
+              <p>{campaignData.results.hospital_name}</p>
+              <p>{campaignData.results.target}</p>
+              <p>{campaignData.results.description}</p>
+            </Col>
+            <Col xs={12} md={6} >
+              <div className='hospital-page-formbox'>
+                <h3 className='mb-4'>Donate to {campaignData.results.name}</h3>
+                <Tabs
+                  defaultActiveKey="Local"
+                  id="justify-tab-example"
+                  justify
+                >
+                  <Tab eventKey="Local" title="Local">
+                    <DonationFormLocal />
+                  </Tab>
+                  <Tab eventKey="International" title="International">
+                    <DonationFormInternational></DonationFormInternational>
+                  </Tab>
+                </Tabs>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </Container>
+
       <Footer />
     </div>
   );

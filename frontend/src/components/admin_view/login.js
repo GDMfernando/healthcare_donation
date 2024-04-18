@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     //admin login interface component
-    <Container className="mt-3">
+    <Container className="admin_login-wrapper">
       <Row className="align-items-center">
         <Col xs={12} md={6}>
           {/* Image on the right */}

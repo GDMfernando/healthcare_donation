@@ -33,6 +33,26 @@ body {
 
 /* Admin styles */
 
+.admin_login-wrapper {
+    height: 100vh;
+    display: flex;
+}
+
+.admin-profile-dropdown{
+    .dropdown-toggle{
+        background-color: transparent !important;
+        border: none;
+        color: #6c757d;
+
+        &:focus{
+            color: #6c757d;
+        }
+    }
+    .dropdown-toggle::after{
+        border: none;
+    }
+}
+
 .dashboard_sidebar {
     background-color: #eee;
     padding-right: 0;
@@ -86,18 +106,6 @@ body {
 
 .navbar-nav {
     a {
-        &:hover {
-            color: #6f42c1;
-            text-decoration: underline;
-        }
-
-        &:active {
-            color: #6f42c1;
-            text-decoration: underline;
-        }
-    }
-
-    #nav-dropdown {
         &:hover {
             color: #6f42c1;
             text-decoration: underline;
@@ -213,13 +221,22 @@ body {
             border-color: #5c636a;
         }
     }
+
 }
 
-.home_nav {
-    .dropdown-menu {
-        min-width: 200px;
-        max-height: 550px;
-        overflow-x: auto;
+.campaign-page-img{
+object-fit: cover;
+width: 100%;
+height: 400px;
+margin-top: 16px;
+}
 
-    }
+.donation-page-subheadings{
+font-size: 14px;
+font-weight: 600;
+color: #6c757d;
+}
+
+.donation-target{
+    font-size: 20px;
 }

@@ -3,7 +3,7 @@ import { Navbar, Container, Nav, Offcanvas, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaUser } from "react-icons/fa";
 
-function AdminNav() {
+function HospitalAdminNav() {
 
   const handleLogoClick = () => {
     window.location.reload();
@@ -41,8 +41,7 @@ function AdminNav() {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu align="end">
-                    <Dropdown.Item href="/admin">Log out</Dropdown.Item>
-                    <Dropdown.Item href="/hospital">Login to hospital</Dropdown.Item>
+                    <Dropdown.Item href="/hospital">Log out</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 </Nav>
@@ -55,4 +54,4 @@ function AdminNav() {
   );
 }
 
-export default AdminNav;
+export default  HospitalAdminNav;

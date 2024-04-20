@@ -16,7 +16,7 @@ const AboutPage = () => {
         <Row>
           <Col xs={12} md={6}>
             {/* Image on the right */}
-            <Image src="./images/close-up-people-volunteer-teamwork-join-hands-togetherstack-handsunity-teamwork-volunteering-conceptual.png" alt="Header Image" fluid />
+            <Image className='aboutUs-img' src="./images/close-up-people-volunteer-teamwork-join-hands-togetherstack-handsunity-teamwork-volunteering-conceptual.png" alt="Header Image" fluid />
           </Col>
           <Col xs={12} md={6} className="d-flex align-items-center">
             {/* Content and buttons on the left */}
@@ -30,14 +30,17 @@ const AboutPage = () => {
         </Row>
       </Container>
       <div className='about-vision'>
-        <h3 className='mb-4'>Our Vision</h3>
-        <p>
-          WishHealth envisions a future where every individual has access to the healthcare they deserve. <br></br> We strive to create a transparent and efficient donation platform that empowers communities, fosters compassion,<br></br> and makes a lasting impact on the health and well-being of Sri Lankans.
-        </p>
+        <Container>
+          <h3 className='mb-4'>Our Vision</h3>
+          <p>
+            WishHealth envisions a future where every individual has access to the healthcare they deserve. We strive to create a transparent and efficient donation platform that empowers communities, fosters compassion, and makes a lasting impact on the health and well-being of Sri Lankans.
+          </p>
+        </Container>
+
       </div>
-      <Container className="my-5">
+      <Container className="my-5 aboutUs-list">
         <Row>
-          <Col xs={12} md={6} className='pe-5'>
+          <Col xs={12} md={6} className='pe-5 about-whatsets'>
             <h3 className='mb-4'>What Sets Us Apart</h3>
             <ul>
               <li><strong>Focus on Healthcare:</strong> Unlike general donation platforms, WishHealth is exclusively dedicated to the healthcare sector. We understand the unique challenges faced by hospitals and patients, and our platform is tailored to meet these specific needs.</li>
@@ -46,7 +49,7 @@ const AboutPage = () => {
               <li><strong>User-Friendly Experience:</strong> Our web-based application is designed to be user-friendly, ensuring a seamless experience for both donors and healthcare providers. From secure payment gateways to responsive design, we've considered every detail for your convenience.</li>
             </ul>
           </Col>
-          <Col xs={12} md={6} className='ps-5'>
+          <Col xs={12} md={6} className='ps-5 about-howWorks'>
             <h3 className='mb-4'>How WishHealth Works</h3>
             <ol>
               <li><strong>Discover Causes:</strong> Explore ongoing fundraising campaigns for individual patients and hospitals. Learn about the healthcare needs and the impact your donation can make.</li>

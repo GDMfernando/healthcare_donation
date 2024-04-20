@@ -37,7 +37,7 @@ const ContactUsPage = () => {
             <Container className="my-5">
 
                 <Row className='d-flex align-items-center'>
-                    <Col md={{ span: 6 }}>
+                    <Col md={{ span: 6 }} className='conatactUs-address'>
                         <ListGroup>
                             <ListGroup.Item className='d-flex border-0'>
                                 <FaMapMarkerAlt className='mt-1 me-2'/> <div>No. 123,<br></br>

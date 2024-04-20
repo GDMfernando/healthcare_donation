@@ -3,7 +3,9 @@ import { Table, Button, Form, Row, Col } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
 import { FaEdit } from 'react-icons/fa';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaFilePdf } from 'react-icons/fa';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 function ManageCampaign({ activeTab = null, hospitals }) {
   const [campaigns, setCampaigns] = useState([]);
@@ -172,6 +174,25 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     }
   };
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    const tableColumn = ["Hospital", "Campaign", "Patient", "Target", "Status"];
+    const tableRows = campaigns.map((campaign) => [
+      campaign.hospital_name,
+      campaign.name,
+      campaign.patient_name,
+      campaign.target,
+      campaign.status === "ACT" ? "Active" : "Inactive",
+    ]);
+
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+    });
+
+    doc.save("campaigns.pdf");
+  };
+
   return (
     <div>
       {editCampaigns !== null ? (
@@ -273,14 +294,18 @@ function ManageCampaign({ activeTab = null, hospitals }) {
             <Col>
               <h2 >Manage Campaigns</h2>
             </Col>
-            <Form as={Col} className="">
-              <Form.Group controlId="formSearch">
+            <Form as={Col} className="d-flex justify-content-end">
+              <Form.Group controlId="formSearch" className="col-7">
                 <Form.Control
                   type="text"
                   placeholder="Search campaign"
                   onChange={handleSearch}
                 />
               </Form.Group>
+              <Button className="d-flex align-items-center ms-2" variant="outline-primary" onClick={generatePDF}>
+                <FaFilePdf className="me-1"></FaFilePdf> 
+                <p className="m-0">PDF</p>
+              </Button>
             </Form>
           </Row>
 

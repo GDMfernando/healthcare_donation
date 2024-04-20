@@ -129,8 +129,8 @@ const HospitalEditProfile = () => {
           </Form.Group>
         </Row>
 
-        <Button variant="primary" type="submit">
-          Update Profile
+        <Button variant="primary" className='primary_btn' type="submit">
+          Update
         </Button>
       </Form>
     </Container>

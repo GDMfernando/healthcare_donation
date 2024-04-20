@@ -13,9 +13,9 @@ function Footer() {
   };
 
   return (
-    <Card className="text-center">
+    <Card className=" footer">
       <Card.Body className='row p-5'>
-        <div className='col-md-4 d-flex flex-column align-items-start'>
+        <div className='col-md-4 d-flex flex-column '>
           <img
             src="/images/logo.svg"
             alt="Logo"
@@ -28,7 +28,7 @@ function Footer() {
         </div>
 
         <div className='col-md-4'>
-          <Nav defaultActiveKey="/home" className="flex-column  align-items-start footer_nav">
+          <Nav defaultActiveKey="/home" className="flex-column  footer_nav">
             <Nav.Item>
               <Nav.Link onClick={handleAboutClick}>About</Nav.Link>
             </Nav.Item>
@@ -46,8 +46,8 @@ function Footer() {
             </Nav.Item>
           </Nav>
         </div>
-        <div className='col-md-4 d-flex '>
-          <Card.Text className="text-start">
+        <div className='col-md-4'>
+          <Card.Text >
             <p >
               If you have any questions or inquiries, feel free to reach out to us.
             </p>
@@ -64,7 +64,7 @@ function Footer() {
 
         </div>
       </Card.Body>
-      <Card.Footer className="text-muted">&copy; 2024  WishHealth</Card.Footer>
+      <Card.Footer className="text-muted text-center">&copy; 2024  WishHealth</Card.Footer>
     </Card>
   );
 }

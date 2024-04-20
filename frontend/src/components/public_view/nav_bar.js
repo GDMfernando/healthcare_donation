@@ -70,7 +70,7 @@ function NavBar() {
 
   return (
     <>
-      <Navbar expand="md" className="bg-body-tertiary mb-3">
+      <Navbar expand="md" className="bg-body-tertiary mb-3 navBar">
         <Container fluid className="px-5">
           <Navbar.Brand as={Link} to="/" onClick={handleLogoClick}>
             <img

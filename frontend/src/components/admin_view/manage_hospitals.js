@@ -3,7 +3,7 @@ import { Table, Button, Form, Row, Col } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
 import { FaEdit } from 'react-icons/fa';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaFilePdf } from 'react-icons/fa';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -329,16 +329,17 @@ function ManageHospitals(activeTab = null) {
             <Col>
               <h2>Manage Hospitals</h2>
             </Col>
-            <Form as={Col} >
-              <Form.Group controlId="formSearch">
+            <Form as={Col} className="d-flex justify-content-end">
+              <Form.Group controlId="formSearch" className="col-7">
                 <Form.Control
                   type="text"
                   placeholder="Search by name, address, or type"
                   onChange={handleSearch}
                 />
               </Form.Group>
-              <Button variant="primary" onClick={generatePDF}>
-                Generate PDF
+              <Button className="d-flex align-items-center ms-2" variant="outline-primary" onClick={generatePDF}>
+                <FaFilePdf className="me-1"></FaFilePdf> 
+                <p className="m-0">PDF</p>
               </Button>
             </Form>
           </Row>

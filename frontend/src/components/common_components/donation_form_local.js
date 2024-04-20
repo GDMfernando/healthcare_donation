@@ -1,34 +1,93 @@
-import React, { useState } from 'react';
-import { Form, Button, InputGroup } from 'react-bootstrap';
-import FormInput from './form_input';
-import FormInputWithText from './form_input-withtext';
+import React, { useEffect, useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import FormInput from "./form_input";
+import FormInputWithText from "./form_input-withtext";
+import { callAPI } from "../../utils/help";
 
-const DonationFormLocal = ({ onSubmit }) => {
-  const [donationAmount, setDonationAmount] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+const DonationFormLocal = ({ onSubmit, donationDetails }) => {
+  const [donationAmount, setDonationAmount] = useState(
+    donationDetails?.donationAmount ?? ""
+  );
+  const [name, setName] = useState(donationDetails?.name ?? "");
+  const [email, setEmail] = useState(donationDetails?.email ?? "");
+  const [message, setMessage] = useState(donationDetails?.message ?? "");
+  const [clientSecret, setClientSecret] = useState("");
+  const [isUpdating, setIsUpdating] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ donationAmount, name, email, message });
-    // Clear form fields after submission
-    setDonationAmount('');
-    setName('');
-    setEmail('');
-    setMessage('');
+  const getPaymentIntent = async () => {
+    try {
+      const fetchOptions = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: parseFloat(donationAmount) * 100,
+          currency: "usd",
+        }),
+      };
+      const res = await callAPI("payment/intents", "POST", fetchOptions);
+      const data = await res.json();
+      if (data.paymentIntent) {
+        setClientSecret(data.paymentIntent);
+        setIsUpdating(true);
+      }
+    } catch (e) {
+      console.log("Error getting payment intent");
+      console.log(e);
+    }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await getPaymentIntent();
+    console.log("DonationFormLocal handleSubmit", clientSecret);
+  };
+
+  const clearForm = () => {
+    setDonationAmount("");
+    setName("");
+    setEmail("");
+    setMessage("");
+    setClientSecret("");
+    setIsUpdating(false);
+  };
+
+  useEffect(() => {
+    if (isUpdating && donationAmount && name && email) {
+      onSubmit({
+        donationAmount,
+        name,
+        email,
+        message,
+        type: "local",
+        clientSecret,
+      });
+      clearForm();
+    }
+  }, [
+    donationAmount,
+    name,
+    email,
+    message,
+    onSubmit,
+    isUpdating,
+    clientSecret,
+  ]);
+
   return (
-    <Form onSubmit={handleSubmit} className='p-3 donationForm-box'>
-      <FormInputWithText controlId={"formDonationAmount"} label={"Donation Amount"} text={"LKR"}
-      placeholder={"Enter donation amount"}
-      value={donationAmount}
-      onChange={(e) => setDonationAmount(e.target.value)} 
-      required
+    <Form onSubmit={handleSubmit} className="p-3 donationForm-box">
+      <FormInputWithText
+        controlId={"formDonationAmount"}
+        label={"Donation Amount"}
+        text={"LKR"}
+        placeholder={"Enter donation amount"}
+        value={donationAmount}
+        onChange={(e) => setDonationAmount(e.target.value)}
+        required
       ></FormInputWithText>
-  
-      <FormInput controlId={"formName"}
+
+      <FormInput
+        controlId={"formName"}
         label={"Name"}
         type={"text"}
         placeholder={"Enter your name"}
@@ -37,7 +96,8 @@ const DonationFormLocal = ({ onSubmit }) => {
         required
       ></FormInput>
 
-      <FormInput controlId={"formEmail"}
+      <FormInput
+        controlId={"formEmail"}
         label={"Email address"}
         type={"email"}
         placeholder={"Enter email"}
@@ -57,7 +117,7 @@ const DonationFormLocal = ({ onSubmit }) => {
         />
       </Form.Group>
       <Form>
-        {['checkbox'].map((type) => (
+        {["checkbox"].map((type) => (
           <div key={`default-${type}`} className="mt-3">
             <Form.Check // prettier-ignore
               type={type}
@@ -67,7 +127,7 @@ const DonationFormLocal = ({ onSubmit }) => {
           </div>
         ))}
       </Form>
-      <Button variant="primary" className='primary_btn mt-3' type="submit">
+      <Button variant="primary" className="primary_btn mt-3" type="submit">
         Next
       </Button>
     </Form>

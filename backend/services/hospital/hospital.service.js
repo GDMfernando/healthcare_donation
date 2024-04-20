@@ -33,7 +33,7 @@ async function findHospitalById(hospitalId) {
     try {
         const dbQuery = hospitalModel.findByColumnQuery(
             'id',
-            'id, name, address, phone_number, email, type, description, image'
+            'id, name, address, phone_number, email, type, image'
         );
         const dbData = await dbInstance.find(dbQuery, hospitalId);
         if (dbData.success && dbData.data !== undefined) {
@@ -57,7 +57,7 @@ async function getAllHospitals() {
     };
     try {
         const dbQuery = await hospitalModel.getAllQuery(
-            'id, name, address, phone_number, email, type, description, image'
+            'id, name, address, phone_number, email, type, image'
         );
         const dbData = await dbInstance.all(dbQuery);
         if (dbData.success && dbData.data !== undefined) {

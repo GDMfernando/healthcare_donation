@@ -64,13 +64,14 @@ function MainDashboard() {
   }, []);
 
   const icons = [FaDonate, FaChartLine , FaHospital, FaHospitalUser, FaRegCalendarCheck];
+  const cardColors = ["#6f42c1", "#4542C2", "#9942C2", "#4267C2", "#C242C1"];
 
   return (
     <div className="card-container">
       <Row>
         {cardsData.map((card, index) => (
           <Col key={index} md={4} style={{ marginBottom: "24px" }}>
-            <Card className="main-dashboard-card shadow">
+            <Card className="main-dashboard-card shadow" style={{ backgroundColor: cardColors[index]}}>
               <Card.Body className="d-flex align-items-center">
                 <div className="main-dashboard-cardicon"> {React.createElement(icons[index], { size: "2x" })}</div>
                 <div> <Card.Title className="main-dashboard-cardtitle">{card.title}</Card.Title>

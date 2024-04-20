@@ -4,6 +4,8 @@ import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
 import { FaEdit } from 'react-icons/fa';
 import { FaTrash } from 'react-icons/fa';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 function ManageHospitals(activeTab = null) {
   const [hospitals, setHospitals] = useState([]);
@@ -45,7 +47,7 @@ function ManageHospitals(activeTab = null) {
 
   useEffect(() => {
     getAll();
-    return () => {};
+    return () => { };
   }, [activeTab]);
 
   const handleDelete = async (id) => {
@@ -158,6 +160,34 @@ function ManageHospitals(activeTab = null) {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const generatePDF = () => {
+    // Initialize jsPDF
+    const doc = new jsPDF();
+
+    // Define columns for the table
+    const columns = ["Name", "Address", "Phone", "Email", "Type"];
+
+    // Prepare rows data
+    const rows = hospitals.map((hospital) => [
+      hospital.name,
+      hospital.address,
+      hospital.phone_number,
+      hospital.email,
+      hospital.type,
+    ]);
+
+    // Add table using jspdf-autotable plugin
+    doc.autoTable({
+      head: [columns],
+      body: rows,
+      didDrawCell: (data) => {
+        console.log(data);
+      },
+    });
+
+    doc.save("hospital_table.pdf");
   };
 
   return (
@@ -307,6 +337,9 @@ function ManageHospitals(activeTab = null) {
                   onChange={handleSearch}
                 />
               </Form.Group>
+              <Button variant="primary" onClick={generatePDF}>
+                Generate PDF
+              </Button>
             </Form>
           </Row>
 
@@ -335,14 +368,14 @@ function ManageHospitals(activeTab = null) {
                       className="me-2 d-flex p-0 action-buttons"
                       onClick={() => handleEdit(hospital)}
                     >
-                     <FaEdit  className="faEdit"/>
+                      <FaEdit className="faEdit" />
                     </Button>
                     <Button
-                    className="d-flex p-0 action-buttons"
+                      className="d-flex p-0 action-buttons"
                       variant="outline"
                       onClick={() => handleDelete(hospital.id)}
                     >
-                     <FaTrash className="faTrash"/>
+                      <FaTrash className="faTrash" />
                     </Button>{" "}
                   </td>
                 </tr>

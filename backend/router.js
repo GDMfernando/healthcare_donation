@@ -28,6 +28,11 @@ module.exports = (app) => {
         require('./modules/hospitals/hospitals.routes')(app)
     );
 
+    router.use(
+        `${apiEndPoint}/public/hospital`,
+        require('./modules/hospitals/hospitals.routes')(app)
+    );
+
     // Campaign View
     router.use(
         `${apiEndPoint}/campaign`,
@@ -41,6 +46,11 @@ module.exports = (app) => {
         (req, res, next) => {
             res.status(200).send({ error_code: null, message: 'ok' });
         }
+    );
+
+    router.use(
+        `${apiEndPoint}/payment`,
+        require('./modules/payment/payment.routes')(app)
     );
 
     router.use('*', (req, res, next) => {

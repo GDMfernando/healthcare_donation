@@ -9,7 +9,7 @@ import HospitalLogin from "./components/hospital_view/hospital_login.js";
 import HospitalDashboard from "./components/hospital_view/hospital_dashboard.js";
 import HospitalPage from "./components/public_view/hospital_page.js";
 import { callAPI } from "./utils/help.js";
-import AboutPage from './components/public_view/about.js';
+import AboutPage from "./components/public_view/about.js";
 import ContactUsPage from "./components/public_view/contactus.js";
 import AllHospitals from "./components/public_view/all_hospitals.js";
 import AllCampaigns from "./components/public_view/all_campaigns.js";
@@ -82,8 +82,14 @@ const App = () => {
             <Route path="/contactus" element={<ContactUsPage />} />
             <Route path="/all-hospitals" element={<AllHospitals />} />
             <Route path="/all-campaigns" element={<AllCampaigns />} />
-            <Route path="/hospital-page/:hospitalId" element={<HospitalPage />} />
-            <Route path="/campaign-page/:campaignId" element={<CampaignPage />} />
+            <Route
+              path="/hospital-page/:hospitalId"
+              element={<HospitalPage />}
+            />
+            <Route
+              path="/campaign-page/:campaignId"
+              element={<CampaignPage />}
+            />
           </Routes>
         </div>
       </Router>

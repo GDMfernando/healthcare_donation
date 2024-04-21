@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Form, Button, InputGroup } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
 import FormInput from "./form_input";
 import FormInputWithText from "./form_input-withtext";
+import { callAPI } from "../../utils/help";
 
 const DonationFormInternational = ({ onSubmit, donationDetails }) => {
   const [donationAmount, setDonationAmount] = useState(
@@ -10,16 +11,66 @@ const DonationFormInternational = ({ onSubmit, donationDetails }) => {
   const [name, setName] = useState(donationDetails?.name ?? "");
   const [email, setEmail] = useState(donationDetails?.email ?? "");
   const [message, setMessage] = useState(donationDetails?.message ?? "");
+  const [clientSecret, setClientSecret] = useState("");
+  const [isUpdating, setIsUpdating] = useState(false);
 
-  const handleSubmit = (e) => {
+  const getPaymentIntent = async () => {
+    try {
+      const fetchOptions = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: parseFloat(donationAmount) * 100,
+        }),
+      };
+      const res = await callAPI("payment/stripe/init", "POST", fetchOptions);
+      const data = await res.json();
+      if (data.success && data.results) {
+        setClientSecret(data.results.client_secret);
+        setIsUpdating(true);
+      }
+    } catch (e) {
+      console.log("Error getting payment intent");
+      console.log(e);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ donationAmount, name, email, message, type: "international" });
-    // Clear form fields after submission
+    await getPaymentIntent();
+  };
+
+  const clearForm = () => {
     setDonationAmount("");
     setName("");
     setEmail("");
     setMessage("");
+    setClientSecret("");
+    setIsUpdating(false);
   };
+
+  useEffect(() => {
+    if (isUpdating && donationAmount && name && email && clientSecret) {
+      onSubmit({
+        donationAmount,
+        name,
+        email,
+        message,
+        type: "local",
+        clientSecret,
+      });
+      clearForm();
+    }
+  }, [
+    donationAmount,
+    name,
+    email,
+    message,
+    onSubmit,
+    isUpdating,
+    clientSecret,
+  ]);
 
   return (
     <Form onSubmit={handleSubmit} className="p-3 donationForm-box">

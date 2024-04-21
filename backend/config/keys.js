@@ -9,5 +9,6 @@ module.exports = {
     databasePassword: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE,
     jwt_secret: process.env.JWT_SECRET,
-    stripe_secret_key: process.env.STRIPE_SECRET_KEY
+    stripe_secret_key: process.env.STRIPE_SECRET_KEY,
+    merchant_id: process.env.MERCHANT_ID
 };

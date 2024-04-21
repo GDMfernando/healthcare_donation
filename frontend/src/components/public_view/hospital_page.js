@@ -8,8 +8,9 @@ import { useParams } from "react-router-dom";
 import { callAPI } from "../../utils/help";
 import { useLocation } from "react-router-dom";
 import DonationFormInternational from "../common_components/donation_form_inter";
-import StripePayment from "../common_components/payment_component";
+import StripePayment from "../common_components/stripe/payment_component";
 import hospitalSVG from "../../assets/images/hospital.svg";
+import PaymentComponent from "../common_components/payhere/PaymentComponent";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -56,6 +57,8 @@ const HospitalPage = () => {
     fetchHospitalData();
     checkPaymetStatus();
   }, []);
+
+  console.log(donationDetails);
 
   return (
     <div>
@@ -106,20 +109,14 @@ const HospitalPage = () => {
                       />
                     )}
 
-                    {isLocal && (
-                      <StripePayment
-                        clientSecret={donationDetails?.clientSecret ?? null}
-                        type={donationType}
-                        setIsLocal={setIsLocal}
-                        redirectUrl={redirectUrl}
-                      />
-                    )}
+                    {isLocal && <PaymentComponent />}
                   </Tab>
                   <Tab eventKey="International" title="International">
                     {!isInternational && (
                       <DonationFormInternational
                         donationDetails={donationDetailsIn}
                         onSubmit={(value) => {
+                          console.log(value);
                           setDonationDetailsIn(value);
                           setIsInternational(true);
                         }}
@@ -127,7 +124,7 @@ const HospitalPage = () => {
                     )}
                     {isInternational && (
                       <StripePayment
-                        clientSecret={donationDetails?.clientSecret ?? null}
+                        clientSecret={donationDetailsIn?.clientSecret ?? null}
                         type={donationType}
                         setIsInternational={setIsInternational}
                         redirectUrl={redirectUrl}

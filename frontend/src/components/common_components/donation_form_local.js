@@ -40,7 +40,6 @@ const DonationFormLocal = ({ onSubmit, donationDetails }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await getPaymentIntent();
-    console.log("DonationFormLocal handleSubmit", clientSecret);
   };
 
   const clearForm = () => {

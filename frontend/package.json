@@ -51,7 +51,6 @@
     ]
   },
   "devDependencies": {
-    "postcss-preset-env": "^7.0.1",
     "sass": "^1.69.6",
     "sass-loader": "^13.3.3"
   },

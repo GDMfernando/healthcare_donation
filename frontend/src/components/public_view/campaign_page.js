@@ -9,6 +9,10 @@ import { useParams } from "react-router-dom";
 import { callAPI } from "../../utils/help";
 import { useLocation } from "react-router-dom";
 import DonationFormInternational from "../common_components/donation_form_inter";
+import StripePayment from "../common_components/stripe/payment_component";
+import hospitalSVG from "../../assets/images/hospital.svg";
+import PaymentComponent from "../common_components/payhere/PaymentComponent";
+import PaymentAPI from "../../hooks/api/payment";
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -25,16 +29,40 @@ import {
 const CampaignPage = () => {
   const { campaignId } = useParams();
   const location = useLocation();
-  const { campaignData } = location.state || {};
-  const [campaign, setCampaign] = useState(null);
+  const [campaignData, setCampaignData] = useState({});
+  const [donationDetails, setDonationDetails] = useState(null);
+  const [donationDetailsIn, setDonationDetailsIn] = useState(null);
+  const [isLocal, setIsLocal] = useState(false);
+  const [isInternational, setIsInternational] = useState(false);
+  const [redirectUrl, setRedirectUrl] = useState(window.location.origin);
 
   useEffect(() => {
+    const checkPaytStatus = async () => {
+      const URL = new URLSearchParams(location.search);
+      const RURL = `${window.location.origin}/campaign-page/${campaignId}`;
+      setRedirectUrl(RURL);
+      const paymentStatus = URL.get("redirect_status");
+      const payId = URL.get("pay_id");
+      if (paymentStatus === "succeeded") {
+        PaymentAPI.updatePayment(payId, { pay_status: "SUCCESS" });
+        window.location = RURL;
+        alert("Payment Successful");
+      } else if (paymentStatus === "failed") {
+        PaymentAPI.updatePayment(payId, { pay_status: "FAILED" });
+        window.location = RURL;
+        alert("Payment Failed");
+      }
+    };
+
     const fetchCampaignData = async () => {
       try {
-        const response = await callAPI(`hospital/public/${campaignId}`, "GET");
-        if (response.ok) {
+        const response = await callAPI(
+          `public/campaign/get/${campaignId}`,
+          "GET"
+        );
+        if (response?.ok) {
           const data = await response.json();
-          setCampaign(data.results);
+          setCampaignData(data);
         } else {
           console.error("Failed to fetch hospital data");
         }
@@ -44,15 +72,12 @@ const CampaignPage = () => {
     };
 
     fetchCampaignData();
+    checkPaytStatus();
   }, [campaignId]);
 
-  if (!campaignData || !campaignData.results) {
-    return <div>Loading...</div>; // Render loading indicator while campaign data is being fetched
-  }
-  const { name, image, hospital_name, target, description } =
-    campaignData.results;
+  const name = campaignData?.results?.name;
   const shareUrl = window.location.href;
-  const title = `Support ${name} Campaign`;
+  const title = `Support ${name ?? " "} Campaign`;
 
   return (
     <div>
@@ -61,30 +86,78 @@ const CampaignPage = () => {
         <div className="hospital-page-box">
           <Row className="col-md-12 p-4">
             <Col xs={12} md={6}>
-              <h1>{campaignData.results.name}</h1>
+              <h1>{campaignData?.results?.name}</h1>
               <Image
                 className="campaign-page-img"
-                src={`http://localhost:5000/uploads/${campaignData.results.image}`}
+                src={
+                  campaignData &&
+                  campaignData?.results &&
+                  campaignData?.results?.image &&
+                  `http://localhost:5000/uploads/${campaignData?.results?.image}`
+                }
               ></Image>
-              <p className='m-0 mt-4 donation-page-subheadings'>Hospital</p>
-              <p>{campaignData.results.hospital_name}</p>
-              <p className='m-0 donation-page-subheadings'>Target </p>
-              <p className='donation-target'>{campaignData.results.target}</p>
-              <p className='m-0 donation-page-subheadings'>Description</p>
-              <p>{campaignData.results.description}</p>
+              <p className="m-0 mt-4 donation-page-subheadings">Hospital</p>
+              <p>{campaignData.results?.hospital_name}</p>
+              <p className="m-0 donation-page-subheadings">Target </p>
+              <p className="donation-target">{campaignData?.results?.target}</p>
+              <p className="m-0 donation-page-subheadings">Description</p>
+              <p>{campaignData?.results?.description}</p>
             </Col>
             <Col xs={12} md={6}>
               <div className="hospital-page-formbox">
-                <h3 className="mb-4">Donate to {campaignData.results.name}</h3>
-                <Tabs defaultActiveKey="Local" id="justify-tab-example" justify>
+                <h3 className="mb-4">
+                  Donate to {campaignData?.results?.name}
+                </h3>
+                <Tabs
+                  defaultActiveKey="Local"
+                  id="justify-tab-example"
+                  justify
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (e.target.innerText === "Local") {
+                      setIsInternational(false);
+                    } else {
+                      setIsLocal(false);
+                    }
+                  }}
+                >
                   <Tab eventKey="Local" title="Local">
-                    <DonationFormLocal />
+                    <DonationFormLocal
+                      campaignId={campaignId}
+                      donationDetails={donationDetails}
+                      redirectUrl={redirectUrl}
+                      onSubmit={(value) => {
+                        setDonationDetails(value);
+                        setIsLocal(true);
+                      }}
+                    />
+                    {isLocal && (
+                      <PaymentComponent donationDetails={donationDetails} />
+                    )}
                   </Tab>
                   <Tab eventKey="International" title="International">
-                    <DonationFormInternational></DonationFormInternational>
+                    {!isInternational && (
+                      <DonationFormInternational
+                        campaignId={campaignId}
+                        donationDetails={donationDetailsIn}
+                        onSubmit={(value) => {
+                          setDonationDetailsIn(value);
+                          setIsInternational(true);
+                        }}
+                        redirectUrl={redirectUrl}
+                      />
+                    )}
+                    {isInternational && (
+                      <StripePayment
+                        donationDetailsIn={donationDetailsIn}
+                        setIsInternational={setIsInternational}
+                        redirectUrl={redirectUrl}
+                      />
+                    )}
                   </Tab>
                 </Tabs>
               </div>
+
               <div className="mt-4">
                 <FacebookShareButton url={shareUrl} quote={title}>
                   <FacebookIcon></FacebookIcon>

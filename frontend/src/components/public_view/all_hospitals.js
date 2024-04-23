@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import NavBar from './nav_bar'
-import HospitalCards from './hospital_cards';
-import { callAPI } from '../../utils/help';
-import { useNavigate } from 'react-router-dom';
+import NavBar from "./nav_bar";
+import HospitalCards from "./hospital_cards";
+import { callAPI } from "../../utils/help";
+import { useNavigate } from "react-router-dom";
 import { Pagination, Container } from "react-bootstrap";
 
 function AllHospitals() {
@@ -14,21 +14,21 @@ function AllHospitals() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const hospitalResponse = await callAPI('hospital/public/all', 'GET');
+        const hospitalResponse = await callAPI("public/hospital/all", "GET");
 
         if (hospitalResponse.ok) {
           const hospitalData = await hospitalResponse.json();
 
-          console.log('Fetched Hospitals:', hospitalData.results);
+          console.log("Fetched Hospitals:", hospitalData.results);
 
           if (hospitalData.results) {
             setHospitals(hospitalData.results);
           }
         } else {
-          console.log('Error fetching data');
+          console.log("Error fetching data");
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -37,23 +37,29 @@ function AllHospitals() {
 
   const indexOfLastHospital = currentPage * hospitalsPerPage;
   const indexOfFirstHospital = indexOfLastHospital - hospitalsPerPage;
-  const currentHospitals = hospitals.slice(indexOfFirstHospital, indexOfLastHospital);
+  const currentHospitals = hospitals.slice(
+    indexOfFirstHospital,
+    indexOfLastHospital
+  );
 
   const handleDonateButtonClick = async (hospitalId) => {
     try {
-      console.log(hospitalId)
-      const response = await callAPI(`hospital/public/get/${hospitalId}`, 'GET');
+      console.log(hospitalId);
+      const response = await callAPI(
+        `public/hospital/get/${hospitalId}`,
+        "GET"
+      );
       if (response.ok) {
         const hospitalData = await response.json();
-        console.log(hospitalData)
+        console.log(hospitalData);
         // const hospitalName = hospitalData.name;
         // navigate(`/hospital-page/${hospitalId}`);
         navigate(`/hospital-page/${hospitalId}`, { state: { hospitalData } });
       } else {
-        console.error('Failed to fetch hospital data');
+        console.error("Failed to fetch hospital data");
       }
     } catch (error) {
-      console.error('Error fetching hospital data:', error);
+      console.error("Error fetching hospital data:", error);
     }
   };
 
@@ -77,12 +83,18 @@ function AllHospitals() {
   return (
     <div>
       <NavBar />
-      <HospitalCards title="All Hospitals" hospitals={currentHospitals} onDonateButtonClick={handleDonateButtonClick} />
+      <HospitalCards
+        title="All Hospitals"
+        hospitals={currentHospitals}
+        onDonateButtonClick={handleDonateButtonClick}
+      />
       {/* Pagination */}
       <Container className="d-flex justify-content-center">
         <Pagination className="mt-4 pagination-wrapper" size="sm">
           <Pagination.Prev onClick={goToPrevPage} />
-          {Array.from({ length: Math.ceil(hospitals.length / hospitalsPerPage) }).map((_, index) => (
+          {Array.from({
+            length: Math.ceil(hospitals.length / hospitalsPerPage),
+          }).map((_, index) => (
             <Pagination.Item
               key={index + 1}
               active={index + 1 === currentPage}
@@ -94,9 +106,7 @@ function AllHospitals() {
           <Pagination.Next onClick={goToNextPage} />
         </Pagination>
       </Container>
-
     </div>
   );
-
 }
 export default AllHospitals;

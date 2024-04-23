@@ -3,33 +3,41 @@ import { Form, Button } from "react-bootstrap";
 import FormInput from "./form_input";
 import FormInputWithText from "./form_input-withtext";
 import { callAPI } from "../../utils/help";
+import PaymentAPI from "../../hooks/api/payment";
 
-const DonationFormLocal = ({ onSubmit, donationDetails }) => {
+const DonationFormLocal = ({
+  onSubmit = () => {},
+  donationDetails = {},
+  redirectUrl = "http://localhost:3000",
+  hospitalId = null,
+  campaignId = null,
+}) => {
   const [donationAmount, setDonationAmount] = useState(
     donationDetails?.donationAmount ?? ""
   );
   const [name, setName] = useState(donationDetails?.name ?? "");
   const [email, setEmail] = useState(donationDetails?.email ?? "");
   const [message, setMessage] = useState(donationDetails?.message ?? "");
-  const [clientSecret, setClientSecret] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
+  const [payment, setPayment] = useState({});
 
   const getPaymentIntent = async () => {
     try {
       const fetchOptions = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: parseFloat(donationAmount) * 100,
-          currency: "usd",
-        }),
+        amount: donationAmount,
+        email,
+        name,
+        message,
+        return_url: redirectUrl,
+        hospital_id: hospitalId,
+        campaign_id: campaignId,
       };
-      const res = await callAPI("payment/intents", "POST", fetchOptions);
-      const data = await res.json();
-      if (data.paymentIntent) {
-        setClientSecret(data.paymentIntent);
+      const res = await PaymentAPI.initPayHere(fetchOptions);
+      if (res.success && res.results) {
+        setPayment(res.results);
         setIsUpdating(true);
+      } else {
+        alert("Error payment initiate. Please try again.");
       }
     } catch (e) {
       console.log("Error getting payment intent");
@@ -47,31 +55,17 @@ const DonationFormLocal = ({ onSubmit, donationDetails }) => {
     setName("");
     setEmail("");
     setMessage("");
-    setClientSecret("");
     setIsUpdating(false);
   };
 
   useEffect(() => {
-    if (isUpdating && donationAmount && name && email) {
+    if (isUpdating) {
       onSubmit({
-        donationAmount,
-        name,
-        email,
-        message,
-        type: "local",
-        clientSecret,
+        ...payment,
       });
       clearForm();
     }
-  }, [
-    donationAmount,
-    name,
-    email,
-    message,
-    onSubmit,
-    isUpdating,
-    clientSecret,
-  ]);
+  }, [payment, onSubmit, isUpdating]);
 
   return (
     <Form onSubmit={handleSubmit} className="p-3 donationForm-box">

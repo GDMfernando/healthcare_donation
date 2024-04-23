@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Image } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginForm from '../common_components/login_form';
+import React, { useState } from "react";
+import { Container, Row, Col, Image } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import LoginForm from "../common_components/login_form";
 import { useNavigate } from "react-router-dom";
 import { callAuth, callAPI } from "../../utils/help";
 import { useCookies } from "react-cookie";
@@ -27,7 +27,13 @@ const HospitalLogin = () => {
           maxAge: 31536000,
         });
         localStorage.setItem("stop", true);
-        navigate("/hospital-dashboard");
+        if (data?.results?.userType === "SUPER_ADMIN") {
+          navigate("/admin-dashboard");
+        } else if (data?.results?.userType === "HOSPITAL_ADMIN") {
+          navigate("/hospital-dashboard");
+        } else {
+          alert("Route not found. Invalid user type");
+        }
       } else {
         alert("Login failed. Invalid credentials");
       }
@@ -41,12 +47,16 @@ const HospitalLogin = () => {
       <Row className="align-items-center">
         <Col xs={12} md={6}>
           {/* Image on the right */}
-          <Image src="./images/hand-cupping-stethoscope-health-conce.jpg" alt="Header Image" fluid />
+          <Image
+            src="./images/hand-cupping-stethoscope-health-conce.jpg"
+            alt="Header Image"
+            fluid
+          />
         </Col>
         <Col xs={12} md={6}>
           <div>
             <Image src="./images/logo.svg" alt="logo" width="150px" />
-            <h1 className='mb-5'>Hospital Login</h1>
+            <h1 className="mb-5">Hospital Login</h1>
           </div>
           <LoginForm
             username={username}
@@ -57,9 +67,8 @@ const HospitalLogin = () => {
           />
         </Col>
       </Row>
-
     </Container>
   );
-}
+};
 
 export default HospitalLogin;

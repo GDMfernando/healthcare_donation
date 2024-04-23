@@ -17,7 +17,7 @@ async function hospitalRegister(req, res, next) {
                 password: await hashPassword(req.body.password),
                 user_type: 'HOSPITAL_ADMIN',
                 first_name: req.body.name,
-                last_name: 'Admin',
+                last_name: 'Admin Hospital',
                 login_email: req.body.email,
                 status: 'ACT',
                 user_uuid: uuid.v4()
@@ -25,8 +25,11 @@ async function hospitalRegister(req, res, next) {
 
             const hospitalAdminUserRegisterResp =
                 await userService.registerUser(userReqData);
+            console.log('======================');
+            console.log(hospitalAdminUserRegisterResp);
             if (hospitalAdminUserRegisterResp.success) {
                 let hospitalReqData = {
+                    user_id: hospitalAdminUserRegisterResp.data,
                     name: req.body.name,
                     address: req.body.address,
                     phone_number: req.body.phone_number,
@@ -46,16 +49,22 @@ async function hospitalRegister(req, res, next) {
                         hospitalAdminUserRegisterResp.data
                     );
                 } else {
-                    httpResponse.failed(res, 'Hospital registration error');
+                    httpResponse.failed(
+                        res,
+                        'Hospital registration error',
+                        400
+                    );
                 }
             } else {
+                console.log(hospitalAdminUserRegisterResp);
                 httpResponse.failed(
                     res,
-                    'Hospital admin user registration error'
+                    'Hospital admin user registration error',
+                    400
                 );
             }
         } else {
-            httpResponse.failed(res, validate);
+            httpResponse.failed(res, validate, 400);
         }
     } catch (error) {
         throw error;
@@ -63,6 +72,8 @@ async function hospitalRegister(req, res, next) {
 }
 
 async function hospitalUpdate(req, res, next) {
+    console.log('hospitalUpdate');
+    console.log(req.body);
     try {
         let hospitalId = req.params.id;
         // const validate = validateHospitalRegistration(req);
@@ -73,8 +84,7 @@ async function hospitalUpdate(req, res, next) {
                 phone_number: req.body.phone_number,
                 email: req.body.email,
                 type: req.body.type,
-                description: req.body.description,
-
+                description: req.body.description
             };
             const hospitalUpdateResp = await hospitalService.updateHospital(
                 hospitalId,
@@ -89,11 +99,12 @@ async function hospitalUpdate(req, res, next) {
             } else {
                 httpResponse.failed(
                     res,
-                    'Internal server error : Hospital update failed'
+                    'Internal server error : Hospital update failed',
+                    500
                 );
             }
         } else {
-            httpResponse.failed(res, validate);
+            httpResponse.failed(res, validate, 400);
         }
     } catch (error) {
         throw error;
@@ -101,6 +112,8 @@ async function hospitalUpdate(req, res, next) {
 }
 
 async function getHospitalById(req, res, next) {
+    console.log('getHospitalById');
+    console.log(req.body);
     try {
         let hospitalId = req.params.id;
         const getHospitalResp = await hospitalService.findHospitalById(
@@ -139,7 +152,7 @@ async function getAllHospitals(req, res, next) {
             });
             httpResponse.success(res, 'Successfully', getAllHospitalResp.data);
         } else {
-            httpResponse.failed(res, getAllHospitalResp.error);
+            httpResponse.failed(res, getAllHospitalResp.error, 400);
         }
     } catch (error) {
         throw error;
@@ -159,7 +172,7 @@ async function deleteHospitalById(req, res, next) {
                 getHospitalResp.data
             );
         } else {
-            httpResponse.failed(res, getHospitalResp.error);
+            httpResponse.failed(res, getHospitalResp.error, 400);
         }
     } catch (error) {
         throw error;

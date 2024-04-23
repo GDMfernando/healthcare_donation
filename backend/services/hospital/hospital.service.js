@@ -138,11 +138,58 @@ async function getAllHospitalCount() {
     }
 }
 
+async function getHospitalCampaignCount(hospitalId) {
+    let returnData = {
+        success: false,
+        data: null,
+        error: null
+    };
+    try {
+        const dbQuery = hospitalModel.getHospitalCampaignCount(hospitalId);
+        const dbData = await dbInstance.queryExecute(dbQuery);
+        if (dbData.success && dbData.data !== undefined) {
+            returnData.success = true;
+            returnData.data = dbData.data;
+        } else {
+            returnData.error =
+                'Sorry, the Hospital does not match our records.';
+        }
+        return returnData;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function getHospitalActiveCampaignCount(hospitalId) {
+    let returnData = {
+        success: false,
+        data: null,
+        error: null
+    };
+    try {
+        const dbQuery =
+            hospitalModel.getHospitalActiveCampaignCount(hospitalId);
+        const dbData = await dbInstance.queryExecute(dbQuery);
+        if (dbData.success && dbData.data !== undefined) {
+            returnData.success = true;
+            returnData.data = dbData.data;
+        } else {
+            returnData.error =
+                'Sorry, the Hospital does not match our records.';
+        }
+        return returnData;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     registerHospital,
     findHospitalById,
     getAllHospitals,
     updateHospital,
     deleteHospitalById,
-    getAllHospitalCount
+    getAllHospitalCount,
+    getHospitalCampaignCount,
+    getHospitalActiveCampaignCount
 };

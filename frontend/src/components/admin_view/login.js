@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from "../common_components/login_form";
-import { callAuth, callAPI } from "../../utils/help";
+import { callAuth } from "../../utils/help";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = () => {
   // State variables for username, password, and cookies
@@ -27,7 +27,13 @@ const Login = () => {
           maxAge: 31536000,
         });
         localStorage.setItem("stop", true);
-        navigate("/admin-dashboard");
+        if (data.results.userType === "SUPER_ADMIN") {
+          navigate("/admin-dashboard");
+        } else if (data.results.userType === "HOSPITAL_ADMIN") {
+          navigate("/hospital-dashboard");
+        } else {
+          alert("Route not found. Invalid user type");
+        }
       } else {
         alert("Login failed. Invalid credentials");
       }

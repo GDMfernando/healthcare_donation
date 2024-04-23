@@ -24,7 +24,7 @@ module.exports = (app) => {
     // Hospital View
     router.use(
         `${apiEndPoint}/hospital`,
-        auth.grant('SUPER_ADMIN'),
+        auth.grant('SUPER_ADMIN|HOSPITAL_ADMIN'),
         require('./modules/hospitals/hospitals.routes')(app)
     );
 
@@ -37,6 +37,11 @@ module.exports = (app) => {
     router.use(
         `${apiEndPoint}/campaign`,
         auth.grant('SUPER_ADMIN'),
+        require('./modules/campaign/campaign.routes')(app)
+    );
+
+    router.use(
+        `${apiEndPoint}/public/campaign`,
         require('./modules/campaign/campaign.routes')(app)
     );
 

@@ -299,7 +299,10 @@ function ManageHospitals(activeTab = null) {
                 />
               </Form.Group> */}
             </Row>
-            <Form.Group controlId="formGridHospitalDescription" className="mb-3">
+            <Form.Group
+              controlId="formGridHospitalDescription"
+              className="mb-3"
+            >
               <Form.Label>Description:</Form.Label>
               <Form.Control
                 as="textarea"
@@ -329,6 +332,7 @@ function ManageHospitals(activeTab = null) {
             <Col>
               <h2>Manage Hospitals</h2>
             </Col>
+
             <Form as={Col} className="d-flex justify-content-end">
               <Form.Group controlId="formSearch" className="col-7">
                 <Form.Control

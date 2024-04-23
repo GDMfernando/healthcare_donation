@@ -6,7 +6,9 @@ import { loadStripe } from "@stripe/stripe-js";
 function StripePayment(props) {
   console.log("StripePayment props", props);
   const [stripePromise, setStripePromise] = useState(null);
-  const [clientSecret, setClientSecret] = useState(props.clientSecret);
+  const [donationDetailsIn, setDonationDetailsIn] = useState(
+    props.donationDetailsIn
+  );
 
   const initLoad = async () => {
     try {
@@ -21,8 +23,8 @@ function StripePayment(props) {
   };
 
   useEffect(() => {
-    if (props?.clientSecret) {
-      setClientSecret(props.clientSecret);
+    if (props?.donationDetailsIn) {
+      setDonationDetailsIn(props.donationDetailsIn);
       initLoad();
     }
   }, [props]);
@@ -33,14 +35,16 @@ function StripePayment(props) {
 
   const option = {
     appearance,
-    clientSecret,
+    clientSecret: donationDetailsIn?.payment?.client_secret,
   };
 
   return (
     <div className="p-3 donationForm-box">
-      {clientSecret && stripePromise && (
+      {donationDetailsIn.payment && stripePromise && (
         <Elements stripe={stripePromise} options={option}>
-          <CheckoutForm reDirectURL={props?.redirectUrl} />
+          <CheckoutForm
+            reDirectURL={props?.donationDetailsIn.payment_init.return_url}
+          />
         </Elements>
       )}
     </div>

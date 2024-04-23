@@ -10,5 +10,6 @@ module.exports = {
     database: process.env.DATABASE,
     jwt_secret: process.env.JWT_SECRET,
     stripe_secret_key: process.env.STRIPE_SECRET_KEY,
-    merchant_id: process.env.MERCHANT_ID
+    pay_here_merchant_id: process.env.PAY_HERE_MERCHANT_ID,
+    pay_here_secret: process.env.PAY_HERE_SECRET
 };

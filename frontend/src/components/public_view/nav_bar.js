@@ -1,27 +1,34 @@
-import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate, Link } from 'react-router-dom';
-import { callAPI } from '../../utils/help';
+import {
+  Button,
+  Container,
+  Form,
+  Nav,
+  Navbar,
+  NavDropdown,
+} from "react-bootstrap";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate, Link } from "react-router-dom";
+import { callAPI } from "../../utils/help";
 
 function NavBar() {
   const navigate = useNavigate();
   const [hospitals, setHospitals] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchHospitals = async () => {
       try {
-        const response = await callAPI('hospital/public/all', 'GET'); // Use callAPI to fetch hospitals
+        const response = await callAPI("public/hospital/all", "GET"); // Use callAPI to fetch hospitals
         if (response.ok) {
           const data = await response.json();
           setHospitals(data.results); // Assuming data.results is an array of hospitals
         } else {
-          console.log('Error fetching hospitals data');
+          console.log("Error fetching hospitals data");
         }
       } catch (error) {
-        console.error('Error fetching hospitals data:', error);
+        console.error("Error fetching hospitals data:", error);
       }
     };
 
@@ -29,42 +36,50 @@ function NavBar() {
   }, []);
 
   const handleAboutClick = () => {
-    navigate('/about');
+    navigate("/about");
   };
 
   const handleLogoClick = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleHomeClick = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleContactClick = () => {
-    navigate('/contactus');
+    navigate("/contactus");
   };
 
   const filteredHospitals = hospitals.filter((hospital) => {
     // Ensure hospital is an object with expected properties
-    return hospital && typeof hospital === 'object' && hospital.id && hospital.name &&
-      hospital.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return (
+      hospital &&
+      typeof hospital === "object" &&
+      hospital.id &&
+      hospital.name &&
+      hospital.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   });
 
   const handleDonateButtonClick = async (hospitalId) => {
     try {
-      console.log(hospitalId)
-      const response = await callAPI(`hospital/public/get/${hospitalId}`, 'GET');
+      console.log(hospitalId);
+      const response = await callAPI(
+        `hospital/public/get/${hospitalId}`,
+        "GET"
+      );
       if (response.ok) {
         const hospitalData = await response.json();
-        console.log(hospitalData)
+        console.log(hospitalData);
         // const hospitalName = hospitalData.name;
         // navigate(`/hospital-page/${hospitalId}`);
         navigate(`/hospital-page/${hospitalId}`, { state: { hospitalData } });
       } else {
-        console.error('Failed to fetch hospital data');
+        console.error("Failed to fetch hospital data");
       }
     } catch (error) {
-      console.error('Error fetching hospital data:', error);
+      console.error("Error fetching hospital data:", error);
     }
   };
 
@@ -111,7 +126,9 @@ function NavBar() {
                       </NavDropdown.Item>
                     ))
                   ) : (
-                    <NavDropdown.Item disabled>No hospitals found</NavDropdown.Item>
+                    <NavDropdown.Item disabled>
+                      No hospitals found
+                    </NavDropdown.Item>
                   )}
                 </NavDropdown>
                 <Nav.Link onClick={handleContactClick}>Contact Us</Nav.Link>

@@ -29,24 +29,6 @@ const HospitalRegistration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const fetchOptions = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${cookie.access_token}`,
-      //   },
-      //   withCredentials: true,
-      //   body: JSON.stringify({
-      //     name: hospitalData.name,
-      //     address: hospitalData.address,
-      //     phone_number: hospitalData.phone,
-      //     email: hospitalData.email,
-      //     username: hospitalData.username,
-      //     password: hospitalData.password,
-      //     type: hospitalData.type,
-      //     image: hospitalData.image,
-      //   }),
-      // };
-
       const formData = new FormData();
       formData.append("name", hospitalData.name);
       formData.append("address", hospitalData.address);
@@ -58,15 +40,17 @@ const HospitalRegistration = () => {
       formData.append("description", hospitalData.description);
       formData.append("image", hospitalData.image);
 
-
       const headers = {
         Authorization: `Bearer ${cookie.access_token}`,
       };
-      
-      const response = await axios.post("http://localhost:5000/api/hospital/register", formData, {
-        headers: headers,
-      });
-      // const response = await callAPI("hospital/register", "POST", fetchOptions);
+
+      const response = await axios.post(
+        "http://localhost:5000/api/hospital/register",
+        formData,
+        {
+          headers: headers,
+        }
+      );
       if (response?.data?.success) {
         alert("Successfully Registered");
         setHospitalData({
@@ -84,7 +68,7 @@ const HospitalRegistration = () => {
         alert("Unsuccessfully Registered");
       }
     } catch (err) {
-      console.log(err);
+      alert("Unsuccessfully Registered");
     }
   };
 
@@ -169,18 +153,18 @@ const HospitalRegistration = () => {
             />
           </Form.Group>
         </Row>
-        
-      <Form.Group controlId="formGridHospitalDescription" className="mb-3">
-        <Form.Label>Description:</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={3}
-          name="description"
-          value={hospitalData.description}
-          onChange={handleInputChange}
-          required
-        />
-      </Form.Group>
+
+        <Form.Group controlId="formGridHospitalDescription" className="mb-3">
+          <Form.Label>Description:</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            name="description"
+            value={hospitalData.description}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridType">
             <Form.Label>Hospital Type:</Form.Label>

@@ -33,16 +33,12 @@ function MainDashboard() {
         setCardsData([
           {
             title: "123",
-            subtitle: "Donation recived",
+            subtitle: "Donation received",
           },
 
           {
             title: "$123",
             subtitle: "Donation Raised",
-          },
-          {
-            title: 0,
-            subtitle: "Hospitals",
           },
           {
             title: 0,

@@ -55,7 +55,6 @@ export default function CheckoutForm(props) {
       <button
         disabled={isProcessing || !stripe || !elements}
         id="submit"
-        variant="primary"
         className="primary_btn mt-3"
       >
         <span id="button-text">

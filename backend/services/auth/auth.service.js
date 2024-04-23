@@ -41,7 +41,26 @@ async function findUserByIdAndUserType(userId, userType) {
     }
 }
 
+async function findHospitalAdminUserById(userId) {
+    let returnData = {
+        success: false,
+        data: null
+    };
+    try {
+        const dbQuery = authModel.findHospitalAdminUserById(userId);
+        const dbData = await dbInstance.queryExecute(dbQuery);
+        if (dbData.success) {
+            returnData.success = true;
+            returnData.data = dbData.data;
+        }
+        return returnData;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     findUserById,
-    findUserByIdAndUserType
+    findUserByIdAndUserType,
+    findHospitalAdminUserById
 };

@@ -45,7 +45,8 @@ async function userLogin(req, res, next) {
                     const resData = {
                         token_type: 'Bearer',
                         token,
-                        expire_in: 3600
+                        expire_in: 3600,
+                        userType: userData.data.user_type
                     };
 
                     httpResponse.success(

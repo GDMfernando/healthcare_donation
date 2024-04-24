@@ -1,51 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { useCookies } from "react-cookie";
+import hospitalAdmin from "../../hooks/api/hospitalAdmin/hospitalAdmin";
 
-const HospitalEditProfile = () => {
+const HospitalEditProfile = (props) => {
+  const { activeTab } = props;
+  const [cookie, _] = useCookies(["access_token"]);
   const [hospitalData, setHospitalData] = useState({
-    name: '',
-    address: '',
-    phone: '',
-    email: '',
-    type: '',
-    description: ''
+    name: "",
+    address: "",
+    phone_number: "",
+    email: "",
+    type: "",
+    description: "",
   });
 
   useEffect(() => {
-    // Fetch hospital data for the logged-in user
-    const fetchHospitalData = async () => {
-      try {
-        const response = await axios.get('/api/hospital/getLoggedInHospital');
-        if (response.data.success) {
-          setHospitalData(response.data.data);
-        }
-      } catch (error) {
-        console.error('Error fetching hospital data:', error);
-      }
-    };
-
-    fetchHospitalData();
-  }, []);
+    setHospitalData(props.hospitalData);
+  }, [activeTab, props.hospitalData]);
 
   const handleInputChange = (e) => {
     setHospitalData({
       ...hospitalData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/hospital/update/${hospitalData.id}`, hospitalData);
-      if (response.data.success) {
-        alert('Profile updated successfully');
+      const fetchOptions = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookie.access_token}`,
+        },
+        withCredentials: true,
+        body: JSON.stringify({
+          name: hospitalData.name,
+          address: hospitalData.address,
+          phone_number: hospitalData.phone_number,
+          email: hospitalData.email,
+          type: hospitalData.type,
+          description: hospitalData.description,
+        }),
+      };
+
+      const response = await hospitalAdmin.updateHospitalData(fetchOptions);
+
+      if (response.success) {
+        alert("Successfully updated");
       } else {
-        alert('Failed to update profile');
+        alert("Unsuccessfully updated");
       }
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error("Error updating profile:", error);
     }
   };
 
@@ -59,7 +67,7 @@ const HospitalEditProfile = () => {
             <Form.Control
               type="text"
               name="name"
-              value={hospitalData.name}
+              value={hospitalData?.name}
               onChange={handleInputChange}
               placeholder="Enter hospital name"
             />
@@ -70,7 +78,7 @@ const HospitalEditProfile = () => {
             <Form.Control
               type="text"
               name="address"
-              value={hospitalData.address}
+              value={hospitalData?.address}
               onChange={handleInputChange}
               placeholder="Enter hospital address"
             />
@@ -83,7 +91,7 @@ const HospitalEditProfile = () => {
             <Form.Control
               type="text"
               name="phone"
-              value={hospitalData.phone}
+              value={hospitalData?.phone_number}
               onChange={handleInputChange}
               placeholder="Enter hospital phone number"
             />
@@ -94,7 +102,7 @@ const HospitalEditProfile = () => {
             <Form.Control
               type="email"
               name="email"
-              value={hospitalData.email}
+              value={hospitalData?.email}
               onChange={handleInputChange}
               placeholder="Enter hospital email"
             />
@@ -107,7 +115,7 @@ const HospitalEditProfile = () => {
             <Form.Control
               as="select"
               name="type"
-              value={hospitalData.type}
+              value={hospitalData?.type}
               onChange={handleInputChange}
             >
               <option value="">Select hospital type</option>
@@ -122,14 +130,14 @@ const HospitalEditProfile = () => {
               as="textarea"
               rows={3}
               name="description"
-              value={hospitalData.description}
+              value={hospitalData?.description}
               onChange={handleInputChange}
               placeholder="Enter hospital description"
             />
           </Form.Group>
         </Row>
 
-        <Button variant="primary" className='primary_btn' type="submit">
+        <Button variant="primary" className="primary_btn" type="submit">
           Update
         </Button>
       </Form>

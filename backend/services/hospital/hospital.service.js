@@ -33,7 +33,7 @@ async function findHospitalById(hospitalId) {
     try {
         const dbQuery = hospitalModel.findByColumnQuery(
             'id',
-            'id, name, address, phone_number, email, type, image'
+            'id, name, address, phone_number, email, type, image,description'
         );
         const dbData = await dbInstance.find(dbQuery, hospitalId);
         if (dbData.success && dbData.data !== undefined) {

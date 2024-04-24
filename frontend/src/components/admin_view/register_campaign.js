@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import { Container } from "react-bootstrap";
 import CampaignForm from "../common_components/campaign_form";
 import { useCookies } from "react-cookie";
-import { callAPI } from "../../utils/help";
 import axios from "axios";
 
-function RegisterCampaigne(hospitals) {
+function RegisterCampaigne(props) {
+  const { hospitals } = props;
   const [campaignData, setCampaignData] = useState({
     hospital: "",
     campaignName: "",
@@ -30,7 +30,6 @@ function RegisterCampaigne(hospitals) {
     e.preventDefault();
 
     try {
-
       const headers = {
         Authorization: `Bearer ${cookie.access_token}`,
       };
@@ -43,27 +42,14 @@ function RegisterCampaigne(hospitals) {
       formData.append("description", campaignData.description);
       formData.append("image", campaignData.image);
 
-      // const fetchOptions = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${cookie.access_token}`,
-      //   },
-      //   withCredentials: true,
-      //   body: JSON.stringify({
-      //     hospital_id: parseInt(campaignData.hospital),
-      //     name: campaignData.campaignName,
-      //     patient_name: campaignData.patientName,
-      //     target: campaignData.campaignTarget,
-      //     description: campaignData.description,
-      //     image: campaignData.image,
-      //   }),
-      // };
+      const response = await axios.post(
+        "http://localhost:5000/api/campaign/register",
+        formData,
+        {
+          headers: headers,
+        }
+      );
 
-      const response = await axios.post("http://localhost:5000/api/campaign/register", formData, {
-        headers: headers,
-      });
-
-      // const response = await callAPI("campaign/register", "POST", fetchOptions);
       if (response?.data?.success) {
         alert("Successfully Registered");
         setCampaignData({

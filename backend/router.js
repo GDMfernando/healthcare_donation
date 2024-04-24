@@ -36,7 +36,7 @@ module.exports = (app) => {
     // Campaign View
     router.use(
         `${apiEndPoint}/campaign`,
-        auth.grant('SUPER_ADMIN'),
+        auth.grant('SUPER_ADMIN|HOSPITAL_ADMIN'),
         require('./modules/campaign/campaign.routes')(app)
     );
 

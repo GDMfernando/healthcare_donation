@@ -6,8 +6,6 @@ const campaignService = require('../../services/campaign/campaign.service');
 
 async function adminDash(req, res, next) {
     try {
-        console.log('=====================> adminDash()');
-
         let cardsData = [];
 
         const hospitalData = req.body.addition ?? null;

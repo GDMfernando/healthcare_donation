@@ -64,14 +64,12 @@ function NavBar() {
 
   const handleDonateButtonClick = async (hospitalId) => {
     try {
-      console.log(hospitalId);
       const response = await callAPI(
         `hospital/public/get/${hospitalId}`,
         "GET"
       );
       if (response.ok) {
         const hospitalData = await response.json();
-        console.log(hospitalData);
         // const hospitalName = hospitalData.name;
         // navigate(`/hospital-page/${hospitalId}`);
         navigate(`/hospital-page/${hospitalId}`, { state: { hospitalData } });

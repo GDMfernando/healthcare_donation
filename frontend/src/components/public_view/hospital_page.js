@@ -3,13 +3,11 @@ import React, { useState, useEffect } from "react";
 import NavBar from "./nav_bar";
 import Footer from "./footer";
 import { Tab, Tabs, Row, Col, Image, Container } from "react-bootstrap";
-import DonationFormLocal from "../common_components/donation_form_local";
 import { useParams, useLocation } from "react-router-dom";
 import { callAPI } from "../../utils/help";
 import DonationFormInternational from "../common_components/donation_form_inter";
 import StripePayment from "../common_components/stripe/payment_component";
 import hospitalSVG from "../../assets/images/hospital.svg";
-import PaymentComponent from "../common_components/payhere/PaymentComponent";
 import PaymentAPI from "../../hooks/api/payment";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,7 +16,6 @@ const HospitalPage = () => {
   const { hospitalId } = useParams();
   const location = useLocation();
   const [hospitalData, setHospitalData] = useState({});
-  const [donationDetails, setDonationDetails] = useState(null);
   const [donationDetailsIn, setDonationDetailsIn] = useState(null);
   const [isLocal, setIsLocal] = useState(false);
   const [isInternational, setIsInternational] = useState(false);
@@ -60,7 +57,7 @@ const HospitalPage = () => {
     };
     fetchHospitalData();
     checkPaytStatus();
-  }, []);
+  }, [hospitalId, location.search]);
 
   return (
     <div>
@@ -105,18 +102,23 @@ const HospitalPage = () => {
                   }}
                 >
                   <Tab eventKey="Local" title="Local">
-                    <DonationFormLocal
-                      donationDetails={donationDetails}
-                      redirectUrl={redirectUrl}
-                      hospitalId={hospitalId}
-                      onSubmit={(value) => {
-                        setDonationDetails(value);
-                        setIsLocal(true);
-                      }}
-                    />
-
+                    {!isLocal && (
+                      <DonationFormInternational
+                        donationDetails={donationDetailsIn}
+                        onSubmit={(value) => {
+                          setDonationDetailsIn(value);
+                          setIsLocal(true);
+                        }}
+                        redirectUrl={redirectUrl}
+                        hospitalId={hospitalId}
+                      />
+                    )}
                     {isLocal && (
-                      <PaymentComponent donationDetails={donationDetails} />
+                      <StripePayment
+                        donationDetailsIn={donationDetailsIn}
+                        setIsInternational={setIsInternational}
+                        redirectUrl={redirectUrl}
+                      />
                     )}
                   </Tab>
                   <Tab eventKey="International" title="International">

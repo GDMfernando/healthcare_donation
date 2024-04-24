@@ -104,9 +104,25 @@ async function getCampaignById(req, res, next) {
 }
 
 async function getAllCampaigns(req, res, next) {
+    const grantUser = req.body.granted_user;
+    const addition = req.body.addition;
+
     try {
-        const getAllCampaignResp = await campaignService.getAllCampaign();
+        let getAllCampaignResp = null;
         if (
+            grantUser?.user_type === 'HOSPITAL_ADMIN' &&
+            addition?.hospital_id
+        ) {
+            getAllCampaignResp =
+                await campaignService.getAllCampaignByHospitalId(
+                    addition?.hospital_id
+                );
+        } else {
+            getAllCampaignResp = await campaignService.getAllCampaign();
+        }
+
+        if (
+            getAllCampaignResp &&
             getAllCampaignResp.success &&
             getAllCampaignResp.data &&
             getAllCampaignResp.data.length > 0
@@ -132,7 +148,7 @@ async function deleteCampaignById(req, res, next) {
         if (getResp.success) {
             httpResponse.success(res, 'Deleted Successfully', getResp.data);
         } else {
-            httpResponse.failed(res, getResp.error);
+            httpResponse.failed(res, getResp.error, 400);
         }
     } catch (error) {
         throw error;

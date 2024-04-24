@@ -7,7 +7,6 @@ const { initPayment } = require('../../services/payment/payment.service');
 const { validatePaymentInit } = require('./payment.request.validate');
 
 async function stripePaymentInitiate(req, res, next) {
-    console.log('Stripe init----------------->>>>');
     try {
         const validatePayment = validatePaymentInit(req);
         if (!validatePayment) {
@@ -29,7 +28,7 @@ async function stripePaymentInitiate(req, res, next) {
                 payment_gateway: 'STRIPE',
                 order_id: orderId,
                 amount: amount,
-                currency: 'USD',
+                currency: req.body.currency ?? 'USD',
                 first_name: name,
                 email: email,
                 country: 'Sri Lanka',

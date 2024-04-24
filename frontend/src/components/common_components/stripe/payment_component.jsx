@@ -4,7 +4,6 @@ import CheckoutForm from "./CheckoutForm";
 import { loadStripe } from "@stripe/stripe-js";
 
 function StripePayment(props) {
-  console.log("StripePayment props", props);
   const [stripePromise, setStripePromise] = useState(null);
   const [donationDetailsIn, setDonationDetailsIn] = useState(
     props.donationDetailsIn
@@ -17,7 +16,6 @@ function StripePayment(props) {
       );
       setStripePromise(loadStripePromise);
     } catch (error) {
-      console.log("Error loading stripe");
       console.log(error);
     }
   };

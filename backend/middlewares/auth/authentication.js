@@ -14,7 +14,36 @@ const protect = async (req, res, next) => {
                 decodedToken.userId,
                 req.userType
             );
+
             if (user.success && user.data !== null) {
+                req.body = {
+                    ...req.body,
+                    granted_user: {
+                        user_id: decodedToken.userId,
+                        user_type: decodedToken.userType
+                    }
+                };
+
+                if (decodedToken.userType === 'HOSPITAL_ADMIN') {
+                    const hospitalData =
+                        await authService.findHospitalAdminUserById(
+                            decodedToken.userId
+                        );
+
+                    if (
+                        hospitalData.success &&
+                        hospitalData.data !== null &&
+                        hospitalData.data.length > 0
+                    ) {
+                        req.body = {
+                            ...req.body,
+                            addition: {
+                                hospital_id: hospitalData.data[0].hospital_id
+                            }
+                        };
+                    }
+                }
+
                 next();
             } else {
                 httpResponse.failed(res, {

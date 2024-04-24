@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
-import { FaEdit } from 'react-icons/fa';
-import { FaTrash, FaFilePdf } from 'react-icons/fa';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import { FaEdit } from "react-icons/fa";
+import { FaTrash, FaFilePdf } from "react-icons/fa";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function ManageHospitals(activeTab = null) {
   const [hospitals, setHospitals] = useState([]);
@@ -38,7 +38,7 @@ function ManageHospitals(activeTab = null) {
         setHospitals(data.results);
         setHospitals1(data.results);
       } else {
-        console.log("Unauthorize");
+        alert("Fetch unsuccessful");
       }
     } catch (err) {
       console.log(err);
@@ -47,7 +47,7 @@ function ManageHospitals(activeTab = null) {
 
   useEffect(() => {
     getAll();
-    return () => { };
+    return () => {};
   }, [activeTab]);
 
   const handleDelete = async (id) => {
@@ -65,12 +65,10 @@ function ManageHospitals(activeTab = null) {
         fetchOptions
       );
       if (response.ok) {
-        const data = await response.json();
         alert("Hospital deleted successfully");
         await getAll();
       } else {
         alert("Hospital deleted unsuccessfully");
-        console.log("Unauthorize");
       }
     } catch (err) {
       console.log(err);
@@ -341,8 +339,12 @@ function ManageHospitals(activeTab = null) {
                   onChange={handleSearch}
                 />
               </Form.Group>
-              <Button className="d-flex align-items-center ms-2" variant="outline-primary" onClick={generatePDF}>
-                <FaFilePdf className="me-1"></FaFilePdf> 
+              <Button
+                className="d-flex align-items-center ms-2"
+                variant="outline-primary"
+                onClick={generatePDF}
+              >
+                <FaFilePdf className="me-1"></FaFilePdf>
                 <p className="m-0">PDF</p>
               </Button>
             </Form>

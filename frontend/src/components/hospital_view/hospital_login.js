@@ -3,7 +3,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from "../common_components/login_form";
 import { useNavigate } from "react-router-dom";
-import { callAuth, callAPI } from "../../utils/help";
+import { callAuth } from "../../utils/help";
 import { useCookies } from "react-cookie";
 
 const HospitalLogin = () => {

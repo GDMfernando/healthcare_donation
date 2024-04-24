@@ -3,16 +3,14 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./nav_bar";
 import Footer from "./footer";
-import { Tab, Tabs, Row, Col, Image, Container, Button } from "react-bootstrap";
-import DonationFormLocal from "../common_components/donation_form_local";
+import { Tab, Tabs, Row, Col, Image, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { callAPI } from "../../utils/help";
 import { useLocation } from "react-router-dom";
 import DonationFormInternational from "../common_components/donation_form_inter";
 import StripePayment from "../common_components/stripe/payment_component";
-import hospitalSVG from "../../assets/images/hospital.svg";
-import PaymentComponent from "../common_components/payhere/PaymentComponent";
 import PaymentAPI from "../../hooks/api/payment";
+
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -30,7 +28,6 @@ const CampaignPage = () => {
   const { campaignId } = useParams();
   const location = useLocation();
   const [campaignData, setCampaignData] = useState({});
-  const [donationDetails, setDonationDetails] = useState(null);
   const [donationDetailsIn, setDonationDetailsIn] = useState(null);
   const [isLocal, setIsLocal] = useState(false);
   const [isInternational, setIsInternational] = useState(false);
@@ -73,12 +70,11 @@ const CampaignPage = () => {
 
     fetchCampaignData();
     checkPaytStatus();
-  }, [campaignId]);
+  }, [campaignId, location.search]);
 
   const name = campaignData?.results?.name;
   const shareUrl = window.location.href;
   const title = `Support ${name ?? " "} Campaign`;
-
   return (
     <div>
       <NavBar />
@@ -122,23 +118,31 @@ const CampaignPage = () => {
                   }}
                 >
                   <Tab eventKey="Local" title="Local">
-                    <DonationFormLocal
-                      campaignId={campaignId}
-                      donationDetails={donationDetails}
-                      redirectUrl={redirectUrl}
-                      onSubmit={(value) => {
-                        setDonationDetails(value);
-                        setIsLocal(true);
-                      }}
-                    />
+                    {!isLocal && (
+                      <DonationFormInternational
+                        campaignId={campaignId}
+                        hospitalId={campaignData?.results?.hospital_id}
+                        donationDetails={donationDetailsIn}
+                        onSubmit={(value) => {
+                          setDonationDetailsIn(value);
+                          setIsLocal(true);
+                        }}
+                        redirectUrl={redirectUrl}
+                      />
+                    )}
                     {isLocal && (
-                      <PaymentComponent donationDetails={donationDetails} />
+                      <StripePayment
+                        donationDetailsIn={donationDetailsIn}
+                        setIsInternational={setIsInternational}
+                        redirectUrl={redirectUrl}
+                      />
                     )}
                   </Tab>
                   <Tab eventKey="International" title="International">
                     {!isInternational && (
                       <DonationFormInternational
                         campaignId={campaignId}
+                        hospitalId={campaignData?.results?.hospital_id}
                         donationDetails={donationDetailsIn}
                         onSubmit={(value) => {
                           setDonationDetailsIn(value);

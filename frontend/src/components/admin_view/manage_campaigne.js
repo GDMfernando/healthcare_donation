@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
-import { FaEdit } from 'react-icons/fa';
-import { FaTrash, FaFilePdf } from 'react-icons/fa';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import { FaEdit } from "react-icons/fa";
+import { FaTrash, FaFilePdf } from "react-icons/fa";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function ManageCampaign({ activeTab = null, hospitals }) {
   const [campaigns, setCampaigns] = useState([]);
@@ -41,7 +41,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
         setCampaigns(data.results);
         setCampaigns1(data.results);
       } else {
-        console.log("Unauthorize");
+        alert("Fetch unsuccessful");
       }
     } catch (err) {
       console.log(err);
@@ -292,7 +292,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
         <div>
           <Row className="mb-4 align-items-center">
             <Col>
-              <h2 >Manage Campaigns</h2>
+              <h2>Manage Campaigns</h2>
             </Col>
             <Form as={Col} className="d-flex justify-content-end">
               <Form.Group controlId="formSearch" className="col-7">
@@ -302,8 +302,12 @@ function ManageCampaign({ activeTab = null, hospitals }) {
                   onChange={handleSearch}
                 />
               </Form.Group>
-              <Button className="d-flex align-items-center ms-2" variant="outline-primary" onClick={generatePDF}>
-                <FaFilePdf className="me-1"></FaFilePdf> 
+              <Button
+                className="d-flex align-items-center ms-2"
+                variant="outline-primary"
+                onClick={generatePDF}
+              >
+                <FaFilePdf className="me-1"></FaFilePdf>
                 <p className="m-0">PDF</p>
               </Button>
             </Form>
@@ -330,18 +334,18 @@ function ManageCampaign({ activeTab = null, hospitals }) {
                   <td>{campaign.status === "ACT" ? "Active" : "Inactive"}</td>
                   <td className="d-flex justify-content-center">
                     <Button
-                    className="me-2 d-flex p-0 action-buttons"
+                      className="me-2 d-flex p-0 action-buttons"
                       variant="outline"
                       onClick={() => handleEdit(campaign)}
                     >
-                     <FaEdit  className="faEdit"/>
+                      <FaEdit className="faEdit" />
                     </Button>
                     <Button
-                     className="d-flex p-0 action-buttons"
+                      className="d-flex p-0 action-buttons"
                       variant="outline"
                       onClick={() => handleDelete(campaign.id)}
                     >
-                       <FaTrash className="faTrash"/>
+                      <FaTrash className="faTrash" />
                     </Button>{" "}
                   </td>
                 </tr>

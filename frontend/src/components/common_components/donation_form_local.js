@@ -40,7 +40,6 @@ const DonationFormLocal = ({
         alert("Error payment initiate. Please try again.");
       }
     } catch (e) {
-      console.log("Error getting payment intent");
       console.log(e);
     }
   };

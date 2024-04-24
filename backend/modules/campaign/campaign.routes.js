@@ -14,6 +14,5 @@ module.exports = (app) => {
     router.get('/get/:id', campaignController.getCampaignById);
     router.get('/all', campaignController.getAllCampaigns);
     router.get('/delete/:id', campaignController.deleteCampaignById);
-    app.use('/api/campaign', router);
     return router;
 };

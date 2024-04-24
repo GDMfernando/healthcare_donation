@@ -24,7 +24,7 @@ const CampaignForm = ({
             required
           >
             <option value="">Select Hospital Type</option>
-            {hospitals?.hospitals?.map((el) => (
+            {hospitals?.map((el) => (
               <option key={el.id} value={el.id}>
                 {el.name}
               </option>

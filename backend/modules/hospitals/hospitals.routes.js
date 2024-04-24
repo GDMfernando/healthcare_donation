@@ -10,9 +10,9 @@ module.exports = (app) => {
         upload.single('image'),
         hospitalController.hospitalRegister
     );
-    router.post('/update/?:id', hospitalController.hospitalUpdate);
-    router.get('/get/?:id', hospitalController.getHospitalById);
+    router.post('/update/:id?', hospitalController.hospitalUpdate);
+    router.get('/get/:id?', hospitalController.getHospitalById);
     router.get('/all', hospitalController.getAllHospitals);
-    router.get('/delete/?:id', hospitalController.deleteHospitalById);
+    router.get('/delete/:id?', hospitalController.deleteHospitalById);
     return router;
 };

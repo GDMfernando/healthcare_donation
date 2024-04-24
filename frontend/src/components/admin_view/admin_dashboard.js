@@ -32,7 +32,7 @@ function AdminDashboard() {
         const data = await response.json();
         setHospitals(data.results);
       } else {
-        console.log("Unauthorize");
+        console.log("Error fetching hospitals data");
       }
     } catch (err) {
       console.log(err);
@@ -40,7 +40,7 @@ function AdminDashboard() {
   };
 
   const handleTabSelect = async (eventKey) => {
-    if (eventKey == 3 || eventKey == 4) {
+    if (eventKey === "3" || eventKey === "4") {
       await getAll();
     }
     setActiveTab(eventKey);
@@ -59,19 +59,29 @@ function AdminDashboard() {
           <Col sm={3} className="dashboard_sidebar">
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
-                <Nav.Link className="ps-5" eventKey="1">Register Hospital</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="1">
+                  Register Hospital
+                </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link className="ps-5" eventKey="2">Manage Hospitals</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="2">
+                  Manage Hospitals
+                </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link className="ps-5" eventKey="3">Register Campaign</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="3">
+                  Register Campaign
+                </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link className="ps-5" eventKey="4">Manage Campaigns</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="4">
+                  Manage Campaigns
+                </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link className="ps-5" eventKey="5">View Donations</Nav.Link>
+                <Nav.Link className="ps-5" eventKey="5">
+                  View Donations
+                </Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
@@ -93,7 +103,7 @@ function AdminDashboard() {
                 <ManageCampaign activeTab={activeTab} hospitals={hospitals} />
               </Tab.Pane>
               <Tab.Pane eventKey="5">
-                <ViewDonations />
+                <ViewDonations activeTab={activeTab} />
               </Tab.Pane>
             </Tab.Content>
           </Col>

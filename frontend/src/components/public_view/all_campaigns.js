@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import NavBar from './nav_bar';
+import NavBar from "./nav_bar";
 import CampaignCards from "./campaign_cards";
-import { callAPI } from '../../utils/help';
-import { useNavigate } from 'react-router-dom';
+import { callAPI } from "../../utils/help";
+import { useNavigate } from "react-router-dom";
 import { Pagination, Container } from "react-bootstrap";
 
 function AllCampaigns() {
@@ -14,21 +14,19 @@ function AllCampaigns() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const campaignResponse = await callAPI('campaign/public/all', 'GET');
+        const campaignResponse = await callAPI("public/campaign/all", "GET");
 
         if (campaignResponse.ok) {
           const campaignData = await campaignResponse.json();
-
-          console.log('Fetched Campaigns:', campaignData.results);
 
           if (campaignData.results) {
             setCampaigns(campaignData.results);
           }
         } else {
-          console.log('Error fetching data');
+          console.log("Error fetching data");
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -37,21 +35,25 @@ function AllCampaigns() {
 
   const indexOfLastCampaign = currentPage * campaignsPerPage;
   const indexOfFirstCampaign = indexOfLastCampaign - campaignsPerPage;
-  const currentCampaigns = campaigns.slice(indexOfFirstCampaign, indexOfLastCampaign);
+  const currentCampaigns = campaigns.slice(
+    indexOfFirstCampaign,
+    indexOfLastCampaign
+  );
 
   const handleDonateCampaignButton = async (campaignId) => {
     try {
-      console.log(campaignId)
-      const response = await callAPI(`campaign/public/get/${campaignId}`, 'GET');
+      const response = await callAPI(
+        `campaign/public/get/${campaignId}`,
+        "GET"
+      );
       if (response.ok) {
         const campaignData = await response.json();
-        console.log(campaignData)
         navigate(`/campaign-page/${campaignId}`, { state: { campaignData } });
       } else {
-        console.error('Failed to fetch campaign data');
+        console.error("Failed to fetch campaign data");
       }
     } catch (error) {
-      console.error('Error fetching campaign data:', error);
+      console.error("Error fetching campaign data:", error);
     }
   };
 
@@ -75,11 +77,17 @@ function AllCampaigns() {
   return (
     <div>
       <NavBar />
-      <CampaignCards title="All Campaigns" campaigns={currentCampaigns} onDonateButtonClick={handleDonateCampaignButton} />
+      <CampaignCards
+        title="All Campaigns"
+        campaigns={currentCampaigns}
+        onDonateButtonClick={handleDonateCampaignButton}
+      />
       <Container className="d-flex justify-content-center">
         <Pagination className="mt-4 pagination-wrapper" size="sm">
           <Pagination.Prev onClick={goToPrevPage} />
-          {Array.from({ length: Math.ceil(campaigns.length / campaignsPerPage) }).map((_, index) => (
+          {Array.from({
+            length: Math.ceil(campaigns.length / campaignsPerPage),
+          }).map((_, index) => (
             <Pagination.Item
               key={index + 1}
               active={index + 1 === currentPage}

@@ -64,14 +64,12 @@ const PublicHome = () => {
 
   const handleDonateButtonClick = async (hospitalId) => {
     try {
-      console.log(hospitalId);
       const response = await callAPI(
         `public/hospital/get/${hospitalId}`,
         "GET"
       );
       if (response.ok) {
         const hospitalData = await response.json();
-        console.log(hospitalData);
         // const hospitalName = hospitalData.name;
         // navigate(`/hospital-page/${hospitalId}`);
         navigate(`/hospital-page/${hospitalId}`, { state: { hospitalData } });
@@ -91,7 +89,6 @@ const PublicHome = () => {
       );
       if (response.ok) {
         const campaignData = await response.json();
-        console.log(campaignData);
         navigate(`/campaign-page/${campaignId}`, { state: { campaignData } });
       } else {
         console.error("Failed to fetch campaign data");

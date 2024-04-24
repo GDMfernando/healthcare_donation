@@ -25,8 +25,6 @@ async function hospitalRegister(req, res, next) {
 
             const hospitalAdminUserRegisterResp =
                 await userService.registerUser(userReqData);
-            console.log('======================');
-            console.log(hospitalAdminUserRegisterResp);
             if (hospitalAdminUserRegisterResp.success) {
                 let hospitalReqData = {
                     user_id: hospitalAdminUserRegisterResp.data,
@@ -56,7 +54,6 @@ async function hospitalRegister(req, res, next) {
                     );
                 }
             } else {
-                console.log(hospitalAdminUserRegisterResp);
                 httpResponse.failed(
                     res,
                     'Hospital admin user registration error',
@@ -72,10 +69,19 @@ async function hospitalRegister(req, res, next) {
 }
 
 async function hospitalUpdate(req, res, next) {
-    console.log('hospitalUpdate');
-    console.log(req.body);
     try {
-        let hospitalId = req.params.id;
+        const addition = req.body.addition;
+        let hospitalId = req.params.id ?? addition.hospital_id;
+
+        if (
+            hospitalId === null ||
+            hospitalId === undefined ||
+            hospitalId === ''
+        ) {
+            httpResponse.failed(res, 'Hospital ID is required', 400);
+            return;
+        }
+
         // const validate = validateHospitalRegistration(req);
         if (true) {
             let hospitalReqData = {
@@ -112,14 +118,21 @@ async function hospitalUpdate(req, res, next) {
 }
 
 async function getHospitalById(req, res, next) {
-    console.log('getHospitalById');
-    console.log(req.body);
     try {
-        let hospitalId = req.params.id;
+        const addition = req.body?.addition;
+        let hospitalId = req.params.id ?? addition?.hospital_id;
+
+        if (!hospitalId) {
+            httpResponse.failed(res, 'Hospital ID is required', 400);
+            return;
+        }
+
         const getHospitalResp = await hospitalService.findHospitalById(
             hospitalId
         );
+
         if (getHospitalResp.success) {
+            getHospitalResp.data.type = getHospitalResp.data.type.toLowerCase();
             getHospitalResp.data = {
                 ...getHospitalResp.data,
                 image_base64: getHospitalResp.data.image
@@ -130,7 +143,7 @@ async function getHospitalById(req, res, next) {
             };
             httpResponse.success(res, 'Successfully', getHospitalResp.data);
         } else {
-            httpResponse.failed(res, getHospitalResp.error);
+            httpResponse.failed(res, getHospitalResp.error, 400);
         }
     } catch (error) {
         throw error;

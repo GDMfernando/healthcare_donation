@@ -2,7 +2,6 @@ import { callAPI } from "../../utils/help";
 
 class PaymentAPI {
   static async initStripe(data) {
-    console.log("Create payment----------------->>>>");
     try {
       const fetchOptions = {
         headers: {
@@ -19,7 +18,6 @@ class PaymentAPI {
   }
 
   static async initPayHere(data) {
-    console.log("Create payment----------------->>>>");
     try {
       const fetchOptions = {
         headers: {
@@ -36,7 +34,6 @@ class PaymentAPI {
   }
 
   static async updatePayment(payId, data) {
-    console.log("Update payment----------------->>>>");
     try {
       const fetchOptions = {
         headers: {
@@ -49,6 +46,34 @@ class PaymentAPI {
       return response;
     } catch (error) {
       console.error("Error updating payment:", error);
+    }
+  }
+
+  static async getAllHospitalDonations(fetchOptions) {
+    try {
+      const res = await callAPI(
+        "payment/get/hospital/donations",
+        "GET",
+        fetchOptions
+      );
+      const response = await res.json();
+      return response;
+    } catch (error) {
+      console.error("Error getting hospital donations:", error);
+    }
+  }
+
+  static async getAllCampaignDonations(fetchOptions) {
+    try {
+      const res = await callAPI(
+        "payment/get/campaign/donations",
+        "GET",
+        fetchOptions
+      );
+      const response = await res.json();
+      return response;
+    } catch (error) {
+      console.error("Error getting campaign donations:", error);
     }
   }
 }

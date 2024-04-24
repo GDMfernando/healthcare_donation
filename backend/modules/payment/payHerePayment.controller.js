@@ -7,7 +7,6 @@ const { initPayment } = require('../../services/payment/payment.service');
 const { validatePaymentInit } = require('./payment.request.validate');
 
 async function payHerePaymentInitiate(req, res, next) {
-    console.log('payHere init----------------->>>>');
     // TO DO
     try {
         const validatePayment = validatePaymentInit(req);

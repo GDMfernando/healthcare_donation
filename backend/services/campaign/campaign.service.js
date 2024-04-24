@@ -56,7 +56,7 @@ async function getAllCampaign() {
         error: null
     };
     try {
-        const dbQuery = await campaignModel.getAllCampaign();
+        const dbQuery = campaignModel.getAllCampaign();
         const dbData = await dbInstance.queryExecute(dbQuery);
         if (dbData.success && dbData.data !== undefined) {
             returnData.success = true;
@@ -158,6 +158,28 @@ async function getAllActiveCampaignCount() {
     }
 }
 
+async function getAllCampaignByHospitalId(hospitalId) {
+    let returnData = {
+        success: false,
+        data: null,
+        error: null
+    };
+    try {
+        const dbQuery = campaignModel.getAllCampaignByHospitalId(hospitalId);
+        const dbData = await dbInstance.queryExecute(dbQuery);
+        if (dbData.success && dbData.data !== undefined) {
+            returnData.success = true;
+            returnData.data = dbData.data;
+        } else {
+            returnData.error =
+                'Sorry, the campaign does not match our records.';
+        }
+        return returnData;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     registerCampaign,
     findCampaignById,
@@ -165,5 +187,6 @@ module.exports = {
     updateCampaign,
     deleteCampaignById,
     getAllCampaignCount,
-    getAllActiveCampaignCount
+    getAllActiveCampaignCount,
+    getAllCampaignByHospitalId
 };

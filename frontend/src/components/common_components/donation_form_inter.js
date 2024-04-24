@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import FormInput from "./form_input";
 import FormInputWithText from "./form_input-withtext";
-import { callAPI } from "../../utils/help";
 import PaymentAPI from "../../hooks/api/payment";
 
 const DonationFormInternational = ({
@@ -10,6 +9,7 @@ const DonationFormInternational = ({
   donationDetails,
   redirectUrl,
   hospitalId,
+  campaignId,
 }) => {
   const [donationAmount, setDonationAmount] = useState(
     donationDetails?.donationAmount ?? ""
@@ -17,7 +17,6 @@ const DonationFormInternational = ({
   const [name, setName] = useState(donationDetails?.name ?? "");
   const [email, setEmail] = useState(donationDetails?.email ?? "");
   const [message, setMessage] = useState(donationDetails?.message ?? "");
-  const [clientSecret, setClientSecret] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const [payment, setPayment] = useState({});
 
@@ -25,12 +24,13 @@ const DonationFormInternational = ({
     try {
       const fetchOptions = {
         amount: parseFloat(donationAmount),
-        currency: "USD",
+        currency: "LKR",
         name,
         email,
         return_url: redirectUrl,
-        hospital_id: hospitalId,
+        hospital_id: hospitalId?.toString(),
         message,
+        campaign_id: campaignId,
       };
       const res = await PaymentAPI.initStripe(fetchOptions);
       if (res.success && res.results) {
@@ -47,7 +47,6 @@ const DonationFormInternational = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     await getPaymentIntent();
-    console.log("DonationFormLocal handleSubmit", clientSecret);
   };
 
   const clearForm = () => {
@@ -55,7 +54,6 @@ const DonationFormInternational = ({
     setName("");
     setEmail("");
     setMessage("");
-    setClientSecret("");
     setIsUpdating(false);
   };
 

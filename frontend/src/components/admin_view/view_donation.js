@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Table, Form, Row, Col, Tabs, Tab } from "react-bootstrap";
+import { Table, Form, Row, Col, Tabs, Tab, Button} from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import PaymentAPI from "../../hooks/api/payment";
+import { FaFilePdf } from "react-icons/fa";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function ViewDonations(props) {
   const [cookie, _] = useCookies(["access_token"]);
@@ -11,9 +14,35 @@ function ViewDonations(props) {
   const [activeTab, setActiveTab] = useState();
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+    e.preventDefault();
+    const searchTerm = e.target.value;
+    setSearchTerm(searchTerm);
   };
 
+  const filterDataDonation = donationData.filter((donation) => {
+    return (
+      donation.hospital_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      donation.amount.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      donation.donner_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      donation.hospital_phone_number
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      donation.donner_email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
+  const filterDataDonationC = campaignDonations.filter((donation) => {
+    return (
+      donation.hospital_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      donation.campaign_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      donation.amount.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      donation.donner_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      donation.hospital_phone_number
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      donation.donner_email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
   useEffect(() => {
     const fetchHospitalDonations = async () => {
       try {
@@ -60,6 +89,61 @@ function ViewDonations(props) {
     fetchCampaignDonations();
   }, [activeTab, cookie.access_token]);
 
+  const generatehdPDF = () => {
+    // Initialize jsPDF
+    const doc = new jsPDF();
+
+    // Define columns for the table
+    const columns = ["Hospital", "Amount", "Donor Name", "Phone", "Email"];
+
+    // Prepare rows data
+    const rows = donationData.map((donation) => [
+      donation.hospital_name,
+      donation.amount,
+      donation.donner_name,
+      donation.hospital_phone_number,
+      donation.donner_email
+    ]);
+
+    doc.autoTable({
+      head: [columns],
+      body: rows,
+      didDrawCell: (data) => {
+        console.log(data);
+      },
+    });
+
+    doc.save("hospitalDonations_table.pdf");
+  };
+
+  const generatecdPDF = () => {
+    // Initialize jsPDF
+    const doc = new jsPDF();
+
+    // Define columns for the table
+    const columns = ["Hospital", "Campaign", "Amount", "Donor Name", "Phone", "Email"];
+
+    // Prepare rows data
+    const rows = campaignDonations.map((donation) => [
+      donation.hospital_name,
+      donation.campaign_name,
+      donation.amount,
+      donation.donner_name,
+      donation.hospital_phone_number,
+      donation.donner_email
+    ]);
+
+    doc.autoTable({
+      head: [columns],
+      body: rows,
+      didDrawCell: (data) => {
+        console.log(data);
+      },
+    });
+
+    doc.save("campaignDonation_table.pdf");
+  };
+
   return (
     <div>
       <Row className="mb-4">
@@ -73,7 +157,7 @@ function ViewDonations(props) {
           }}
         >
           <Tab eventKey="Hospital" title="Hospital Donations">
-            <Form as={Col} className="mb-3 mt-3">
+            <Form as={Col} className="mb-3 mt-3 d-flex">
               <Form.Group controlId="formSearch">
                 <Form.Control
                   type="text"
@@ -82,6 +166,14 @@ function ViewDonations(props) {
                   onChange={handleSearch}
                 />
               </Form.Group>
+              <Button
+                className="d-flex align-items-center ms-2"
+                variant="outline-primary"
+                onClick={generatehdPDF}
+              >
+                <FaFilePdf className="me-1"></FaFilePdf>
+                <p className="m-0">PDF</p>
+              </Button>
             </Form>
 
             <Table striped bordered hover>
@@ -95,7 +187,7 @@ function ViewDonations(props) {
                 </tr>
               </thead>
               <tbody>
-                {donationData.map((donation, index) => (
+                {filterDataDonation.map((donation, index) => (
                   <tr key={`donner_${index + 20}`}>
                     <td>{donation.hospital_name}</td>
                     <td>{donation.amount}</td>
@@ -108,7 +200,7 @@ function ViewDonations(props) {
             </Table>
           </Tab>
           <Tab eventKey="Campaign" title="Campaign Donations">
-            <Form as={Col} className="mb-3 mt-3">
+            <Form as={Col} className="mb-3 mt-3 d-flex">
               <Form.Group controlId="formSearch">
                 <Form.Control
                   type="text"
@@ -117,6 +209,14 @@ function ViewDonations(props) {
                   onChange={handleSearch}
                 />
               </Form.Group>
+              <Button
+                className="d-flex align-items-center ms-2"
+                variant="outline-primary"
+                onClick={generatecdPDF}
+              >
+                <FaFilePdf className="me-1"></FaFilePdf>
+                <p className="m-0">PDF</p>
+              </Button>
             </Form>
             <Table striped bordered hover>
               <thead>
@@ -130,7 +230,7 @@ function ViewDonations(props) {
                 </tr>
               </thead>
               <tbody>
-                {campaignDonations.map((donation, index) => (
+                {filterDataDonationC.map((donation, index) => (
                   <tr key={`donner_${index + 1}`}>
                     <td>{donation.hospital_name}</td>
                     <td>{donation.campaign_name}</td>

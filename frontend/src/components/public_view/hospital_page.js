@@ -11,6 +11,18 @@ import hospitalSVG from "../../assets/images/hospital.svg";
 import PaymentAPI from "../../hooks/api/payment";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  EmailShareButton,
+  EmailIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+} from "react-share";
 
 const HospitalPage = () => {
   const { hospitalId } = useParams();
@@ -59,6 +71,10 @@ const HospitalPage = () => {
     checkPaytStatus();
   }, [hospitalId, location.search]);
 
+  const name = hospitalData?.results?.name;
+  const shareUrl = window.location.href;
+  const title = `Support ${name ?? " "} Hospital`;
+
   return (
     <div>
       <NavBar />
@@ -68,7 +84,7 @@ const HospitalPage = () => {
             <Col xs={12} md={6}>
               <h1>{hospitalData?.results?.name} Hospital</h1>
               <Image
-                className="public-card-image w-100 mb-4 h-50"
+                className="campaign-page-img"
                 src={
                   hospitalData &&
                   hospitalData?.results &&
@@ -77,10 +93,15 @@ const HospitalPage = () => {
                     : hospitalSVG
                 }
               ></Image>
+              <p className="m-0 mt-4 donation-page-subheadings">Address</p>
               <p>{hospitalData?.results?.address}</p>
+              <p className="m-0 mt-4 donation-page-subheadings">Email</p>
               <p>{hospitalData?.results?.email}</p>
+              <p className="m-0 mt-4 donation-page-subheadings">Phone Number</p>
               <p>{hospitalData?.results?.phone_number}</p>
+              <p className="m-0 mt-4 donation-page-subheadings">Type</p>
               <p>{hospitalData?.results?.type}</p>
+              <p className="m-0 mt-4 donation-page-subheadings">Description</p>
               <p>{hospitalData?.results?.description}</p>
             </Col>
             <Col xs={12} md={6}>
@@ -142,6 +163,24 @@ const HospitalPage = () => {
                     )}
                   </Tab>
                 </Tabs>
+              </div>
+
+              <div className="mt-4">
+                <FacebookShareButton url={shareUrl} quote={title}>
+                  <FacebookIcon></FacebookIcon>
+                </FacebookShareButton>
+                <TwitterShareButton url={shareUrl} title={title}>
+                  <TwitterIcon></TwitterIcon>
+                </TwitterShareButton>
+                <LinkedinShareButton url={shareUrl} title={title}>
+                  <LinkedinIcon></LinkedinIcon>
+                </LinkedinShareButton>
+                <WhatsappShareButton url={shareUrl} title={title}>
+                  <WhatsappIcon></WhatsappIcon>
+                </WhatsappShareButton>
+                <EmailShareButton url={shareUrl} title={title}>
+                  <EmailIcon></EmailIcon>
+                </EmailShareButton>
               </div>
             </Col>
           </Row>

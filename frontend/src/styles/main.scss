@@ -38,6 +38,13 @@ body {
     display: flex;
 }
 
+.viewDonation-wrapper {
+    .nav-link {
+        color: #59359a;
+        font-weight: 600;
+    }
+}
+
 .btn-outline-primary {
     color: #59359a;
     border-color: #59359a;
@@ -66,6 +73,12 @@ body {
 
     .dropdown-toggle::after {
         border: none;
+    }
+
+    .dropdown-item {
+        &:focus {
+            background-color: rgb(248, 249, 250);
+        }
     }
 }
 
@@ -330,7 +343,7 @@ body {
     .conatactUs-address {
         margin-bottom: 24px;
 
-        .list-group-item{
+        .list-group-item {
             padding-left: 0 !important;
         }
     }

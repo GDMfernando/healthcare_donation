@@ -20,15 +20,12 @@ const PublicHome = () => {
     const fetchDataH = async () => {
       try {
         const hospitalResponse = await callAPI("public/hospital/all", "GET");
-        const campaignResponse = await callAPI("public/campaign/all", "GET");
 
-        if (hospitalResponse.ok && campaignResponse.ok) {
+        if (hospitalResponse.ok) {
           const hospitalData = await hospitalResponse.json();
-          const campaignData = await campaignResponse.json();
           if (hospitalData.results) {
             setHospitals(hospitalData.results);
           }
-          setCampaigns(campaignData.results);
         } else {
           console.log("Error fetching data");
         }

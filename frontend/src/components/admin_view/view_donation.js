@@ -146,7 +146,7 @@ function ViewDonations(props) {
 
   return (
     <div>
-      <Row className="mb-4">
+      <Row className="mb-4 viewDonation-wrapper">
         <Tabs
           defaultActiveKey="Hospital"
           id="justify-tab-example"

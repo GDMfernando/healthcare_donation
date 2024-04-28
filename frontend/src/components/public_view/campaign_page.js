@@ -149,6 +149,7 @@ const CampaignPage = () => {
                           setIsInternational(true);
                         }}
                         redirectUrl={redirectUrl}
+                        currencyCode="$"
                       />
                     )}
                     {isInternational && (

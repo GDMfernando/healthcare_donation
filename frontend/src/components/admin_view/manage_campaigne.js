@@ -41,7 +41,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
         setCampaigns(data.results);
         setCampaigns1(data.results);
       } else {
-        alert("Fetch unsuccessful");
+        //alert("Fetch unsuccessful");
       }
     } catch (err) {
       console.log(err);

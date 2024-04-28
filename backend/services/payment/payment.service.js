@@ -89,11 +89,45 @@ async function getCampaignDonationsByHospitalId(hospitalId) {
     return await queryExecute(dbQuery);
 }
 
+async function getAllDonations() {
+    const dbQuery = PaymentModel.getAllDonationsUS();
+    const dataUS = await queryExecute(dbQuery);
+    const dbQuery2 = PaymentModel.getAllDonationsLKR();
+    const dataLKR = await queryExecute(dbQuery2);
+    return {
+        usd_total:
+            dataUS.success && dataUS?.data.length > 0
+                ? dataUS?.data[0].usd_total
+                : 0,
+        lkr_total:
+            dataLKR.success && dataLKR?.data.length > 0
+                ? dataLKR?.data[0].lkr_total
+                : 0
+    };
+}
+
+async function getDonationsByHospitalId(hospitalId) {
+    const dbQuery = PaymentModel.getDonationsByHospitalIdUSD(hospitalId);
+    const data = await queryExecute(dbQuery);
+    const dbQuery2 = PaymentModel.getDonationsByHospitalIdLKR(hospitalId);
+    const data2 = await queryExecute(dbQuery2);
+    return {
+        usd_total:
+            data.success && data?.data.length > 0 ? data?.data[0].usd_total : 0,
+        lkr_total:
+            data2.success && data2?.data.length > 0
+                ? data2?.data[0].lkr_total ?? 0
+                : 0
+    };
+}
+
 module.exports = {
     initPayment,
     updatePayment,
     getHospitalDonations,
     getHospitalDonationsByHospitalId,
     getCampaignDonations,
-    getCampaignDonationsByHospitalId
+    getCampaignDonationsByHospitalId,
+    getAllDonations,
+    getDonationsByHospitalId
 };

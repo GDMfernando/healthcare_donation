@@ -10,6 +10,7 @@ const DonationFormInternational = ({
   redirectUrl,
   hospitalId,
   campaignId,
+  currencyCode="LKR"
 }) => {
   const [donationAmount, setDonationAmount] = useState(
     donationDetails?.donationAmount ?? ""
@@ -71,7 +72,7 @@ const DonationFormInternational = ({
       <FormInputWithText
         controlId={"formDonationAmount"}
         label={"Donation Amount"}
-        text={"$"}
+        text={currencyCode}
         placeholder={"Enter donation amount"}
         value={donationAmount}
         onChange={(e) => setDonationAmount(e.target.value)}

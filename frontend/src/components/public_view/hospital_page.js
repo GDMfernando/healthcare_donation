@@ -152,6 +152,7 @@ const HospitalPage = () => {
                         }}
                         redirectUrl={redirectUrl}
                         hospitalId={hospitalId}
+                        currencyCode="$"
                       />
                     )}
                     {isInternational && (

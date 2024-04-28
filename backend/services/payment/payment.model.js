@@ -84,6 +84,52 @@ class PaymentModel extends mainModel {
         ORDER BY pt.created_at;
         `;
     }
+
+    getAllDonationsUS() {
+        return `
+        SELECT 
+            SUM(pt.amount) as usd_total
+        FROM 
+            payment_tb pt
+        WHERE pt.currency = 'USD'
+        AND pt.pay_status = 'SUCCESS';
+        `;
+    }
+
+    getAllDonationsLKR() {
+        return `
+        SELECT 
+            SUM(pt.amount) as lkr_total
+        FROM 
+            payment_tb pt
+        WHERE pt.currency = 'LKR'
+        AND pt.pay_status = 'SUCCESS';
+        `;
+    }
+
+    getDonationsByHospitalIdUSD(hospitalId) {
+        return `
+        SELECT 
+            SUM(pt.amount) as usd_total
+        FROM 
+            payment_tb pt
+        WHERE pt.currency = 'USD'
+        AND pt.pay_status = 'SUCCESS'
+        AND pt.hospital_id = ${hospitalId};
+        `;
+    }
+
+    getDonationsByHospitalIdLKR(hospitalId) {
+        return `
+        SELECT 
+            SUM(pt.amount) as lkr_total
+        FROM 
+            payment_tb pt
+        WHERE pt.currency = 'LKR'
+        AND pt.pay_status = 'SUCCESS'
+        AND pt.hospital_id = ${hospitalId};
+        `;
+    }
 }
 
 module.exports = new PaymentModel();

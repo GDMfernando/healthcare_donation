@@ -65,7 +65,7 @@ function NavBar() {
   const handleDonateButtonClick = async (hospitalId) => {
     try {
       const response = await callAPI(
-        `hospital/public/get/${hospitalId}`,
+        `public/hospital/get/${hospitalId}`,
         "GET"
       );
       if (response.ok) {
@@ -103,7 +103,7 @@ function NavBar() {
               <Nav className="justify-content-end flex-grow-1 pe-3 home_nav">
                 <Nav.Link onClick={handleHomeClick}>Home</Nav.Link>
                 <Nav.Link onClick={handleAboutClick}>About</Nav.Link>
-                <NavDropdown title="Hospitals" id="nav-dropdown">
+                <NavDropdown className="nav-hospital_dropdown" title="Hospitals" id="nav-dropdown">
                   <Form className="d-flex mb-2">
                     <Form.Control
                       type="search"

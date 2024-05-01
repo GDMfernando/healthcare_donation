@@ -24,11 +24,11 @@ function CampaignCards({ title, campaigns, onDonateButtonClick }) {
                 <Card.Title>{campaigns.name}</Card.Title>
                 <Card.Text>{campaigns.description}</Card.Text>
                 <Card.Text>
-                  Goal:
+                  Goal: LKR 
                   {campaigns.target}
                 </Card.Text>
                 <Card.Text>
-                  Raised:
+                  Raised: LKR 
                   {campaigns.raised}
                 </Card.Text>
                 <Button

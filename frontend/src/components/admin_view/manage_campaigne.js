@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Form, Row, Col } from "react-bootstrap";
+import { Table, Button, Form, Row, Col, InputGroup } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { callAPI } from "../../utils/help";
 import { FaEdit } from "react-icons/fa";
@@ -252,13 +252,16 @@ function ManageCampaign({ activeTab = null, hospitals }) {
 
               <Form.Group as={Col} controlId="formGridCampaignTarget">
                 <Form.Label>Campaign Target:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="campaignTarget"
-                  value={campaignData.campaignTarget}
-                  onChange={handleInputChange}
-                  required
-                />
+                <InputGroup>
+                  <InputGroup.Text>LKR</InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    name="campaignTarget"
+                    value={campaignData.campaignTarget}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </InputGroup>
               </Form.Group>
             </Row>
 

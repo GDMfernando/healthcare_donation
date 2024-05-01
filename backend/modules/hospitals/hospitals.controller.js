@@ -20,7 +20,6 @@ async function hospitalRegister(req, res, next) {
                 last_name: 'Admin Hospital',
                 login_email: req.body.email,
                 status: 'ACT',
-                description: req.body.description,
                 user_uuid: uuid.v4()
             };
 

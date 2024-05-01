@@ -90,7 +90,7 @@ const HospitalEditProfile = (props) => {
             <Form.Label>Phone</Form.Label>
             <Form.Control
               type="text"
-              name="phone"
+              name="phone_number"
               value={hospitalData?.phone_number}
               onChange={handleInputChange}
               placeholder="Enter hospital phone number"

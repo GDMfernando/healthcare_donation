@@ -1,7 +1,7 @@
 // CampaignForm.js
 
 import React, { useRef } from "react";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import { Form, Row, Col, Button, InputGroup } from "react-bootstrap";
 
 const CampaignForm = ({
   onSubmit,
@@ -58,13 +58,13 @@ const CampaignForm = ({
 
         <Form.Group as={Col} controlId="formGridCampaignTarget">
           <Form.Label>Campaign Target:</Form.Label>
-          <Form.Control
-            type="text"
-            name="campaignTarget"
-            value={campaignData.campaignTarget}
+          <InputGroup >
+            <InputGroup.Text>LKR</InputGroup.Text>
+            <Form.Control type="text"
+            name="campaignTarget" value={campaignData.campaignTarget}
             onChange={handleInputChange}
-            required
-          />
+            required />
+          </InputGroup>
         </Form.Group>
       </Row>
 

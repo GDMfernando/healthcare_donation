@@ -1,43 +1,52 @@
-import React from 'react';
-import {Row, Col } from 'react-bootstrap';
-import '../../styles/main.scss';
+import React, { useEffect, useState } from "react";
+import { Row, Col } from "react-bootstrap";
+import "../../styles/main.scss";
+import { callAPI } from "../../utils/help";
 
-const StatisticsBar = () => {
-    return (
-    
-            <Row className='statistic_bar py-4'>
-                <Col md={3} className='d-flex align-items-center justify-content-center'>
-                    <div>
-                        <h2 className='mt-3'>{'100K'}</h2>
-                        <p>Donation recived</p>
-                    </div>
-                </Col>
+function StatisticsBar() {
+  const [cardsData, setCardsData] = useState([]);
 
-                <Col md={3} className='d-flex align-items-center justify-content-center'>
-                    <div>
-                        <h2 className='mt-3'>{'LKR1000'}</h2>
-                        <p>Donation Raised</p>
-                    </div>
+  async function getAdminDashData() {
+    try {
+      const response = await callAPI("public/admin/admin-main-dash", "GET");
+      if (response.ok) {
+        const data = await response.json();
+        setCardsData(data.results);
+      } else {
+        // Handle error if needed
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-                </Col>
+  useEffect(() => {
+    getAdminDashData();
+  }, []);
 
-                <Col md={3} className='d-flex align-items-center justify-content-center'>
-                    <div>
-                        <h2 className='mt-3'>{'100K'}</h2>
-                        <p>Campaigns</p>
-                    </div>
-                </Col>
+  return (
+    <Row className="statistic_bar py-4">
+      <Col md={3} className="text-center">
+        <h2 className="mt-3">{cardsData[0]?.title}</h2>
+        <p>Donation recived</p>
+      </Col>
 
-                <Col md={3} className='d-flex align-items-center justify-content-center'>
-                    <div>
-                        <h2 className='mt-3'>{'100K'}</h2>
-                        <p>Hospitals</p>
-                    </div>
-                </Col>
-            </Row>
-     
-    );
+      <Col md={3} className="text-center">
+        <h2 className="mt-3">{cardsData[1]?.title}</h2>
+        <p>Donation Raised</p>
+      </Col>
 
+      <Col md={3} className="text-center">
+          <h2 className="mt-3">{cardsData[2]?.title}</h2>
+          <p>Campaigns</p>
+      </Col>
+
+      <Col md={3} className="text-center">
+          <h2 className="mt-3">{cardsData[3]?.title}</h2>
+          <p>Hospitals</p>
+      </Col>
+    </Row>
+  );
 }
 
 export default StatisticsBar;

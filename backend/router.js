@@ -21,6 +21,11 @@ module.exports = (app) => {
         require('./modules/main_dashboard_admin/admin.router')(app)
     );
 
+    router.use(
+        `${apiEndPoint}/public/admin`,
+        require('./modules/main_dashboard_admin/admin.router')(app)
+    );
+
     // Hospital View
     router.use(
         `${apiEndPoint}/hospital`,

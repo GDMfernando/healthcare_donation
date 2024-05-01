@@ -133,6 +133,14 @@ body {
 
 /* Home styles */
 
+.nav-hospital_dropdown {
+    .dropdown-item {
+        &:active {
+            background-color: rgb(248, 249, 250);
+        }
+    }
+}
+
 .navbar-nav {
     a {
         &:hover {

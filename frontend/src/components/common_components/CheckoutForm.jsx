@@ -57,7 +57,7 @@ export default function CheckoutForm(props) {
         disabled={isProcessing || !stripe || !elements}
         id="submit"
         variant="primary"
-        className="primary_btn mt-3"
+        className="primary_btn mt-3 paynow-btn"
       >
         <span id="button-text">
           {isProcessing ? "Processing ... " : "Pay now"}

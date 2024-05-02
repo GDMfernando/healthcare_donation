@@ -16,6 +16,14 @@ async function adminDash(req, res, next) {
             await campaignService.getAllActiveCampaignCount();
         const allHospital = await hospitalService.getAllHospitalCount();
 
+        const hospitalDonations = await paymentService.getHospitalDonations();
+        const campaignDonations = await paymentService.getCampaignDonations();
+
+        const numHospitalDonations = hospitalDonations.success ? hospitalDonations.data.length : 0;
+        const numCampaignDonations = campaignDonations.success ? campaignDonations.data.length : 0;
+
+        const totalDonations = numHospitalDonations + numCampaignDonations;
+
         if (hospitalData) {
             let hospitalCampaignCount =
                 await hospitalService.getHospitalCampaignCount(
@@ -32,12 +40,11 @@ async function adminDash(req, res, next) {
             console.log(DonationData);
             cardsData = [
                 {
-                    title: `LKR ${DonationData.lkr_total ?? 0}`,
-                    subtitle: 'Donation Raised'
-                },
-
+                    title: totalDonations,
+                    subtitle: 'Donation recived'
+                }, 
                 {
-                    title: `USD ${DonationData.usd_total ?? 0}`,
+                    title: `LKR ${DonationData.lkr_total ?? 0}`,
                     subtitle: 'Donation Raised'
                 },
                 {
@@ -60,11 +67,10 @@ async function adminDash(req, res, next) {
                     title: `LKR ${DonationData.lkr_total ?? 0}`,
                     subtitle: 'Donation Raised'
                 },
-
                 {
-                    title: `USD ${DonationData.usd_total ?? 0}`,
-                    subtitle: 'Donation Raised'
-                },
+                    title: totalDonations,
+                    subtitle: 'Donation recived'
+                }, 
 
                 {
                     title: allHospital.success

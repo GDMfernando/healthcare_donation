@@ -121,6 +121,12 @@ async function getDonationsByHospitalId(hospitalId) {
     };
 }
 
+async function getTotalDonations() {
+    const hospitalDonations = await getHospitalDonations();
+    const campaignDonations = await getCampaignDonations();
+    return hospitalDonations.success && campaignDonations.success ? hospitalDonations.data.length + campaignDonations.data.length : 0;
+}
+
 module.exports = {
     initPayment,
     updatePayment,
@@ -129,5 +135,6 @@ module.exports = {
     getCampaignDonations,
     getCampaignDonationsByHospitalId,
     getAllDonations,
-    getDonationsByHospitalId
+    getDonationsByHospitalId,
+    getTotalDonations
 };

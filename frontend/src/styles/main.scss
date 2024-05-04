@@ -33,6 +33,10 @@ body {
 
 /* Admin styles */
 
+.btn-width{
+    min-width: 90px;
+}
+
 .admin_login-wrapper {
     height: 100vh;
     display: flex;

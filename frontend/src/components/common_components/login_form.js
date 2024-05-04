@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 const LoginForm = ({ username, password, onUsernameChange, onPasswordChange, onLogin }) => {
   return (
     <Form>
-      <Form.Group controlId="formBasicUsername">
+      <Form.Group controlId="formBasicUsername" className='mb-3'>
         <Form.Label>Username</Form.Label>
         <Form.Control
           type="text"
@@ -24,7 +24,7 @@ const LoginForm = ({ username, password, onUsernameChange, onPasswordChange, onL
         />
       </Form.Group>
 
-      <Button variant="primary" type="button" className="mt-3 primary_btn" onClick={onLogin}>
+      <Button variant="primary" type="button" className="mt-3 primary_btn btn-width" onClick={onLogin}>
         Login
       </Button>
     </Form>

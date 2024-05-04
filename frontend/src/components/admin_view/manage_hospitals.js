@@ -313,13 +313,17 @@ function ManageHospitals(activeTab = null) {
             </Form.Group>
             <Button
               variant="secondary"
-              className="me-2"
+              className="me-2 btn-width"
               onClick={() => setHospitalEdit(null)}
             >
               Back
             </Button>
 
-            <Button variant="primary" className="primary_btn" type="submit">
+            <Button
+              variant="primary"
+              className="primary_btn btn-width"
+              type="submit"
+            >
               Update
             </Button>
           </Form>

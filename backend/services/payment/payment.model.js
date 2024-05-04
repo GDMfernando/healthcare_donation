@@ -130,6 +130,17 @@ class PaymentModel extends mainModel {
         AND pt.hospital_id = ${hospitalId};
         `;
     }
+
+    getDonationCampaignId(campaignId) {
+        return `
+        SELECT 
+            SUM(pt.amount) as total_amount
+        FROM 
+            payment_tb pt
+        WHERE pt.campaign_id = ${campaignId}
+        AND pt.pay_status = 'SUCCESS';
+        `;
+    }
 }
 
 module.exports = new PaymentModel();

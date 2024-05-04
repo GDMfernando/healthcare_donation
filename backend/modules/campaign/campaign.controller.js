@@ -6,6 +6,7 @@ const {
 const httpResponse = require('../../libs/api_response/http_response');
 const campaignService = require('../../services/campaign/campaign.service.js');
 const userService = require('../../services/users/users.service');
+const paymentService = require('../../services/payment/payment.service');
 const { encodeImageToBase64, hashPassword } = require('../../utils/helper.js');
 const uuid = require('uuid');
 
@@ -109,6 +110,7 @@ async function getAllCampaigns(req, res, next) {
 
     try {
         let getAllCampaignResp = null;
+        let paymentData = null;
         if (
             grantUser?.user_type === 'HOSPITAL_ADMIN' &&
             addition?.hospital_id
@@ -119,6 +121,19 @@ async function getAllCampaigns(req, res, next) {
                 );
         } else {
             getAllCampaignResp = await campaignService.getAllCampaign();
+            if (getAllCampaignResp.success) {
+                const temp = await Promise.all(
+                    getAllCampaignResp.data.map(async (campaign) => {
+                        const paymentData =
+                            await paymentService.getDonationCampaignId(
+                                campaign.id
+                            );
+                        campaign.raised = paymentData;
+                        return campaign;
+                    })
+                );
+                getAllCampaignResp.data = temp;
+            }
         }
 
         if (

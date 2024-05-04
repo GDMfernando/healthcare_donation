@@ -121,10 +121,21 @@ async function getDonationsByHospitalId(hospitalId) {
     };
 }
 
+async function getDonationCampaignId(campaignId) {
+    const dbQuery = PaymentModel.getDonationCampaignId(campaignId);
+    const data = await queryExecute(dbQuery);
+    if (data.success && data?.data.length > 0) {
+        return data?.data[0].total_amount;
+    }
+    return 0;
+}
+
 async function getTotalDonations() {
     const hospitalDonations = await getHospitalDonations();
     const campaignDonations = await getCampaignDonations();
-    return hospitalDonations.success && campaignDonations.success ? hospitalDonations.data.length + campaignDonations.data.length : 0;
+    return hospitalDonations.success && campaignDonations.success
+        ? hospitalDonations.data.length + campaignDonations.data.length
+        : 0;
 }
 
 module.exports = {
@@ -136,5 +147,6 @@ module.exports = {
     getCampaignDonationsByHospitalId,
     getAllDonations,
     getDonationsByHospitalId,
+    getDonationCampaignId,
     getTotalDonations
 };

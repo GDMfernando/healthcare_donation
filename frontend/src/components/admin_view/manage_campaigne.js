@@ -197,6 +197,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     <div>
       {editCampaigns !== null ? (
         <div>
+          <h2>Edit Campaign</h2>
           <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridHospital">
@@ -279,14 +280,14 @@ function ManageCampaign({ activeTab = null, hospitals }) {
 
             <Button
               variant="secondary"
-              className="me-2"
+              className="me-2 btn-width"
               type="submit"
               onClick={() => setEditCampaigns(null)}
             >
               Back
             </Button>
 
-            <Button variant="primary" className="primary_btn" type="submit">
+            <Button variant="primary" className="primary_btn btn-width" type="submit">
               Update
             </Button>
           </Form>

@@ -41,7 +41,7 @@ async function adminDash(req, res, next) {
             cardsData = [
                 {
                     title: totalDonations,
-                    subtitle: 'Donation recived'
+                    subtitle: 'Donations recived'
                 }, 
                 {
                     title: `LKR ${DonationData.lkr_total ?? 0}`,
@@ -69,7 +69,7 @@ async function adminDash(req, res, next) {
                 },
                 {
                     title: totalDonations,
-                    subtitle: 'Donation recived'
+                    subtitle: 'Donations recived'
                 }, 
 
                 {

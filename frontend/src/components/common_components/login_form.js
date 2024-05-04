@@ -24,7 +24,7 @@ const LoginForm = ({ username, password, onUsernameChange, onPasswordChange, onL
         />
       </Form.Group>
 
-      <Button variant="primary" type="button" className="mt-3 primary_btn btn-width" onClick={onLogin}>
+      <Button variant="primary" type="button" className="mt-3 primary_btn btn-width btn-width" onClick={onLogin}>
         Login
       </Button>
     </Form>

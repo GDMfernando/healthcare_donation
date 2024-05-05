@@ -137,6 +137,18 @@ body {
 
 /* Home styles */
 
+.card-label{
+    font-size: 14px;
+    font-weight: 600;
+  color: #6c757d;
+}
+
+.campaigncard-target{
+    p{
+        text-align: right !important;
+    }
+}
+
 .nav-hospital_dropdown {
     .dropdown-item {
         &:active {

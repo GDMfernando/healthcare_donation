@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  Container,
-  Card,
-  Row,
-  Col,
-  Button,
-} from "react-bootstrap";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import { Container, Card, Row, Col, Button } from "react-bootstrap";
+import { Line } from "rc-progress";
 
 function CampaignCards({ title, campaigns, onDonateButtonClick }) {
   const handleDonateCampaignButton = (campaignId) => {
@@ -31,24 +24,57 @@ function CampaignCards({ title, campaigns, onDonateButtonClick }) {
               <Card.Body>
                 <Card.Title>{campaign.name}</Card.Title>
                 <Card.Text>{campaign.description}</Card.Text>
-                <Card.Text>
-                  Goal: LKR
-                  {campaign.target}
+
+                <Card.Text className="mb-0 card-label">
+                  Raised{" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-arrow-down-short"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"
+                    />
+                  </svg>
                 </Card.Text>
-                <Card.Text>
-                  Raised: LKR
-                  {campaign.raised}
+                <Card.Text className="mb-0">
+                  LKR {campaign.raised > 0 ? campaign.raised : "0.00"}
                 </Card.Text>
 
-                <CircularProgressbar
-                  value={(campaign.raised / campaign.target) * 100} // Calculate the percentage of goal achieved
-                  text={`${Math.round(
-                    (campaign.raised / campaign.target) * 100
-                  )}%`}
+                <Line
+                  percent={(campaign.raised / campaign.target) * 100}
+                  strokeWidth={5}
+                  strokeLinecap="round"
+                  strokeColor="#80C242"
+                  trailWidth={5}
                 />
+                <div className="campaigncard-target">
+                  <Card.Text className="mb-0 ">LKR {campaign.target}</Card.Text>
+                  <Card.Text className="mb-0 card-label ">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-arrow-up-short"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5"
+                      />
+                    </svg>
+                    Target
+                  </Card.Text>
+                </div>
+
                 <Button
                   variant="primary"
-                  className="primary_btn"
+                  className="primary_btn mt-3"
                   onClick={() => handleDonateCampaignButton(campaign.id)}
                 >
                   Donate

@@ -16,6 +16,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "mysql": "^2.18.1",
+    "rc-progress": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.2",
     "react-circular-progressbar": "^2.1.0",

@@ -43,18 +43,18 @@ const AboutPage = () => {
           <Col xs={12} md={6} className='pe-5 about-whatsets'>
             <h3 className='mb-4'>What Sets Us Apart</h3>
             <ul>
-              <li><strong>Focus on Healthcare:</strong> Unlike general donation platforms, WishHealth is exclusively dedicated to the healthcare sector. We understand the unique challenges faced by hospitals and patients, and our platform is tailored to meet these specific needs.</li>
-              <li><strong>Transparency and Accountability:</strong> We prioritize transparency in all aspects of our platform. Donors can track the impact of their contributions, ensuring that every rupee goes where it's needed the most. WishHealth is committed to maintaining the highest standards of accountability.</li>
-              <li><strong>Empowering Hospitals:</strong> WishHealth is more than just a donation platform; it's a lifeline for hospitals. We provide tools for hospitals to create and manage fundraising campaigns, helping them cover the costs of medical treatments and services.</li>
+              <li className='mb-3'><strong>Focus on Healthcare:</strong> Unlike general donation platforms, WishHealth is exclusively dedicated to the healthcare sector. We understand the unique challenges faced by hospitals and patients, and our platform is tailored to meet these specific needs.</li>
+              <li className='mb-3'><strong>Transparency and Accountability:</strong> We prioritize transparency in all aspects of our platform. Donors can track the impact of their contributions, ensuring that every rupee goes where it's needed the most. WishHealth is committed to maintaining the highest standards of accountability.</li>
+              <li className='mb-3'><strong>Empowering Hospitals:</strong> WishHealth is more than just a donation platform; it's a lifeline for hospitals. We provide tools for hospitals to create and manage fundraising campaigns, helping them cover the costs of medical treatments and services.</li>
               <li><strong>User-Friendly Experience:</strong> Our web-based application is designed to be user-friendly, ensuring a seamless experience for both donors and healthcare providers. From secure payment gateways to responsive design, we've considered every detail for your convenience.</li>
             </ul>
           </Col>
           <Col xs={12} md={6} className='ps-5 about-howWorks'>
             <h3 className='mb-4'>How WishHealth Works</h3>
             <ol>
-              <li><strong>Discover Causes:</strong> Explore ongoing fundraising campaigns for individual patients and hospitals. Learn about the healthcare needs and the impact your donation can make.</li>
-              <li><strong>Contribute Securely:</strong> Make a difference by contributing securely through our platform. We support both local and international donations, providing a global community of support.</li>
-              <li><strong>Create Campaigns:</strong> Hospitals can use WishHealth to create and manage fundraising campaigns, reaching a broader audience and covering the costs of medical treatments.</li>
+              <li className='mb-3'><strong>Discover Causes:</strong> Explore ongoing fundraising campaigns for individual patients and hospitals. Learn about the healthcare needs and the impact your donation can make.</li>
+              <li className='mb-3'><strong>Contribute Securely:</strong> Make a difference by contributing securely through our platform. We support both local and international donations, providing a global community of support.</li>
+              <li className='mb-3'><strong>Create Campaigns:</strong> Hospitals can use WishHealth to create and manage fundraising campaigns, reaching a broader audience and covering the costs of medical treatments.</li>
               <li><strong>Track Your Impact:</strong> Donors can track the impact of their contributions, ensuring transparency and fostering a sense of fulfillment in knowing that their support has made a tangible difference.</li>
             </ol>
           </Col>
@@ -67,7 +67,7 @@ const AboutPage = () => {
             WishHealth invites you to be a part of a community that cares. <br></br> Together, we can create a healthier, more resilient Sri Lanka. Join us on this journey to make healthcare accessible to all.
           </p>
 
-          <Button variant="primary" onClick={handleContactClick} className="mb-3 primary_btn">Contact Us</Button>
+          <Button variant="primary" onClick={handleContactClick} className="mb-3 mt-3 primary_btn">Contact Us</Button>
           <p className='mt-3'>
             Thank you for choosing WishHealth – Where Every Contribution Counts!
           </p>

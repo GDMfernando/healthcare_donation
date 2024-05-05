@@ -1,4 +1,4 @@
-// HospitalPage.js
+
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./nav_bar";
@@ -32,6 +32,7 @@ const CampaignPage = () => {
   const [isLocal, setIsLocal] = useState(false);
   const [isInternational, setIsInternational] = useState(false);
   const [redirectUrl, setRedirectUrl] = useState(window.location.origin);
+  const [hospitalName, setHospitalName] = useState("");
 
   useEffect(() => {
     const checkPaytStatus = async () => {
@@ -60,6 +61,17 @@ const CampaignPage = () => {
         if (response?.ok) {
           const data = await response.json();
           setCampaignData(data);
+          const hospitalId = data?.results?.hospital_id; // Extract hospital ID
+          if (hospitalId) {
+            const hospitalResponse = await callAPI(
+              `public/hospital/get/${hospitalId}`,
+              "GET"
+            );
+            if (hospitalResponse?.ok) {
+              const hospitalData = await hospitalResponse.json();
+              setHospitalName(hospitalData?.results?.name); // Set hospital name
+            }
+          }
         } else {
           console.error("Failed to fetch hospital data");
         }
@@ -93,7 +105,7 @@ const CampaignPage = () => {
                 }
               ></Image>
               <p className="m-0 mt-4 donation-page-subheadings">Hospital</p>
-              <p>{campaignData.results?.hospital_name}</p>
+         <p>{hospitalName}</p>
               <p className="m-0 donation-page-subheadings">Target </p>
               <p className="donation-target">{campaignData?.results?.target}</p>
               <p className="m-0 donation-page-subheadings">Description</p>

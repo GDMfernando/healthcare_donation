@@ -6,6 +6,14 @@ function HospitalCards({ title, hospitals, onDonateButtonClick }) {
   const handleDonateButtonClick = (hospitalId) => {
     onDonateButtonClick(hospitalId);
   };
+
+  const truncateDescription = (description, maxLength) => {
+    if (description.length <= maxLength) {
+      return description;
+    }
+    return description.substring(0, maxLength) + '...';
+  };
+
   return (
     <Container>
       <div className='mt-5 mb-5'><h2>{title}</h2></div>
@@ -13,11 +21,13 @@ function HospitalCards({ title, hospitals, onDonateButtonClick }) {
         {hospitals.map((hospital) => {
           return (
             <Col key={hospital.id}>
-              <Card>
+              <Card className='hospitalcard'>
                 <Card.Img variant="top" className='public-card-image' src={`http://localhost:5000/uploads/${hospital.image}`} alt={`${hospital.name} Image`} />
                 <Card.Body>
+                  <div>
                   <Card.Title>{hospital.name}</Card.Title>
-                  <Card.Text>{hospital.description}</Card.Text>
+                  <Card.Text>{truncateDescription(hospital.description, 72)}</Card.Text>
+                  </div>
                   <Button variant="primary" className="primary_btn" onClick={() => handleDonateButtonClick(hospital.id)}>Donate</Button>
                 </Card.Body>
               </Card>

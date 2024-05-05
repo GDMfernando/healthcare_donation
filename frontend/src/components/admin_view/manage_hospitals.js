@@ -373,21 +373,23 @@ function ManageHospitals(activeTab = null) {
                   <td>{hospital.phone_number}</td>
                   <td>{hospital.email}</td>
                   <td>{hospital.type}</td>
-                  <td className="d-flex justify-content-center">
-                    <Button
-                      variant="outline"
-                      className="me-2 d-flex p-0 action-buttons"
-                      onClick={() => handleEdit(hospital)}
-                    >
-                      <FaEdit className="faEdit" />
-                    </Button>
-                    <Button
-                      className="d-flex p-0 action-buttons"
-                      variant="outline"
-                      onClick={() => handleDelete(hospital.id)}
-                    >
-                      <FaTrash className="faTrash" />
-                    </Button>{" "}
+                  <td>
+                    <div className="d-flex justify-content-center">
+                      <Button
+                        variant="outline"
+                        className="me-2 d-flex p-0 action-buttons"
+                        onClick={() => handleEdit(hospital)}
+                      >
+                        <FaEdit className="faEdit" />
+                      </Button>
+                      <Button
+                        className="d-flex p-0 action-buttons"
+                        variant="outline"
+                        onClick={() => handleDelete(hospital.id)}
+                      >
+                        <FaTrash className="faTrash" />
+                      </Button>{" "}
+                    </div>
                   </td>
                 </tr>
               ))}

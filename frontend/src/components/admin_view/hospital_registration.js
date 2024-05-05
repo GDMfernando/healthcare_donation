@@ -82,7 +82,7 @@ const HospitalRegistration = () => {
             <Form.Control
               type="text"
               name="name"
-              placeholder="Enter email"
+              placeholder="Enter Hospital Name"
               value={hospitalData.name}
               onChange={handleInputChange}
               required

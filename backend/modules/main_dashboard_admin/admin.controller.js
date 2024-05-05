@@ -40,13 +40,13 @@ async function adminDash(req, res, next) {
             console.log(DonationData);
             cardsData = [
                 {
-                    title: totalDonations,
-                    subtitle: 'Donations recived'
-                }, 
-                {
                     title: `LKR ${DonationData.lkr_total ?? 0}`,
                     subtitle: 'Donation Raised'
                 },
+                {
+                    title: totalDonations,
+                    subtitle: 'Donations recived'
+                },               
                 {
                     title: hospitalCampaignCount.success
                         ? hospitalCampaignCount.data[0].campaign_count
@@ -71,7 +71,6 @@ async function adminDash(req, res, next) {
                     title: totalDonations,
                     subtitle: 'Donations recived'
                 }, 
-
                 {
                     title: allHospital.success
                         ? allHospital.data[0].hospital_count

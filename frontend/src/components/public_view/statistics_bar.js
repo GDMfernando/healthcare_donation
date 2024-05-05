@@ -37,12 +37,12 @@ function StatisticsBar() {
       </Col>
 
       <Col md={3} className="text-center">
-          <h2 className="mt-3">{cardsData[2]?.title}</h2>
+          <h2 className="mt-3">{cardsData[3]?.title}</h2>
           <p>Campaigns</p>
       </Col>
 
       <Col md={3} className="text-center">
-          <h2 className="mt-3">{cardsData[3]?.title}</h2>
+          <h2 className="mt-3">{cardsData[2]?.title}</h2>
           <p>Hospitals</p>
       </Col>
     </Row>

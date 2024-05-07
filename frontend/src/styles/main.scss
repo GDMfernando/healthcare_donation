@@ -4,6 +4,7 @@ body {
     height: 100%;
 }
 
+/* Common styles - Start */
 .primary_btn {
     background-color: #6f42c1;
     color: #fff;
@@ -31,7 +32,9 @@ body {
     }
 }
 
-/* Admin styles */
+/* Common styles - End */
+
+/* Admin styles - Start */
 
 .btn-width {
     min-width: 90px;
@@ -135,7 +138,9 @@ body {
     font-weight: 600;
 }
 
-/* Home styles */
+/* Admin styles - End */
+
+/* Home styles - Start*/
 .hospitalcard {
     min-height: 416px;
 
@@ -419,3 +424,5 @@ body {
         }
     }
 }
+
+/* Home styles - End*/

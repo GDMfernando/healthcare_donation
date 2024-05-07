@@ -18,6 +18,7 @@ const HospitalRegistration = () => {
     image: null,
   });
 
+  // Handle input changes in the form
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
     setHospitalData({
@@ -26,6 +27,7 @@ const HospitalRegistration = () => {
     });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -44,6 +46,7 @@ const HospitalRegistration = () => {
         Authorization: `Bearer ${cookie.access_token}`,
       };
 
+      // Send POST request to register hospital
       const response = await axios.post(
         "http://localhost:5000/api/hospital/register",
         formData,
@@ -53,6 +56,7 @@ const HospitalRegistration = () => {
       );
       if (response?.data?.success) {
         alert("Successfully Registered");
+        // Reset hospital data state
         setHospitalData({
           name: "",
           address: "",
@@ -74,7 +78,8 @@ const HospitalRegistration = () => {
 
   return (
     <div>
-      <h2 className="mb-4">Hospital Registration</h2>
+      <h2 className="mb-4">Hospital Registration</h2>  
+      {/* Hospital registration form */}
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridName">

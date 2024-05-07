@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import { useCookies } from "react-cookie";
-import { callAPI } from "../../utils/help";
 import axios from "axios";
 
 const HospitalRegistration = () => {

@@ -9,8 +9,8 @@ const {
     getHospitalDonationsByHospitalId
 } = require('../../services/payment/payment.service');
 
+// Function to update payment status
 async function updatePayStatus(req, res, next) {
-    // TO DO
     try {
         const { id } = req.params;
         const data = req.body ?? null;
@@ -45,6 +45,7 @@ async function updatePayStatus(req, res, next) {
     }
 }
 
+// Function to fetch all hospital donations
 async function getAllHospitalDonations(req, res, next) {
     const grantUser = req.body.granted_user;
     const addition = req.body.addition;
@@ -78,6 +79,7 @@ async function getAllHospitalDonations(req, res, next) {
     }
 }
 
+// Function to fetch all campaign donations
 async function getAllCampaignDonations(req, res, next) {
     try {
         const grantUser = req.body.granted_user;

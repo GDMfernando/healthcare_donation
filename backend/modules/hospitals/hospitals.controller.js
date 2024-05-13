@@ -8,6 +8,7 @@ const userService = require('../../services/users/users.service');
 const { encodeImageToBase64, hashPassword } = require('../../utils/helper.js');
 const uuid = require('uuid');
 
+// Function to register a new hospital
 async function hospitalRegister(req, res, next) {
     try {
         const validate = validateHospitalRegistration(req);
@@ -23,6 +24,7 @@ async function hospitalRegister(req, res, next) {
                 user_uuid: uuid.v4()
             };
 
+            // Register hospital admin user
             const hospitalAdminUserRegisterResp =
                 await userService.registerUser(userReqData);
             if (hospitalAdminUserRegisterResp.success) {
@@ -38,6 +40,7 @@ async function hospitalRegister(req, res, next) {
                     image: req.file ? req.file.filename : null
                 };
 
+                // Register the hospital
                 const hospitalRegisterResp =
                     await hospitalService.registerHospital(hospitalReqData);
                 if (hospitalRegisterResp.success) {
@@ -68,6 +71,7 @@ async function hospitalRegister(req, res, next) {
     }
 }
 
+// Function to update hospital details
 async function hospitalUpdate(req, res, next) {
     try {
         const addition = req.body.addition;
@@ -92,6 +96,8 @@ async function hospitalUpdate(req, res, next) {
                 type: req.body.type,
                 description: req.body.description
             };
+
+            // Update the hospital details
             const hospitalUpdateResp = await hospitalService.updateHospital(
                 hospitalId,
                 hospitalReqData
@@ -117,6 +123,7 @@ async function hospitalUpdate(req, res, next) {
     }
 }
 
+// Function to get hospital details by ID
 async function getHospitalById(req, res, next) {
     try {
         const addition = req.body?.addition;
@@ -150,6 +157,7 @@ async function getHospitalById(req, res, next) {
     }
 }
 
+// Function to get all hospitals
 async function getAllHospitals(req, res, next) {
     try {
         const getAllHospitalResp = await hospitalService.getAllHospitals();
@@ -172,6 +180,7 @@ async function getAllHospitals(req, res, next) {
     }
 }
 
+// Function to delete a hospital by ID
 async function deleteHospitalById(req, res, next) {
     try {
         let hospitalId = req.params.id;

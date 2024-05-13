@@ -23,6 +23,8 @@ function ManageHospitals(activeTab = null) {
     description: "",
     image: "",
   });
+
+  // Fetch all hospitals
   const getAll = async () => {
     try {
       const fetchOptions = {
@@ -45,11 +47,13 @@ function ManageHospitals(activeTab = null) {
     }
   };
 
+  // Fetch hospitals on component mount and activeTab change
   useEffect(() => {
     getAll();
     return () => {};
   }, [activeTab]);
 
+  // Delete hospital
   const handleDelete = async (id) => {
     try {
       const fetchOptions = {
@@ -75,6 +79,7 @@ function ManageHospitals(activeTab = null) {
     }
   };
 
+  // Edit hospital
   const handleEdit = (data) => {
     setHospitalEdit(data);
     setHospitalData({
@@ -90,6 +95,7 @@ function ManageHospitals(activeTab = null) {
     });
   };
 
+  // Search hospitals
   const handleSearch = (e) => {
     let searchValue = e.target.value;
     let temp = [];
@@ -116,6 +122,7 @@ function ManageHospitals(activeTab = null) {
     }
   };
 
+  // Handle input change
   const handleInputChange = (e) => {
     setHospitalData({
       ...hospitalData,
@@ -123,6 +130,7 @@ function ManageHospitals(activeTab = null) {
     });
   };
 
+  // Submit hospital update
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -160,6 +168,7 @@ function ManageHospitals(activeTab = null) {
     }
   };
 
+  // Generate PDF of hospital data
   const generatePDF = () => {
     // Initialize jsPDF
     const doc = new jsPDF();
@@ -192,6 +201,7 @@ function ManageHospitals(activeTab = null) {
     <div>
       {hospitalEdit !== null ? (
         <div>
+          {/* Edit Hospital Form */}
           <h2>Edit Hospital</h2>
           <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
@@ -334,7 +344,7 @@ function ManageHospitals(activeTab = null) {
             <Col>
               <h2>Manage Hospitals</h2>
             </Col>
-
+            {/* Hospital Table */}
             <Form as={Col} className="d-flex justify-content-end">
               <Form.Group controlId="formSearch" className="col-7">
                 <Form.Control

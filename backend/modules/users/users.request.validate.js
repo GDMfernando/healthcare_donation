@@ -3,6 +3,7 @@
 const Joi = require('joi');
 const { validateHttpRequest } = require('../../utils/validation.helper');
 
+// Function to validate user registration data
 function validateUserRegister(req) {
     let data = req.body;
     const schema = Joi.object({
@@ -17,6 +18,7 @@ function validateUserRegister(req) {
     return validateHttpRequest(data, schema);
 }
 
+// Function to validate user login data
 function validateUserLogin(req) {
     let data = req.body;
     const schema = Joi.object({

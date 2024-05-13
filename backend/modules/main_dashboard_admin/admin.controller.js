@@ -5,6 +5,7 @@ const hospitalService = require('../../services/hospital/hospital.service');
 const campaignService = require('../../services/campaign/campaign.service');
 const paymentService = require('../../services/payment/payment.service');
 
+// Function to fetch data for the admin dashboard
 async function adminDash(req, res, next) {
     try {
         let cardsData = [];
@@ -16,14 +17,17 @@ async function adminDash(req, res, next) {
             await campaignService.getAllActiveCampaignCount();
         const allHospital = await hospitalService.getAllHospitalCount();
 
+        // Fetch donations for hospitals and campaigns
         const hospitalDonations = await paymentService.getHospitalDonations();
         const campaignDonations = await paymentService.getCampaignDonations();
 
+        // Calculate total number of donations
         const numHospitalDonations = hospitalDonations.success ? hospitalDonations.data.length : 0;
         const numCampaignDonations = campaignDonations.success ? campaignDonations.data.length : 0;
 
         const totalDonations = numHospitalDonations + numCampaignDonations;
 
+        // If hospital data is available, fetch specific data for that hospital
         if (hospitalData) {
             let hospitalCampaignCount =
                 await hospitalService.getHospitalCampaignCount(

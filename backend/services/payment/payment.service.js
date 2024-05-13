@@ -4,6 +4,7 @@ const PaymentModel = require('./payment.model');
 const dbConnection = require('../../libs/db/mysql2.class');
 const dbInstance = new dbConnection();
 
+// Function to initialize a payment
 async function initPayment(data) {
     let returnData = {
         success: false,
@@ -26,6 +27,7 @@ async function initPayment(data) {
     return returnData;
 }
 
+// Function to update a payment
 async function updatePayment(id, data) {
     let returnData = {
         success: false,
@@ -48,6 +50,7 @@ async function updatePayment(id, data) {
     return returnData;
 }
 
+// Function to execute a custom query
 async function queryExecute(query) {
     let returnData = {
         success: false,
@@ -69,26 +72,31 @@ async function queryExecute(query) {
     return returnData;
 }
 
+// Function to get donations made to hospitals
 async function getHospitalDonations() {
     const dbQuery = PaymentModel.getHospitalDonations();
     return await queryExecute(dbQuery);
 }
 
+// Function to get donations made to a specific hospital by ID
 async function getHospitalDonationsByHospitalId(hospitalId) {
     const dbQuery = PaymentModel.getHospitalDonationsByHospitalId(hospitalId);
     return await queryExecute(dbQuery);
 }
 
+// Function to get donations made to campaigns
 async function getCampaignDonations() {
     const dbQuery = PaymentModel.getCampaignDonations();
     return await queryExecute(dbQuery);
 }
 
+// Function to get donations made to a specific campaign by hospital ID
 async function getCampaignDonationsByHospitalId(hospitalId) {
     const dbQuery = PaymentModel.getCampaignDonationsByHospitalId(hospitalId);
     return await queryExecute(dbQuery);
 }
 
+// Function to get all donations made
 async function getAllDonations() {
     const dbQuery = PaymentModel.getAllDonationsUS();
     const dataUS = await queryExecute(dbQuery);
@@ -106,6 +114,7 @@ async function getAllDonations() {
     };
 }
 
+// Function to get donations made to a specific hospital by ID
 async function getDonationsByHospitalId(hospitalId) {
     const dbQuery = PaymentModel.getDonationsByHospitalIdUSD(hospitalId);
     const data = await queryExecute(dbQuery);
@@ -121,6 +130,7 @@ async function getDonationsByHospitalId(hospitalId) {
     };
 }
 
+// Function to get donations made to a specific hospital by ID
 async function getDonationCampaignId(campaignId) {
     const dbQuery = PaymentModel.getDonationCampaignId(campaignId);
     const data = await queryExecute(dbQuery);
@@ -130,6 +140,7 @@ async function getDonationCampaignId(campaignId) {
     return 0;
 }
 
+// Function to get the total number of donations made
 async function getTotalDonations() {
     const hospitalDonations = await getHospitalDonations();
     const campaignDonations = await getCampaignDonations();

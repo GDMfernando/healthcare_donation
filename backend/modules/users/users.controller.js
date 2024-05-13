@@ -1,6 +1,8 @@
 'use strict';
 
+// Import bcrypt for password hashing and comparison
 const { hash, compare } = require('bcrypt');
+// Import jsonwebtoken for token generation
 const jwt = require('jsonwebtoken');
 const httpResponse = require('../../libs/api_response/http_response');
 const userService = require('../../services/users/users.service');
@@ -11,6 +13,7 @@ const {
 
 const { jwt_secret } = require('../../config/keys');
 
+// Function to handle user registration
 function userRegister(req, res, next) {
     const validate = validateUserRegister(req);
     if (!validate) {
@@ -22,6 +25,7 @@ function userRegister(req, res, next) {
     }
 }
 
+// Function to handle user login
 async function userLogin(req, res, next) {
     console.log('userLogin() =============>');
     try {

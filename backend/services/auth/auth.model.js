@@ -2,11 +2,13 @@
 
 const mainModel = require('../../libs/db/main_model.class');
 
+// Define authModel class which extends mainModel class
 class authModel extends mainModel {
     constructor() {
         super('users_tb');
     }
 
+    // Custom method to find a user by their ID and user type
     findUserByIdAndUserType(userId, userType) {
         const rolesArray = userType
             .split('|')
@@ -28,6 +30,7 @@ class authModel extends mainModel {
         `;
     }
 
+    // Custom method to find a hospital admin user by their ID
     findHospitalAdminUserById(userId) {
         return `
             SELECT 

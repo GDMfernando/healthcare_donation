@@ -6,6 +6,7 @@ import { callAPI } from "../../utils/help";
 function StatisticsBar() {
   const [cardsData, setCardsData] = useState([]);
 
+  // Function to fetch data for statistic cards from the backend
   async function getAdminDashData() {
     try {
       const response = await callAPI("public/admin/admin-main-dash", "GET");
@@ -26,6 +27,7 @@ function StatisticsBar() {
 
   return (
     <Row className="statistic_bar py-4">
+      {/* statistics bar */}
       <Col md={3} className="text-center">
         <h2 className="mt-3">{cardsData[1]?.title}</h2>
         <p>Donations recived</p>
@@ -37,13 +39,13 @@ function StatisticsBar() {
       </Col>
 
       <Col md={3} className="text-center">
-          <h2 className="mt-3">{cardsData[3]?.title}</h2>
-          <p>Campaigns</p>
+        <h2 className="mt-3">{cardsData[3]?.title}</h2>
+        <p>Campaigns</p>
       </Col>
 
       <Col md={3} className="text-center">
-          <h2 className="mt-3">{cardsData[2]?.title}</h2>
-          <p>Hospitals</p>
+        <h2 className="mt-3">{cardsData[2]?.title}</h2>
+        <p>Hospitals</p>
       </Col>
     </Row>
   );

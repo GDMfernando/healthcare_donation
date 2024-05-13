@@ -2,6 +2,7 @@ const authModel = require('./auth.model');
 const dbConnection = require('../../libs/db/mysql2.class');
 const dbInstance = new dbConnection();
 
+// Function to find a user by their ID
 function findUserById(userId) {
     let returnData = {
         success: false,
@@ -23,6 +24,7 @@ function findUserById(userId) {
     }
 }
 
+// Function to find a user by their ID and user type
 async function findUserByIdAndUserType(userId, userType) {
     let returnData = {
         success: false,
@@ -41,6 +43,7 @@ async function findUserByIdAndUserType(userId, userType) {
     }
 }
 
+// Function to find a hospital admin user by their ID
 async function findHospitalAdminUserById(userId) {
     let returnData = {
         success: false,

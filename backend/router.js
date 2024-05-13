@@ -1,9 +1,10 @@
 'use strict';
-
+//router endpoints file
 const router = require('express').Router();
 const auth = require('./middlewares/auth/authHandler');
 const apiEndPoint = '/api';
 
+// Export router setup function
 module.exports = (app) => {
     router.get(`${apiEndPoint}`, (req, res) => {
         res.json('Home automation API');

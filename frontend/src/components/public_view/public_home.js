@@ -16,6 +16,7 @@ const PublicHome = () => {
   const [hospitals, setHospitals] = useState([]);
   const [campaigns, setCampaigns] = useState([]);
 
+  // Fetch data for hospitals and campaigns on component mount
   useEffect(() => {
     const fetchDataH = async () => {
       try {
@@ -51,14 +52,17 @@ const PublicHome = () => {
     fetchDataH();
   }, []);
 
+  // Handler for view all hospitals button click
   const handleCampaignButtonClick = () => {
     navigate("/all-campaigns");
   };
 
+  // Handler for view all campaigns button click
   const handleHospitalButtonClick = () => {
     navigate("/all-hospitals");
   };
 
+  // Handler for donate button click on hospital card
   const handleDonateButtonClick = async (hospitalId) => {
     try {
       const response = await callAPI(
@@ -78,6 +82,7 @@ const PublicHome = () => {
     }
   };
 
+  // Handler for donate button click on campaign card
   const handleDonateCampaignButton = async (campaignId) => {
     try {
       const response = await callAPI(
@@ -100,6 +105,7 @@ const PublicHome = () => {
       <NavBar />
       <Header />
       <StatisticsBar />
+      {/* Render Hospital Cards */}
       <HospitalCards
         title="Registered Hospitals"
         hospitals={hospitals.slice(0, 4)}
@@ -114,6 +120,7 @@ const PublicHome = () => {
           View More
         </Button>
       </Container>
+      {/* Render Campaign Cards */}
       <CampaignCards
         title="Active Campaigns"
         campaigns={campaigns.slice(0, 4)}

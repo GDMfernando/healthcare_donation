@@ -6,7 +6,7 @@ class PaymentModel extends mainModel {
     constructor() {
         super('payment_tb');
     }
-
+    // Retrieve donations made to hospitals without specific campaigns
     getHospitalDonations() {
         return `
         SELECT 
@@ -24,7 +24,8 @@ class PaymentModel extends mainModel {
         ORDER BY pt.created_at;
         `;
     }
-
+    
+    // Retrieve donations made to a specific hospital without specific campaigns
     getHospitalDonationsByHospitalId(hospitalId) {
         return `
         SELECT 
@@ -44,6 +45,7 @@ class PaymentModel extends mainModel {
         `;
     }
 
+    // Retrieve donations made to campaigns along with associated hospital details
     getCampaignDonations() {
         return `
         SELECT 
@@ -64,6 +66,7 @@ class PaymentModel extends mainModel {
         `;
     }
 
+    // Retrieve donations made to campaigns by a specific hospital
     getCampaignDonationsByHospitalId(hospitalId) {
         return `
         SELECT 
@@ -85,6 +88,7 @@ class PaymentModel extends mainModel {
         `;
     }
 
+    // Retrieve total donations made in USD
     getAllDonationsUS() {
         return `
         SELECT 
@@ -96,6 +100,7 @@ class PaymentModel extends mainModel {
         `;
     }
 
+    // Retrieve total donations made in LKR
     getAllDonationsLKR() {
         return `
         SELECT 
@@ -107,6 +112,7 @@ class PaymentModel extends mainModel {
         `;
     }
 
+    // Retrieve total donations made to a specific hospital in USD
     getDonationsByHospitalIdUSD(hospitalId) {
         return `
         SELECT 
@@ -119,6 +125,7 @@ class PaymentModel extends mainModel {
         `;
     }
 
+    // Retrieve total donations made to a specific hospital in LKR
     getDonationsByHospitalIdLKR(hospitalId) {
         return `
         SELECT 
@@ -131,6 +138,7 @@ class PaymentModel extends mainModel {
         `;
     }
 
+    // Retrieve total donations made to a specific campaign
     getDonationCampaignId(campaignId) {
         return `
         SELECT 

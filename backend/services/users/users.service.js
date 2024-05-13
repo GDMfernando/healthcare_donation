@@ -4,6 +4,7 @@ const usersModel = require('./users.model');
 const dbConnection = require('../../libs/db/mysql2.class');
 const dbInstance = new dbConnection();
 
+// Function to register a new user
 async function registerUser(userData) {
     let returnData = {
         success: false,
@@ -31,6 +32,7 @@ async function registerUser(userData) {
     return returnData;
 }
 
+// Function to find a user by username
 async function findUserByUsername(username) {
     let returnData = {
         success: false,

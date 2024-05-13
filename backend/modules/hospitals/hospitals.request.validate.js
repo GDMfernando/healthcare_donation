@@ -3,6 +3,7 @@
 const Joi = require('joi');
 const { validateHttpRequest } = require('../../utils/validation.helper');
 
+// Function to validate hospital registration request
 function validateHospitalRegistration(req) {
     let data = req.body;
     let imageName = req.file ? req.file.filename : null;
@@ -25,6 +26,7 @@ function validateHospitalRegistration(req) {
     return validateHttpRequest(data, schema);
 }
 
+// Function to validate hospital update request
 function validateHospitalUpdate(req) {
     let data = req.body;
     let imageName = req.file ? req.file.filename : null;

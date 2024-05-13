@@ -4,6 +4,7 @@ const router = require('express').Router();
 const campaignController = require('./campaign.controller.js');
 const { upload } = require('../../config/constant.js');
 
+// Define routes
 module.exports = (app) => {
     router.post(
         '/register',

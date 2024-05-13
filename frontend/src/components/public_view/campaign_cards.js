@@ -2,10 +2,12 @@ import React from "react";
 import { Container, Card, Row, Col, Button } from "react-bootstrap";
 import { Line } from "rc-progress";
 
+// CampaignCards component definition
 function CampaignCards({ title, campaigns, onDonateButtonClick }) {
   const handleDonateCampaignButton = (campaignId) => {
     onDonateButtonClick(campaignId);
   };
+  // Function to truncate text to a certain length
   const truncate = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -13,6 +15,7 @@ function CampaignCards({ title, campaigns, onDonateButtonClick }) {
     return text.substring(0, maxLength) + "...";
   };
 
+  // Render CampaignCards component
   return (
     <Container>
       <div className="mt-5 mb-5">

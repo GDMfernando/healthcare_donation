@@ -22,10 +22,12 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     image: null,
   });
 
+  // Fetch all campaigns
   useEffect(() => {
     getAll();
   }, [activeTab]);
 
+  // Function to fetch all campaigns
   const getAll = async () => {
     try {
       const fetchOptions = {
@@ -48,6 +50,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     }
   };
 
+  // Function to handle campaign deletion
   const handleDelete = async (id) => {
     try {
       const fetchOptions = {
@@ -75,6 +78,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     }
   };
 
+  // Function to handle editing campaign
   const handleEdit = (data) => {
     setEditCampaigns(data);
     console.log(data);
@@ -87,6 +91,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     });
   };
 
+  // Function to handle input change in campaign form
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
     setCampaignData({
@@ -95,6 +100,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     });
   };
 
+  // Function to handle form submission for updating campaign
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -130,6 +136,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     }
   };
 
+  // Function to handle search filtering
   const handleSearch = (e) => {
     let searchValue = e.target.value;
     let temp = [];
@@ -174,6 +181,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     }
   };
 
+  // Function to generate PDF of campaigns table
   const generatePDF = () => {
     const doc = new jsPDF();
     const tableColumn = ["Hospital", "Campaign", "Patient", "Target", "Status"];
@@ -193,9 +201,11 @@ function ManageCampaign({ activeTab = null, hospitals }) {
     doc.save("campaigns.pdf");
   };
 
+  // Render ManageCampaign component
   return (
     <div>
       {editCampaigns !== null ? (
+        // Render form for editing campaign
         <div>
           <h2>Edit Campaign</h2>
           <Form onSubmit={handleSubmit}>
@@ -287,7 +297,11 @@ function ManageCampaign({ activeTab = null, hospitals }) {
               Back
             </Button>
 
-            <Button variant="primary" className="primary_btn btn-width" type="submit">
+            <Button
+              variant="primary"
+              className="primary_btn btn-width"
+              type="submit"
+            >
               Update
             </Button>
           </Form>
@@ -295,6 +309,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
       ) : (
         <div>
           <Row className="mb-4 align-items-center">
+            {/* Table header and search */}
             <Col>
               <h2>Manage Campaigns</h2>
             </Col>
@@ -316,7 +331,7 @@ function ManageCampaign({ activeTab = null, hospitals }) {
               </Button>
             </Form>
           </Row>
-
+          {/* Campaigns table */}
           <Table striped bordered hover>
             <thead>
               <tr>

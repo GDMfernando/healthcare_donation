@@ -10,8 +10,10 @@ const paymentService = require('../../services/payment/payment.service');
 const { encodeImageToBase64, hashPassword } = require('../../utils/helper.js');
 const uuid = require('uuid');
 
+// Controller function to register a campaign
 async function campaignRegister(req, res, next) {
     try {
+        // Validate the incoming request data
         const validate = validateCampaignRegistration(req);
         if (!validate) {
             let campaignReqData = {
@@ -23,6 +25,7 @@ async function campaignRegister(req, res, next) {
                 image: req.file ? req.file.filename : null
             };
 
+            // Register the campaign
             const campaignRegisterResp = await campaignService.registerCampaign(
                 campaignReqData
             );
@@ -43,6 +46,7 @@ async function campaignRegister(req, res, next) {
     }
 }
 
+// Controller function to update a campaign
 async function campaignUpdate(req, res, next) {
     try {
         let campaignId = req.params.id;
@@ -56,6 +60,7 @@ async function campaignUpdate(req, res, next) {
                 description: req.body.description
                 // image: req.file? req.file.filename : null
             };
+            // Update the campaign
             const campaignUpdateResp = await campaignService.updateCampaign(
                 campaignId,
                 campaignReqData
@@ -80,6 +85,7 @@ async function campaignUpdate(req, res, next) {
     }
 }
 
+// Controller function to get a campaign by ID
 async function getCampaignById(req, res, next) {
     try {
         let campaignId = req.params.id;
@@ -87,6 +93,7 @@ async function getCampaignById(req, res, next) {
             campaignId
         );
         if (getCampaignResp.success) {
+             // Add base64-encoded image to response data
             getCampaignResp.data = {
                 ...getCampaignResp.data,
                 image_base64: getCampaignResp.data.image
@@ -104,6 +111,7 @@ async function getCampaignById(req, res, next) {
     }
 }
 
+// Controller function to get all campaigns
 async function getAllCampaigns(req, res, next) {
     const grantUser = req.body.granted_user;
     const addition = req.body.addition;
@@ -120,8 +128,10 @@ async function getAllCampaigns(req, res, next) {
                     addition?.hospital_id
                 );
         } else {
+            // Get all campaigns
             getAllCampaignResp = await campaignService.getAllCampaign();
             if (getAllCampaignResp.success) {
+                // Get donation data for each campaign
                 const temp = await Promise.all(
                     getAllCampaignResp.data.map(async (campaign) => {
                         const paymentData =

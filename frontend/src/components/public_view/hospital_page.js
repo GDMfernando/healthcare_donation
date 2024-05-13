@@ -24,7 +24,9 @@ import {
   WhatsappIcon,
 } from "react-share";
 
+// HospitalPage component
 const HospitalPage = () => {
+  // Get hospitalId from URL params and location
   const { hospitalId } = useParams();
   const location = useLocation();
   const [hospitalData, setHospitalData] = useState({});
@@ -33,6 +35,7 @@ const HospitalPage = () => {
   const [isInternational, setIsInternational] = useState(false);
   const [redirectUrl, setRedirectUrl] = useState(window.location.origin);
 
+  // Fetch hospital data and check payment status on component mount
   useEffect(() => {
     const checkPaytStatus = async () => {
       const URL = new URLSearchParams(location.search);
@@ -40,6 +43,7 @@ const HospitalPage = () => {
       setRedirectUrl(RURL);
       const paymentStatus = URL.get("redirect_status");
       const payId = URL.get("pay_id");
+      // Update payment status based on URL parameters
       if (paymentStatus === "succeeded") {
         PaymentAPI.updatePayment(payId, { pay_status: "SUCCESS" });
         window.location = RURL;
@@ -51,6 +55,7 @@ const HospitalPage = () => {
       }
     };
 
+    // Fetch hospital data from API
     const fetchHospitalData = async () => {
       try {
         const response = await callAPI(
@@ -72,15 +77,18 @@ const HospitalPage = () => {
   }, [hospitalId, location.search]);
 
   const name = hospitalData?.results?.name;
+  // Define share URL and title for social sharing
   const shareUrl = window.location.href;
   const title = `Support ${name ?? " "} Hospital`;
 
+  // Render HospitalPage component
   return (
     <div>
       <NavBar />
       <Container className="p-0">
         <div className="hospital-page-box">
           <Row className="p-4 col-md-12">
+            {/* Hospital information */}
             <Col xs={12} md={6}>
               <h1>{hospitalData?.results?.name} Hospital</h1>
               <Image
@@ -104,6 +112,7 @@ const HospitalPage = () => {
               <p className="m-0 mt-4 donation-page-subheadings">Description</p>
               <p>{hospitalData?.results?.description}</p>
             </Col>
+            {/* Donation form */}
             <Col xs={12} md={6}>
               <div className="hospital-page-formbox">
                 <h3 className="mb-4">
@@ -122,6 +131,7 @@ const HospitalPage = () => {
                     }
                   }}
                 >
+                  {/* Local donation tab */}
                   <Tab eventKey="Local" title="Local">
                     {!isLocal && (
                       <DonationFormInternational
@@ -142,6 +152,8 @@ const HospitalPage = () => {
                       />
                     )}
                   </Tab>
+
+                  {/* International donation tab */}
                   <Tab eventKey="International" title="International">
                     {!isInternational && (
                       <DonationFormInternational
@@ -166,6 +178,7 @@ const HospitalPage = () => {
                 </Tabs>
               </div>
 
+              {/* Social sharing buttons */}
               <div className="mt-4">
                 <FacebookShareButton url={shareUrl} quote={title}>
                   <FacebookIcon></FacebookIcon>

@@ -12,6 +12,7 @@ import HospitalEditProfile from "./edit_profile";
 import { useCookies } from "react-cookie";
 import hospitalAdmin from "../../hooks/api/hospitalAdmin/hospitalAdmin";
 
+// HospitalDashboard component definition
 function HospitalDashboard() {
   const [cookie, _] = useCookies(["access_token"]);
   const [activeTab, setActiveTab] = useState("0");
@@ -27,16 +28,17 @@ function HospitalDashboard() {
 
   const [hospitals, setHospitals] = useState([]);
 
+  // Fetch hospital data useEffect hook
   useEffect(() => {
     const fetchHospitalData = async () => {
       try {
         const headers = {
-          Authorization: `Bearer ${cookie.access_token}`,
+          Authorization: `Bearer ${cookie.access_token}`, // Authorization headers
         };
         const fetchOptions = {
           headers: headers,
         };
-        const response = await hospitalAdmin.getHospitalData(fetchOptions);
+        const response = await hospitalAdmin.getHospitalData(fetchOptions); // Fetch hospital data
         if (response !== null && response.success) {
           setHospitalData(response.results);
           setHospitals([
@@ -58,8 +60,10 @@ function HospitalDashboard() {
     fetchHospitalData();
   }, [activeTab, cookie.access_token]);
 
+  // Render HospitalDashboard component
   return (
     <div className="admin-dashboard">
+      {/* Navigation component for hospital admin */}
       <HospitalAdminNav />
       <Tab.Container
         id="left-tabs-example"
@@ -69,6 +73,7 @@ function HospitalDashboard() {
         }
       >
         <Row className="admin-dashboard">
+          {/* Sidebar */}
           <Col sm={3} className="dashboard_sidebar">
             <Nav variant="pills" className="flex-column ">
               <Nav.Item>
@@ -93,8 +98,10 @@ function HospitalDashboard() {
               </Nav.Item>
             </Nav>
           </Col>
+          {/* Main Content */}
           <Col sm={9} className="p-0">
             <Tab.Content className="p-4">
+              {/* Main Dashboard */}
               <Tab.Pane eventKey="0">
                 <MainDashboard />
               </Tab.Pane>

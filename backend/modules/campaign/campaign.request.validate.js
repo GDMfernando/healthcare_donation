@@ -3,14 +3,17 @@
 const Joi = require('joi');
 const { validateHttpRequest } = require('../../utils/validation.helper');
 
+// Function to validate campaign registration request
 function validateCampaignRegistration(req) {
     let data = req.body;
     let imageName = req.file ? req.file.filename : null;
 
+    // Add image name to data object
     data = {
         ...data,
         image: imageName
     };
+    // Define validation schema using Joi
     const schema = Joi.object({
         hospital_id: Joi.number().required(),
         name: Joi.string().required(),
@@ -22,6 +25,7 @@ function validateCampaignRegistration(req) {
     return validateHttpRequest(data, schema);
 }
 
+// Function to validate campaign update request
 function validateCampaignUpdate(req) {
     let data = req.body;
     let imageName = req.file ? req.file.filename : null;
@@ -30,6 +34,7 @@ function validateCampaignUpdate(req) {
         ...data,
         image: imageName
     };
+    // Define validation schema using Joi
     const schema = Joi.object({
         hospital_id: Joi.number().required(),
         name: Joi.string().required(),
@@ -40,7 +45,7 @@ function validateCampaignUpdate(req) {
     });
     return validateHttpRequest(data, schema);
 }
-
+// Export validation functions
 module.exports = {
     validateCampaignRegistration,
     validateCampaignUpdate
